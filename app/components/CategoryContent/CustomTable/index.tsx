@@ -52,13 +52,19 @@ interface TableProps {
     | "statistics-4"
     | "statistics-5"
     | "statistics-6"
-    | "statistics-7";
+    | "statistics-7"
+    | "statistics-8";
 }
 
 const CustomTable = ({ data, type }: TableProps) => {
   const renderTable = () => {
     switch (type) {
       case "teams":
+        data = data.sort((a: Team, b: Team) => {
+          if (a.position! > b.position!) return 1;
+          else if (a.position! < b.position!) return -1;
+          else return 0;
+        });
         return (
           <table className="min-w-full bg-white">
             <thead className="bg-gray-300">
@@ -86,6 +92,11 @@ const CustomTable = ({ data, type }: TableProps) => {
           </table>
         );
       case "classification":
+        data = data.sort((a: Team, b: Team) => {
+          if (a.points! > b.points!) return -1;
+          else if (a.points! < b.points!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-full bg-white">
             <thead className="bg-gray-300">
@@ -131,6 +142,11 @@ const CustomTable = ({ data, type }: TableProps) => {
       case "calendar":
         return <></>;
       case "statistics-1":
+        data = data.sort((a: Team, b: Team) => {
+          if (a.total! > b.total!) return 1;
+          else if (a.total! < b.total!) return -1;
+          else return 0;
+        });
         return (
           <table className="min-w-full bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -176,6 +192,11 @@ const CustomTable = ({ data, type }: TableProps) => {
           </table>
         );
       case "statistics-2":
+        data = data.sort((a: Team, b: Team) => {
+          if (a.goalsFor! > b.goalsFor!) return -1;
+          else if (a.goalsFor! < b.goalsFor!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -203,6 +224,11 @@ const CustomTable = ({ data, type }: TableProps) => {
           </table>
         );
       case "statistics-3":
+        data = data.sort((a: Team, b: Team) => {
+          if (a.goalsAgainst! > b.goalsAgainst!) return 1;
+          else if (a.goalsAgainst! < b.goalsAgainst!) return -1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -230,6 +256,39 @@ const CustomTable = ({ data, type }: TableProps) => {
           </table>
         );
       case "statistics-4":
+        data = data.sort((a: Player, b: Player) => {
+          if (a.goals! > b.goals!) return -1;
+          else if (a.goals! < b.goals!) return 1;
+          else return 0;
+        });
+        return (
+          <table className="min-w-[60%] bg-white border-b-2">
+            <thead className="bg-gray-300">
+              <tr>
+                <th className="w-16 py-2 pl-5">CÓDIGO</th>
+                <th className="w-80 py-2 px-5">JUGADOR</th>
+                <th className="w-80 py-2 px-5">EQUIPO</th>
+                <th className="w-16 py-2 pr-5">GOLES</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((player: Player, index) => (
+                <tr key={index} className="border-t even:bg-gray-100">
+                  <td className="text-center py-2 pl-5">{player.code}</td>
+                  <td className=" text-center py-2 px-5">{player.name}</td>
+                  <td className="text-center py-2 px-5">{player.team}</td>
+                  <td className="text-center py-2 pr-5">{player.goals}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+      case "statistics-5":
+        data = data.sort((a: Player, b: Player) => {
+          if (a.tr! > b.tr!) return -1;
+          else if (a.tr! < b.tr!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -252,7 +311,12 @@ const CustomTable = ({ data, type }: TableProps) => {
             </tbody>
           </table>
         );
-      case "statistics-5":
+      case "statistics-6":
+        data = data.sort((a: Player, b: Player) => {
+          if (a.ta! > b.ta!) return -1;
+          else if (a.ta! < b.ta!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -275,7 +339,12 @@ const CustomTable = ({ data, type }: TableProps) => {
             </tbody>
           </table>
         );
-      case "statistics-6":
+      case "statistics-7":
+        data = data.sort((a: Player, b: Player) => {
+          if (a.assists! > b.assists!) return -1;
+          else if (a.assists! < b.assists!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -298,7 +367,12 @@ const CustomTable = ({ data, type }: TableProps) => {
             </tbody>
           </table>
         );
-      case "statistics-7":
+      case "statistics-8":
+        data = data.sort((a: Player, b: Player) => {
+          if (a.total! > b.total!) return -1;
+          else if (a.total! < b.total!) return 1;
+          else return 0;
+        });
         return (
           <table className="min-w-[60%] bg-white border-b-2">
             <thead className="bg-gray-300">
@@ -326,7 +400,13 @@ const CustomTable = ({ data, type }: TableProps) => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className={`overflow-x-auto ${type !== "statistics-1" &&`md:flex md:justify-center`}`}>{renderTable()}</div>
+      <div
+        className={`overflow-x-auto ${
+          type !== "statistics-1" && `md:flex md:justify-center`
+        }`}
+      >
+        {renderTable()}
+      </div>
       {type === "statistics-1" && (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mb-4 mt-5">
           <span className="flex mb-1">

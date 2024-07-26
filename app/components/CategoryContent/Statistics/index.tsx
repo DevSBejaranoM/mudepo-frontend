@@ -136,21 +136,25 @@ const Statistics = () => {
       </h3>
       <CustomTable data={dataTeams} type="statistics-3" />
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES CON MÁS TARJETAS ROJAS
+        JUGADORES MÁS GOLEADORES
       </h3>
       <CustomTable data={dataPlayers} type="statistics-4" />
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES CON MÁS TARJETAS AMARILLAS
+        JUGADORES CON MÁS TARJETAS ROJAS
       </h3>
       <CustomTable data={dataPlayers} type="statistics-5" />
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES MÁS NOBLES
+        JUGADORES CON MÁS TARJETAS AMARILLAS
       </h3>
       <CustomTable data={dataPlayers} type="statistics-6" />
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES MÁS VALIOSOS
+        JUGADORES MÁS NOBLES
       </h3>
       <CustomTable data={dataPlayers} type="statistics-7" />
+      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
+        JUGADORES MÁS VALIOSOS
+      </h3>
+      <CustomTable data={dataPlayers} type="statistics-8" />
     </div>
   );
 };
