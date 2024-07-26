@@ -36,9 +36,13 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
           >
             {category.competitions[0].title}
           </button>
+          {/**
+           * Revisar el select, no se ve bien en mobile, el desplegable se sale del contenedor
+           */}
           <select
             className="mt-4 w-[10%] py-2 border cursor-pointer rounded-r-md focus:outline-none focus:ring-2 bg-orange-500 hover:bg-orange-600 border-r-8 border-orange-500 hover:border-orange-600"
             value={""}
+            content=""
             onChange={(e) => handleNavigate(e.target.value)}
           >
             <option value="" disabled className="hidden"></option>

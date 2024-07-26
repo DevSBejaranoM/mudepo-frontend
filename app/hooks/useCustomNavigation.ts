@@ -9,8 +9,8 @@ const UseCustomNavigation = () => {
     { name: "Inicio", href: "/", current: pathname === "/" },
     {
       name: "Categorías",
-      href: "/cartegories",
-      current: pathname === "/cartegories",
+      href: "/categories",
+      current: pathname === "/categories",
     }
   ];
 

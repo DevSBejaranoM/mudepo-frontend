@@ -4,15 +4,14 @@ import { Disclosure, DisclosureButton } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Menu from "./menu";
 import SmallMenu from "./small-menu";
-import Link from "next/link";
-import UseCustomNavigation from "@/app/hooks/useCustomNavigation";
+import UseCustomCategoriesPage from "@/app/hooks/useCustomCategoriesPage";
 
-const Navbar = () => {
-  const { navigation, setCurrentNavigation } = UseCustomNavigation();
+const NavCategories = () => {
+  const { categoriesPage,  updateCurrentCategoriesPage, currentCategoriesPage } = UseCustomCategoriesPage();
 
   return (
     <Disclosure as="nav" className="bg-white">
-      {({ open }:any) => (
+      {({ open }: any) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
@@ -28,28 +27,15 @@ const Navbar = () => {
                 </DisclosureButton>
               </div>
               {/* Main menu */}
-              <Menu
-                navigation={navigation}
-                setCurrentNavigation={setCurrentNavigation}
-              />
-              <Link
-                href={`${process.env.NEXT_PUBLIC_MAIN_URL}/login`}
-                className="text-orange-500 hover:bg-orange-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >
-                Iniciar sesión
-              </Link>
+              <Menu updateCurrentCategoriesPage={updateCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
             </div>
           </div>
           {/* Small menu */}
-          <SmallMenu
-            navigation={navigation}
-            setCurrentNavigation={setCurrentNavigation}
-            
-          />
+          <SmallMenu updateCurrentCategoriesPage={updateCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
         </>
       )}
     </Disclosure>
   );
 };
 
-export default Navbar;
+export default NavCategories;
