@@ -140,10 +140,10 @@ const CustomTable = ({ data, type }: TableProps) => {
                 <th className="w-16 py-2 px-5">TR</th>
                 <th className="w-16 py-2 px-5">NP</th>
                 <th className="w-16 py-2 px-5">PS</th>
-                <th className="w-16 py-2 px-5">HJ/7</th>
-                <th className="w-16 py-2 px-5">HJ/8</th>
-                <th className="w-16 py-2 px-5">HJ/9</th>
-                <th className="w-16 py-2 px-5">HJ/10</th>
+                <th className="w-16 py-2">HJ-7</th>
+                <th className="w-16 py-2">HJ-8</th>
+                <th className="w-16 py-2">HJ-9</th>
+                <th className="w-16 py-2">HJ-10</th>
                 <th className="w-16 py-2 px-5">ME</th>
                 <th className="w-16 py-2 px-5">EB</th>
                 <th className="w-16 py-2 px-5">MF</th>
@@ -326,38 +326,38 @@ const CustomTable = ({ data, type }: TableProps) => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="overflow-x-auto md:flex md:justify-center">{renderTable()}</div>
+      <div className={`overflow-x-auto ${type !== "statistics-1" &&`md:flex md:justify-center`}`}>{renderTable()}</div>
       {type === "statistics-1" && (
-        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 mb-4 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mb-4 mt-5">
           <span className="flex mb-1">
-            <b>TA :</b> Tarjetas Amarillas
+            <b className="pr-2">TA:</b> Tarjetas Amarillas
           </span>
           <span className="flex mb-1">
-            <b>TR :</b> Tarjetas Rojas
+            <b className="pr-2">TR:</b> Tarjetas Rojas
           </span>
           <span className="flex mb-1">
-            <b>NP :</b> No Presentado
+            <b className="pr-2">NP:</b> No Presentado
           </span>
           <span className="flex mb-1">
-            <b>PS:</b> Partidos Sanción
+            <b className="pr-2">PS:</b> Partidos Sanción
           </span>
           <span className="flex mb-1">
-            <b>HJ7/8/9/10:</b> Jugó con 7/8/9/10
+            <b className="pr-2">HJ-7/8/9/10:</b> Jugó con 7/8/9/10
           </span>
           <span className="flex mb-1">
-            <b>ME :</b> Mal Equipado
+            <b className="pr-2">ME:</b> Mal Equipado
           </span>
           <span className="flex mb-1">
-            <b>EB :</b> Estado Balones
+            <b className="pr-2">EB:</b> Estado Balones
           </span>
           <span className="flex mb-1">
-            <b>MF :</b> Manipulación Fichas
+            <b className="pr-2">MF:</b> Manipulación Fichas
           </span>
           <span className="flex mb-1">
-            <b>NR :</b> No asiste Reunión
+            <b className="pr-2">NR:</b> No asiste Reunión
           </span>
           <span className="flex mb-1">
-            <b>OM :</b> Otros Motivos
+            <b className="pr-2">OM:</b> Otros Motivos
           </span>
         </div>
       )}
