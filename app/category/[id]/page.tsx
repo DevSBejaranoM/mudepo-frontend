@@ -1,6 +1,6 @@
+import CategoryContent from "@/app/components/CategoryContent";
 import MainSection from "@/app/components/MainSection";
 import NavCategories from "@/app/components/NavCategories";
-import { useState } from "react";
 
 interface Category {
   id: string;
@@ -19,10 +19,10 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <MainSection image={"/images/header-background.jpg"} title="CATEGORÍAS" />
+      <MainSection image={"/images/header-background.jpg"} title={category.id} />
       <NavCategories />
-      <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
-        <h1>Category {category.id}</h1>
+      <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
+        <CategoryContent categoryId={category.id} />
       </section>
     </div>
   );

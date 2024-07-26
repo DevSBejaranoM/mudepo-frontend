@@ -10,10 +10,6 @@ import { useEffect } from "react";
 const NavCategories = () => {
   const { categoriesPage,  setCurrentCategoriesPage, currentCategoriesPage } = UseCustomCategoriesPage();
 
-  useEffect(() => {
-    console.log("categoriesPage", currentCategoriesPage);
-  }, [currentCategoriesPage]);
-
   return (
     <Disclosure as="nav" className="bg-black">
       {({ open }: any) => (

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCategoryStore } from "../store/useCategoryStore";
 
 const UseCustomCategoriesPage = () => {
+  const setCategory = useCategoryStore((state) => state.setCategory);
   const initialCategoriesPage: string[] = [
     "EQUIPOS",
     "CLASIFICACIÓN",
@@ -13,6 +15,10 @@ const UseCustomCategoriesPage = () => {
   );
   const [currentCategoriesPage, setCurrentCategoriesPage] =
     useState<string>("EQUIPOS");
+
+    useEffect(() => {
+      setCategory(currentCategoriesPage);
+    }, [currentCategoriesPage]);
 
   return { categoriesPage, setCurrentCategoriesPage, currentCategoriesPage };
 };
