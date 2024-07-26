@@ -18,7 +18,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
   return (
     <div
       key={index}
-      className="max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer"
+      className="max-w-sm mx-auto relative shadow-md rounded-lg"
     >
       <img
         src={category.image}
@@ -30,28 +30,48 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
         <div className="border-t border-gray-300 my-1" />
         <p className="text-xl font-semibold">{category.subtitle}</p>
         <div className="flex">
-          <button
-            onClick={() => handleNavigate(category.competitions[0].slug)}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-l-md mt-4 w-[90%]"
-          >
-            {category.competitions[0].title}
-          </button>
-          {/**
-           * Revisar el select, no se ve bien en mobile, el desplegable se sale del contenedor
-           */}
-          <select
-            className="mt-4 w-[10%] py-2 border cursor-pointer rounded-r-md focus:outline-none focus:ring-2 bg-orange-500 hover:bg-orange-600 border-r-8 border-orange-500 hover:border-orange-600"
-            value={""}
-            content=""
-            onChange={(e) => handleNavigate(e.target.value)}
-          >
-            <option value="" disabled className="hidden"></option>
-            {category.competitions.map((competition: any, index: number) => (
-              <option key={index} value={competition.slug}>
-                {competition.title}
-              </option>
-            ))}
-          </select>
+          {category.competitions.length > 1 && (
+            <>
+              <button
+                onClick={() => handleNavigate(category.competitions[0].slug)}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-l-md mt-4 w-[90%] cursor-pointer"
+              >
+                {category.competitions[0].title}
+              </button>
+
+              <select
+                className="mt-4 w-[10%] py-2 border cursor-pointer rounded-r-md focus:outline-none focus:ring-2 bg-orange-500 hover:bg-orange-600 border-r-8 border-orange-500 hover:border-orange-600"
+                value={""}
+                content=""
+                onChange={(e) => handleNavigate(e.target.value)}
+              >
+                <option value="" disabled className="hidden"></option>
+                {category.competitions.map(
+                  (competition: any, index: number) => (
+                    <option key={index} value={competition.slug}>
+                      {competition.title}
+                    </option>
+                  )
+                )}
+              </select>
+            </>
+          )}
+          {category.competitions.length === 1 && (
+            <button
+              onClick={() => handleNavigate(category.competitions[0].slug)}
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md mt-4 w-full cursor-pointer"
+            >
+              {category.competitions[0].title}
+            </button>
+          )}
+          {category.competitions.length === 0 && (
+            <button
+              onClick={() => handleNavigate(category.slug)}
+              className="bg-gray-500 text-white px-4 py-2 rounded-md mt-4 w-full cursor-default"
+            >
+              Sin competiciones
+            </button>
+          )}
         </div>
       </div>
     </div>

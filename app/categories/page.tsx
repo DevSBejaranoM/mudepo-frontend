@@ -30,27 +30,14 @@ export const CategoriesPage = () => {
         {
           title: "FÚTBOl 11 - VETERANOS 45 - 2023",
           slug: "once_veteranos_45_2023",
-        },
-        {
-          title: "FÚTBOl 11 - VETERANOS 45 - 2022",
-          slug: "once_veteranos_45_2022",
-        },
+        }
       ],
     },
     {
       title: "FÚTBOL 11",
       subtitle: "Veteranos 27",
       image: "/images/header-background.jpg",
-      competitions: [
-        {
-          title: "FÚTBOl 11 - VETERANOS 27 - 2023",
-          slug: "once_veteranos_27_2023",
-        },
-        {
-          title: "FÚTBOl 11 - VETERANOS 27 - 2022",
-          slug: "once_veteranos_27_2022",
-        },
-      ],
+      competitions: [],
     },
     {
       title: "FÚTBOL 7",
