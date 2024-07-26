@@ -5,12 +5,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Menu from "./menu";
 import SmallMenu from "./small-menu";
 import UseCustomCategoriesPage from "@/app/hooks/useCustomCategoriesPage";
+import { useEffect } from "react";
 
 const NavCategories = () => {
-  const { categoriesPage,  updateCurrentCategoriesPage, currentCategoriesPage } = UseCustomCategoriesPage();
+  const { categoriesPage,  setCurrentCategoriesPage, currentCategoriesPage } = UseCustomCategoriesPage();
+
+  useEffect(() => {
+    console.log("categoriesPage", currentCategoriesPage);
+  }, [currentCategoriesPage]);
 
   return (
-    <Disclosure as="nav" className="bg-white">
+    <Disclosure as="nav" className="bg-black">
       {({ open }: any) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -27,11 +32,11 @@ const NavCategories = () => {
                 </DisclosureButton>
               </div>
               {/* Main menu */}
-              <Menu updateCurrentCategoriesPage={updateCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
+              <Menu setCurrentCategoriesPage={setCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
             </div>
           </div>
           {/* Small menu */}
-          <SmallMenu updateCurrentCategoriesPage={updateCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
+          <SmallMenu setCurrentCategoriesPage={setCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
         </>
       )}
     </Disclosure>

@@ -1,12 +1,12 @@
 import { DisclosureButton, DisclosurePanel } from "@headlessui/react";
 
 interface SmallMenuProps {
-  updateCurrentCategoriesPage: any;
+  setCurrentCategoriesPage: any;
   categoriesPage: string[];
   currentCategoriesPage: string;
 }
 
-const SmallMenu = ({updateCurrentCategoriesPage, categoriesPage, currentCategoriesPage}: SmallMenuProps) => {
+const SmallMenu = ({setCurrentCategoriesPage, categoriesPage, currentCategoriesPage}: SmallMenuProps) => {
 
   return (
     <DisclosurePanel className="sm:hidden">
@@ -15,11 +15,11 @@ const SmallMenu = ({updateCurrentCategoriesPage, categoriesPage, currentCategori
           <DisclosureButton
             key={index}
             as="span"
-            onClick={() => updateCurrentCategoriesPage(item)}
+            onClick={() => setCurrentCategoriesPage(item)}
             className={`${
               item === currentCategoriesPage
-                ? "text-black"
-                : "text-gray-300 hover:bg-gray-200 hover:text-black"
+                ? "text-orange-500"
+                : "text-gray-300"
             } block rounded-md px-3 py-2 text-base font-medium cursor-pointer`}
           >
             {item}

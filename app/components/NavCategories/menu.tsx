@@ -1,15 +1,10 @@
-import { useEffect } from "react";
-
 interface MenuProps {
-  updateCurrentCategoriesPage: any;
+  setCurrentCategoriesPage: any;
   categoriesPage: string[];
   currentCategoriesPage: string;
 }
 
-const Menu = ({ updateCurrentCategoriesPage, categoriesPage, currentCategoriesPage }: MenuProps) => {
-  useEffect(() => {
-    console.log("categoriesPage", currentCategoriesPage);
-  }, [currentCategoriesPage]);
+const Menu = ({ setCurrentCategoriesPage, categoriesPage, currentCategoriesPage }: MenuProps) => {
   
   return (
     <div className="flex flex-1 items-center justify-center sm:justify-start">
@@ -18,11 +13,11 @@ const Menu = ({ updateCurrentCategoriesPage, categoriesPage, currentCategoriesPa
           {categoriesPage.map((item, index) => (
             <span
               key={index}
-              onClick={() => updateCurrentCategoriesPage(item)}
+              onClick={() => setCurrentCategoriesPage(item)}
               className={`${
                 item === currentCategoriesPage
-                  ? "text-black"
-                  : "text-gray-300 hover:bg-gray-200 hover:text-black"
+                  ? "text-orange-500"
+                  : "text-gray-300"
               } rounded-md px-3 py-2 text-sm font-medium cursor-pointer`}
             >
               {item}
