@@ -18,7 +18,7 @@ const SmallMenu = ({setCurrentCategoriesPage, categoriesPage, currentCategoriesP
             onClick={() => setCurrentCategoriesPage(item)}
             className={`${
               item === currentCategoriesPage
-                ? "text-orange-500"
+                ? "color-primary"
                 : "text-gray-300"
             } block rounded-md px-3 py-2 text-base font-medium cursor-pointer`}
           >

@@ -29,7 +29,7 @@ const FeatureSection = ({
             </li>
           ))}
         </ul>
-        <a href="#" className="text-orange-500 hover:text-orange-600 font-bold">
+        <a href="#" className="color-primary hover-color-primary-dark font-bold">
           Descubre más →
         </a>
       </div>

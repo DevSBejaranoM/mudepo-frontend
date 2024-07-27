@@ -188,7 +188,7 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
                     key={calendar.id}
                     className={index % 2 === 0 ? "bg-gray-100" : ""}
                   >
-                    <td className="py-2 px-4 border-b text-center bg-orange-500">
+                    <td className="py-2 px-4 border-b text-center bg-primary">
                       <button onClick={() => setSelectedInfo(calendar.info!)}>
                         <svg
                           version="1.1"

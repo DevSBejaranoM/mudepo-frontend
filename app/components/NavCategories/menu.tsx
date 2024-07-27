@@ -16,7 +16,7 @@ const Menu = ({ setCurrentCategoriesPage, categoriesPage, currentCategoriesPage 
               onClick={() => setCurrentCategoriesPage(item)}
               className={`${
                 item === currentCategoriesPage
-                  ? "text-orange-500"
+                  ? "color-primary"
                   : "text-gray-300"
               } rounded-md px-3 py-2 text-sm font-medium cursor-pointer`}
             >

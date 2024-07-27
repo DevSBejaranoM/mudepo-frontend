@@ -15,7 +15,7 @@ const Menu = ({ navigation, setCurrentNavigation }: MenuProps) => {
           href="/"
           onClick={() => setCurrentNavigation("/")}
         >
-          <Image width={50} height={50} src={"/images/logo.png"} alt="Our Company" />
+          <Image width={120} height={50} src={"/images/logo.png"} alt="Our Company" />
         </Link>
       </div>
       <div className="hidden sm:block w-full">

@@ -485,7 +485,7 @@ const Calendar = () => {
             <div className="border-t border-gray-300 my-1" />
             <button
               onClick={() => setSelectedInfo(null)}
-              className="mt-4 bg-orange-500 text-white py-2 px-4 rounded float-end"
+              className="mt-4 bg-primary text-white py-2 px-4 rounded float-end"
             >
               CERRAR
             </button>

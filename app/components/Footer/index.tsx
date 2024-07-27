@@ -3,11 +3,11 @@ const Footer = () => {
     <footer className="font-sans relative pt-5 pb-3 md:pb-6 bg-black">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap">
-          <div className="flex w-full md:w-5/12">
+          <div className="flex w-full md:w-4/12">
             <div className="text-2xl px-4">
               <h3 className="font-bold text-white">Contacto</h3>
               <p className="mt-2 mb-4 text-gray-700 text-xl">
-                futboltinamar@gmail.com
+                futbolmudepo@gmail.com
               </p>
               <div className="flex flex-row my-4">
                 <a
@@ -16,7 +16,7 @@ const Footer = () => {
                   href="#"
                 >
                   <svg
-                    className="fill-current transition duration-700 ease-in-out text-gray-700 hover:text-orange-500"
+                    className="fill-current transition duration-700 ease-in-out text-gray-700 hover-color-primary"
                     role="img"
                     width="24"
                     height="24"
@@ -34,7 +34,7 @@ const Footer = () => {
                   href="#"
                 >
                   <svg
-                    className="fill-current transition duration-700 ease-in-out text-gray-700 hover:text-orange-500"
+                    className="fill-current transition duration-700 ease-in-out text-gray-700 hover-color-primary"
                     role="img"
                     width="24"
                     height="24"
@@ -47,7 +47,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="flex w-full md:w-5/12 px-4">
+          <div className="flex w-full md:w-6/12 px-4">
             <div className="m-4 text-center">
               <img src="/images/logo.png" alt="Logo" className="h-24 mx-auto" />
             </div>
@@ -59,7 +59,7 @@ const Footer = () => {
                 <ul className="list-unstyled mt-2 mb-4">
                   <li>
                     <a
-                      className="text-gray-600 hover:underline py-1 text-sm"
+                      className="text-gray-600 hover:underline py-1 text-sm hover-color-primary"
                       href="#"
                     >
                       Aviso legal
@@ -68,7 +68,7 @@ const Footer = () => {
 
                   <li>
                     <a
-                      className="text-gray-600 hover:underline py-1 text-sm"
+                      className="text-gray-600 hover:underline py-1 text-sm hover-color-primary"
                       href="#"
                     >
                       Cookies
@@ -89,7 +89,7 @@ const Footer = () => {
                 href="https://github.com/ahampriyanshu"
                 className="hover:underline hover:text-gray-900 mx-3"
               >
-                Liga Tinamar
+                Mudepo
               </a>
             </div>
           </div>

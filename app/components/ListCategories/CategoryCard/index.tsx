@@ -21,12 +21,14 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
     const lists = document.querySelectorAll("[role='listbox']");
     lists.forEach((list) => {
       if (list.id !== id) {
-        // list.classList.add("hidden");
         list.classList.replace("block", "hidden");
       }
     });
-    if (list) {
+    if (list && list.classList.contains("hidden")) {
       list.classList.replace("hidden", "block");
+    } else if(list && list.classList.contains("block")) {
+      list.classList.replace("block", "hidden");
+
     }
   }
 
@@ -39,16 +41,16 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
         // className="w-full h-80 object-cover rounded-lg"
         className="w-full h-80 rounded-lg"
       />
-      <div className="absolute z-10 bottom-0 left-0 right-0 h-32 bg-black bg-opacity-50 backdrop-blur text-white p-4 rounded-b-lg text-center">
+      <div className="absolute z-10 bottom-0 left-0 right-0 h-28 bg-black bg-opacity-50 backdrop-blur text-white p-4 rounded-b-lg text-center">
         <h1 className="text-2xl font-semibold">{category.title}</h1>
         <div className="border-t border-gray-300 my-1" />
         <p className="text-xl font-semibold">{category.subtitle}</p>
         <div className="flex">
           {category.competitions.length > 1 && (
-              <div className="relative mt-4 w-full">
+              <div className="relative mt-2 w-full">
                 <button
                   type="button"
-                  className="relative w-full rounded-md py-2 pl-3 pr-10 text-white shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6  bg-orange-500 hover:bg-orange-600 border-orange-500 hover:border-orange-600 px-4 text-center"
+                  className="relative w-full rounded-md py-2 pl-3 pr-10 text-white shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6  bg-primary hover-bg-primary-dark border-primary hover-border-primary-dark px-4 text-center"
                   aria-haspopup="listbox"
                   aria-expanded="true"
                   aria-labelledby="listbox-label"
@@ -103,7 +105,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
           {category.competitions.length === 1 && (
             <button
               onClick={() => handleNavigate(category.competitions[0].slug)}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md mt-4 w-full cursor-pointer"
+              className="bg-primary hover-bg-primary-dark text-white px-4 py-2 rounded-md mt-2 w-full cursor-pointer"
             >
               {category.competitions[0].title}
             </button>
@@ -111,7 +113,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
           {category.competitions.length === 0 && (
             <button
               onClick={() => handleNavigate(category.slug)}
-              className="bg-gray-500 text-white px-4 py-2 rounded-md mt-4 w-full cursor-default"
+              className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 w-full cursor-default"
             >
               SIN COMPETICIONES
             </button>

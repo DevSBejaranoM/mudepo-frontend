@@ -6,7 +6,7 @@ export const CategoriesPage = () => {
     {
       title: "FÚTBOL 11",
       subtitle: "Veteranos 36",
-      image: "/images/header-background.jpg",
+      image: "/images/categories/liga1.jpg",
       competitions: [
         {
           title: "FÚTBOl 11 - VETERANOS 36 - 2023",
@@ -25,7 +25,7 @@ export const CategoriesPage = () => {
     {
       title: "FÚTBOL 11",
       subtitle: "Veteranos 45",
-      image: "/images/header-background.jpg",
+      image: "/images/categories/liga2.jpg",
       competitions: [
         {
           title: "FÚTBOl 11 - VETERANOS 45 - 2023",
@@ -36,13 +36,13 @@ export const CategoriesPage = () => {
     {
       title: "FÚTBOL 11",
       subtitle: "Veteranos 27",
-      image: "/images/header-background.jpg",
+      image: "/images/categories/liga3.jpg",
       competitions: [],
     },
     {
       title: "FÚTBOL 7",
       subtitle: "18 años",
-      image: "/images/header-background.jpg",
+      image: "/images/categories/liga4.jpg",
       competitions: [
         {
           title: "FÚTBOl 7 - 18 AÑOS - 2023",
@@ -57,7 +57,7 @@ export const CategoriesPage = () => {
     {
       title: "FÚTBOL 7",
       subtitle: "30 años",
-      image: "/images/header-background.jpg",
+      image: "/images/categories/liga5.jpg",
       competitions: [
         {
           title: "FÚTBOl 7 - 30 AÑOS - 2023",
