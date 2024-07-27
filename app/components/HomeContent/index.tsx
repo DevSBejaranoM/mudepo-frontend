@@ -1,7 +1,9 @@
+import OurTeam from "./OurTeam";
+
 const HomeContent = () => {
   return (
     <div>
-      <h1>Home Content</h1>
+      <OurTeam />
     </div>
   );
 };
