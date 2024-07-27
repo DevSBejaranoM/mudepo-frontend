@@ -3,6 +3,7 @@ import CustomTable from "../CustomTable";
 const Teams = () => {
   const dataTeams = [
     {
+      id: 1,
       position: 1,
       logo: "/images/team/tamaraceite.png",
       name: "Tamaraceite Veteranos",
@@ -16,6 +17,7 @@ const Teams = () => {
       modifier: 0,
     },
     {
+        id: 2,
         position: 2,
         logo: "/images/team/veterano-tejeda.jpg",
         name: "Veteranos Tejeda C.F.",
@@ -29,6 +31,7 @@ const Teams = () => {
         modifier: 0,
       },
       {
+        id: 3,
         position: 3,
         logo: "/images/team/veterano-led-bee.jpg",
         name: "Veterano Led Bee Happy",

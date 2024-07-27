@@ -9,7 +9,7 @@ const TitleDescription = ({ title, description }: TitleDescriptionProps) => (
       Gestiona como un profesional
     </h2>
     <span className="font-light">
-      Todos los tipos de organización tienen su sitio en Clupik
+      Todos los tipos de organización tienen su sitio en Mudepo
     </span>
   </header>
 );

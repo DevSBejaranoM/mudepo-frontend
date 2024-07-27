@@ -1,6 +1,8 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface Team {
+  id?: number;
   position?: number;
   logo?: string;
   name?: string;
@@ -76,6 +78,7 @@ interface TableProps {
 }
 
 const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TableProps) => {
+  const router = useRouter();
 
   const renderTable = () => {
     switch (type) {
@@ -102,7 +105,8 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
                     <img
                       src={team.logo}
                       alt={team.name}
-                      className="w-8 h-8 mx-auto"
+                      className="w-8 h-8 mx-auto cursor-pointer"
+                      onClick={()=> router.push(`/team/${team.id}`)}
                     />
                   </td>
                   <td className=" text-center py-2 pr-5">{team.name}</td>

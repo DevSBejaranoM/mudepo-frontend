@@ -1,3 +1,4 @@
+import DownloadSection from "./DownloadSection";
 import FeatureSection from "./FeatureSection";
 import OurTeamSection from "./OurTeamSection";
 import TitleDescription from "./TitleDescription";
@@ -16,7 +17,7 @@ const HomeContent = () => {
       />
       <FeatureSection
         title="Administración, comunicación, competición, entrenamientos y tienda online."
-        description="El módulo de administración es uno de los más potentes de Clupik. Con él, puedes gestionar todo lo relativo a tu organización."
+        description="El módulo de administración es uno de los más potentes de Mudepo. Con él, puedes gestionar todo lo relativo a tu organización."
         features={[
           "Digitalización de inscripciones y bases de datos",
           "Control y automatización de pagos y cobros",
@@ -39,7 +40,7 @@ const HomeContent = () => {
       />
       <FeatureSection
         title="Administración, comunicación, competición, entrenamientos y tienda online."
-        description="El módulo de administración es uno de los más potentes de Clupik. Con él, puedes gestionar todo lo relativo a tu organización."
+        description="El módulo de administración es uno de los más potentes de Mudepo. Con él, puedes gestionar todo lo relativo a tu organización."
         features={[
           "Digitalización de inscripciones y bases de datos",
           "Control y automatización de pagos y cobros",
@@ -60,6 +61,7 @@ const HomeContent = () => {
         imageUrl="/images/home/feature.png"
         reverse
       />
+      <DownloadSection />
     </div>
   );
 };
