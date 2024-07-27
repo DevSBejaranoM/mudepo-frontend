@@ -9,13 +9,27 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category, index }: CategoryCardProps) => {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
 
   const handleNavigate = (slug: string) => {
     if (slug) {
       router.push(`/category/${slug}`);
     }
   };
+
+  const openListAndClose = (id: string) => {
+    const list = document.getElementById(id);
+    const lists = document.querySelectorAll("[role='listbox']");
+    lists.forEach((list) => {
+      if (list.id !== id) {
+        // list.classList.add("hidden");
+        list.classList.replace("block", "hidden");
+      }
+    });
+    if (list) {
+      list.classList.replace("hidden", "block");
+    }
+  }
+
 
   return (
     <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
@@ -38,11 +52,11 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
                   aria-haspopup="listbox"
                   aria-expanded="true"
                   aria-labelledby="listbox-label"
-                  onClick={() => setOpen(true)}
+                  onClick={() => openListAndClose(`listbox-option-${index}`)}
                 >
                   <span className="flex items-center justify-center">
                     <span className="ml-3 block truncate">
-                      Competiciones
+                      COMPETICIONES
                     </span>
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -62,10 +76,9 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
                 </button>
 
                 <ul
-                  className={`absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${
-                    open ? "block" : "hidden"
-                  }`} 
+                  className={`absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden`} 
                   role="listbox"
+                  id={`listbox-option-${index}`}
                   aria-labelledby="listbox-label"
                   aria-activedescendant="listbox-option-3"
                 >
@@ -100,7 +113,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
               onClick={() => handleNavigate(category.slug)}
               className="bg-gray-500 text-white px-4 py-2 rounded-md mt-4 w-full cursor-default"
             >
-              Sin competiciones
+              SIN COMPETICIONES
             </button>
           )}
         </div>
