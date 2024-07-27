@@ -61,7 +61,6 @@ const HomeContent = () => {
         imageUrl="/images/home/feature.png"
         reverse
       />
-      <DownloadSection />
     </div>
   );
 };

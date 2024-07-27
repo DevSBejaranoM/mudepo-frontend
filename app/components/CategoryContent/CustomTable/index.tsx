@@ -201,8 +201,8 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
                           xmlnsXlink="http://www.w3.org/1999/xlink"
                           viewBox="0 0 490 490"
                           xmlSpace="preserve"
-                          height={26}
-                          width={26}
+                          height={25}
+                          width={25}
                           fill="#000000"
                         >
                           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -750,7 +750,7 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
         
       </div>
       {type === "statistics-1" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mb-4 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4 mt-5">
           <span className="flex mb-1">
             <b className="pr-2">TA:</b> Tarjetas Amarillas
           </span>

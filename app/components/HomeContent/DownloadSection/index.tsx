@@ -1,6 +1,6 @@
 const DownloadSection = () => {
   return (
-    <div className="relative bg-gradient-to-t from-black to-[#75AB4D] text-white py-16">
+    <div className="relative bg-gradient-to-t from-black to-[#75AB4D] text-white py-24">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
         <div className="md:w-1/2 flex justify-center md:justify-center">
           <img

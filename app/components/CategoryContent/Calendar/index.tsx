@@ -408,50 +408,6 @@ const Calendar = () => {
       },
     ],
   ];
-  const dataCalendar = [
-    {
-      id: 1,
-      local: "Tamaraceite Veteranos",
-      visitante: "Veteranos Tejeda C.F.",
-      logoLocal: "/images/team/tamaraceite.png",
-      logoVisitante: "/images/team/veterano-tejeda.jpg",
-      localGoals: 6,
-      visitanteGoals: 4,
-      info: {
-        lugar: "Juan Guedes",
-        fecha: "13/10/2023",
-        hora: "21:30",
-      },
-    },
-    {
-      id: 2,
-      local: "Veterano Led Bee Happy",
-      visitante: "Los Cernícalos C.F.",
-      logoLocal: "/images/team/tamaraceite.png",
-      logoVisitante: "/images/team/veterano-tejeda.jpg",
-      localGoals: 6,
-      visitanteGoals: 0,
-      info: {
-        lugar: "Pedro Hidalgo",
-        fecha: "11/10/2023",
-        hora: "21:30",
-      },
-    },
-    {
-      id: 3,
-      local: "F.C. Guanarteme Veterano",
-      visitante: "PLAYA DEL HOMBRE	",
-      logoLocal: "/images/team/tamaraceite.png",
-      logoVisitante: "/images/team/veterano-tejeda.jpg",
-      localGoals: 5,
-      visitanteGoals: 1,
-      info: {
-        lugar: " Las Torres",
-        fecha: "13/10/2023",
-        hora: "21:30",
-      },
-    },
-  ];
 
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3">

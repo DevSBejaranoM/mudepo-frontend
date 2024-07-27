@@ -16,7 +16,7 @@ const CategoryContent = ({ categoryId }: CategoryContentProps) => {
     <div className="flex-col">
       <div>
         <h1 className="text-5xl font-bold text-center">{category}</h1>
-        <h2 className="text-2xl text-center mt-4 text-gray-700">
+        <h2 className="text-2xl md:text-3xl text-center mt-4 text-gray-400 font-semibold">
           {categoryId}
         </h2>
       </div>
