@@ -1,19 +1,7 @@
-const OurTeam = () => {
+const OurTeamSection = () => {
   return (
-    <div
-      id="team"
-      className="section relative pt-5 pb-8 md:pt-12 bg-white"
-    >
+    <div id="team" className="section relative pt-5 pb-8 bg-white">
       <div className="container xl:max-w-6xl mx-auto px-4">
-        {/*  section header  */}
-        <header className="text-center mx-auto mb-16 md:mb-24 lg:mb-28">
-          <h2 className="text-4xl leading-normal mb-2 font-bold text-gray-800">
-            Gestiona como un profesional
-          </h2>
-            <span className="font-light">Todos los tipos de organización tienen su sitio en Clupik</span>
-        </header>
-        {/*  end section header  */}
-        {/*  row  */}
         <div className="flex flex-wrap md:flex-nowrap flex-row -mx-4 justify-center">
           <div className="flex-shrink max-w-full px-4 w-3/3 sm:w-1/2 md:w-8/12 lg:w-3/4">
             <div
@@ -21,10 +9,7 @@ const OurTeam = () => {
               data-wow-duration="1s"
             >
               <div className="relative overflow-hidden">
-                <img
-                  src="/images/home/clubes.png"
-                  alt="title image"
-                />
+                <img src="/images/home/clubes.png" alt="title image" />
               </div>
               {/* <div className="pt-6 text-center">
                 <p className="text-lg leading-normal font-bold mb-1">
@@ -43,10 +28,7 @@ const OurTeam = () => {
               data-wow-delay=".1s"
             >
               <div className="relative overflow-hidden">
-                <img
-                  src="/images/home/torneos.png"
-                  alt="title image"
-                />
+                <img src="/images/home/torneos.png" alt="title image" />
               </div>
               {/* <div className="pt-6 text-center">
                 <p className="text-lg leading-normal font-bold mb-1">
@@ -65,11 +47,7 @@ const OurTeam = () => {
               data-wow-delay=".3s"
             >
               <div className="relative overflow-hidden">
-                <img
-                  src="/images/home/federaciones.png"
-                //   className="max-w-full h-auto mx-auto rounded-full bg-gray-50 grayscale"
-                  alt="title image"
-                />
+                <img src="/images/home/federaciones.png" alt="title image" />
               </div>
               {/* <div className="pt-6 text-center">
                 <p className="text-lg leading-normal font-bold mb-1">
@@ -82,11 +60,9 @@ const OurTeam = () => {
             </div>
           </div>
         </div>
-
-        {/*  end row  */}
       </div>
     </div>
   );
 };
 
-export default OurTeam;
+export default OurTeamSection;

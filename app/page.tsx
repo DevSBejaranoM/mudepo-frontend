@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <HomeMainSection />
-      <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
+      <section className="mx-auto my-10 p-4 lg:h-auto flex items-center justify-center">
         <HomeContent  />
       </section>
     </div>
