@@ -24,7 +24,7 @@ const HomeMainSection = () => {
               </button>
             </div>
           </div>
-          <div className="flex justify-center md:justify-end absolute place-self-center bottom-40 md:place-self-end md:bottom-96 lg:bottom-64 lg:right-52">
+          <div className="flex justify-center md:justify-end absolute place-self-center bottom-32 md:place-self-end md:bottom-96 lg:bottom-64 lg:right-52">
             <img
               src="/images/home/home-section.png"
               alt="Logo"
