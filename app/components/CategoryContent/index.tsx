@@ -18,7 +18,7 @@ const CategoryContent = ({ categoryId }: CategoryContentProps) => {
     title += catSplit[0] === "once" ? " 11 -" : " 7 -";
     title += " " + catSplit[1].toUpperCase();
     title += " " + catSplit[2];
-    title += " " + catSplit[3];
+    title += " - " + catSplit[3];
     return title;
   }
 
