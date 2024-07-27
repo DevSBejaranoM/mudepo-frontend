@@ -3,6 +3,7 @@ import { useCategoryStore } from "@/app/store/useCategoryStore";
 import Teams from "./Teams";
 import Classification from "./Classification";
 import Statistics from "./Statistics";
+import Calendar from "./Calendar";
 
 interface CategoryContentProps {
   categoryId: string;
@@ -21,7 +22,7 @@ const CategoryContent = ({ categoryId }: CategoryContentProps) => {
       </div>
       {category === "EQUIPOS" && <Teams />}
       {category === "CLASIFICACIÓN" && <Classification />}
-      {category === "CALENDARIO" && <></>}
+      {category === "CALENDARIO" && <Calendar />}
       {category === "ESTADÍSTICAS" && <Statistics />}
     </div>
   );
