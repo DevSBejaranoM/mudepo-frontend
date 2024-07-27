@@ -1,7 +1,7 @@
 import ListCategories from "../components/ListCategories";
 import MainSection from "../components/MainSection";
 
-export const CategoriesPage = () => {
+const CategoriesPage = () => {
   const categories = [
     {
       title: "FÚTBOL 11",
