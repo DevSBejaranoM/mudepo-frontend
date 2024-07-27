@@ -16,10 +16,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
   };
 
   return (
-    <div
-      key={index}
-      className="max-w-sm mx-auto relative shadow-md rounded-lg"
-    >
+    <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
       <img
         src={category.image}
         alt="category-image"
@@ -32,20 +29,21 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
         <div className="flex">
           {category.competitions.length > 1 && (
             <>
-              <button
+              {/* <button
                 onClick={() => handleNavigate(category.competitions[0].slug)}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-l-md mt-4 w-[90%] cursor-pointer"
               >
                 {category.competitions[0].title}
-              </button>
+              </button> */}
 
               <select
-                className="mt-4 w-[10%] py-2 border cursor-pointer rounded-r-md focus:outline-none focus:ring-2 bg-orange-500 hover:bg-orange-600 border-r-8 border-orange-500 hover:border-orange-600"
+                className="mt-4 w-full py-2 pl-10 border cursor-pointer rounded-md focus:outline-none focus:ring-2 bg-orange-500 hover:bg-orange-600 border-r-8 border-orange-500 hover:border-orange-600"
                 value={""}
-                content=""
                 onChange={(e) => handleNavigate(e.target.value)}
               >
-                <option value="" disabled className="hidden"></option>
+                <option value="" disabled>
+                  Selecciona una competición
+                </option>
                 {category.competitions.map(
                   (competition: any, index: number) => (
                     <option key={index} value={competition.slug}>
