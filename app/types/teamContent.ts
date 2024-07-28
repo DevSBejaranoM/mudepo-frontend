@@ -1,13 +1,7 @@
 export interface Player {
   id: string;
+  image: string;
+  number: number;
   name: string;
   position: string;
-  image: string;
-  percentage: number;
-  status?: "injured" | "yellow-card" | "red-card";
-}
-
-export interface Formation {
-  name: string;
-  positions: string[];
 }
