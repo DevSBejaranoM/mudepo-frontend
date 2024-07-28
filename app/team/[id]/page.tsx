@@ -1,4 +1,6 @@
+import CustomTab from "@/app/components/CustomTab";
 import MainSection from "@/app/components/MainSection";
+import TeamContent from "@/app/components/TeamContent";
 
 interface Team {
   id: string;
@@ -17,9 +19,10 @@ const TeamPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <MainSection image={"/images/header-background.jpg"} title={team.id} />
-      <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
-        TEAM PAGE
+      {/* <MainSection image={"/images/header-background.jpg"} title={team.id} /> */}
+      <CustomTab options={["Inicio", "Formación"]} />
+      <section className="mx-auto my-10 p-4 lg:h-auto items-center justify-center">
+        <TeamContent />
       </section>
     </div>
   );
