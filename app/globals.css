@@ -31,31 +31,3 @@
 .hover-border-primary-dark:hover {
   border-color: #4C7D2F;
 }
-
-.player-card {
-  @apply text-center p-4 bg-white rounded-xl shadow-xl;
-}
-
-.player-image {
-  @apply rounded-xl w-full mb-4;
-}
-
-.player-info .player-number {
-  @apply font-bold text-xl;
-}
-
-.player-info .player-name {
-  @apply mt-2 text-lg;
-}
-
-.player-info .player-position {
-  @apply text-white;
-}
-
-.player-carousel .carousel-title {
-  @apply text-2xl font-bold mb-4;
-}
-
-.container {
-  @apply mx-auto p-4;
-}

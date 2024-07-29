@@ -69,7 +69,7 @@ const FormationContent = () => {
   const forwards = players.filter((player) => player.position === "Delantero");
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="mx-auto p-4">
       <PlayerCarousel title="Portero" players={goalkeepers} />
       <PlayerCarousel title="Defensa" players={defenders} />
       <PlayerCarousel title="Centrocampista" players={midfielders} />
