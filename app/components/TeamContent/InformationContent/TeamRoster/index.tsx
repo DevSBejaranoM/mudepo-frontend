@@ -1,14 +1,19 @@
-const players = [
-  { number: 1, name: 'Thibaut Courtois', position: 'ARQ', age: 32 },
-  { number: 13, name: 'Andriy Lunin', position: 'ARQ', age: 25},
-  { number: 4, name: 'David Alaba', position: 'D(C)', age: 32 },
-  // Añade más jugadores según sea necesario
-];
+interface Player {
+  number: number;
+  name: string;
+  position: string;
+  age: number;
+}
 
-const TeamRoster = () => {
+interface TeamRosterProps {
+  players: Player[];
+  team: string;
+}
+
+const TeamRoster = ({players, team}: TeamRosterProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-bold mb-4">Tamaraceite Veteranos Plantilla</h3>
+      <h3 className="text-lg font-bold mb-4">{team} Plantilla</h3>
       <table className="w-full text-left">
         <thead>
           <tr>

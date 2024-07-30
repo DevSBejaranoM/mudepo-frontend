@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const matches = [
-  { date: "2024-01-15", opponent: "FC Barcelona", result: "3-1", isHome: true },
-  {
-    date: "2024-01-22",
-    opponent: "Atlético Madrid",
-    result: "2-2",
-    isHome: false,
-  },
-  // Agrega más partidos aquí
-];
+interface Match {
+  date: string;
+  opponent: string;
+  result: string;
+  isHome: boolean;
+}
 
-const MatchList = () => {
+interface MatchListProps {
+  matches: Match[];
+}
+
+const MatchList = ({matches}: MatchListProps) => {
   const [selectedYear, setSelectedYear] = useState("2024");
 
   const handleYearChange = (event: any) => {
@@ -39,10 +39,12 @@ const MatchList = () => {
           onChange={handleYearChange}
           className="mt-1 block w-52 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-md"
         >
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          {/* Agrega más años según sea necesario */}
+          {
+            matches.map((match, index) => {
+              const year = match.date.split('-')[0];
+              return <option key={index} value={year}>{year}</option>
+            })
+          }
         </select>
       </div>
       <div className="container mx-auto p-4">

@@ -1,14 +1,17 @@
-const history = [
-  { competition: 'La Liga', titles: 36 },
-  { competition: 'UEFA Champions League', titles: 15 },
-  { competition: 'Supercopa de España', titles: 11 },
-  // Añade más competiciones según sea necesario
-];
+interface History {
+  competition: string;
+  titles: number;
+}
 
-const TeamHistory = () => {
+interface TeamHistoryProps {
+  history: History[];
+  team: string;
+}
+
+const TeamHistory = ({history, team}: TeamHistoryProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md mb-4">
-      <h3 className="text-lg font-bold mb-4">Tamaraceite Veteranos Historia del Equipo</h3>
+      <h3 className="text-lg font-bold mb-4">{team} Historia del Equipo</h3>
       <table className="w-full text-left">
         <thead>
           <tr>

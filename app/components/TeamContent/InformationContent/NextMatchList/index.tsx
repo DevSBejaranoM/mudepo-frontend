@@ -1,14 +1,14 @@
-const matches = [
-  { date: "2024-01-15", opponent: "FC Barcelona", isHome: true },
-  {
-    date: "2024-01-22",
-    opponent: "Atlético Madrid",
-    isHome: false,
-  },
-  // Añade más competiciones según sea necesario
-];
+interface Match {
+  date: string;
+  opponent: string;
+  isHome: boolean;
+}
 
-const NextMatchList = () => {
+interface NextMatchListProps {
+  matches: Match[];
+}
+
+const NextMatchList = ({matches}: NextMatchListProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Próximos partidos</h3>
