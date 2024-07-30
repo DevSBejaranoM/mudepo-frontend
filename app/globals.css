@@ -1,33 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~slick-carousel/slick/slick.css';
-@import '~slick-carousel/slick/slick-theme.css';
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 .color-primary {
-  color: #75AB4D;
+  color: #75ab4d;
 }
 
 .bg-primary {
-  background-color: #75AB4D;
+  background-color: #75ab4d;
 }
 
 .border-primary {
-  border-color: #75AB4D;
+  border-color: #75ab4d;
 }
 
-.hover-color-primary:hover{
-  color: #75AB4D;
+.hover-color-primary:hover {
+  color: #75ab4d;
 }
 
-.hover-color-primary-dark:hover{
-  color: #4C7D2F;
+.hover-color-primary-dark:hover {
+  color: #4c7d2f;
 }
 
-.hover-bg-primary-dark:hover{
-  background-color: #4C7D2F;
+.hover-bg-primary-dark:hover {
+  background-color: #4c7d2f;
 }
 
 .hover-border-primary-dark:hover {
-  border-color: #4C7D2F;
+  border-color: #4c7d2f;
+}
+
+.slick-track {
+  margin-left: 0;
 }
