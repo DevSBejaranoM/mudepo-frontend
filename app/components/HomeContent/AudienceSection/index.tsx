@@ -31,7 +31,7 @@ const AudienceSection: React.FC<AudienceSectionProps> = ({
         <div className="md:hidden flex justify-center relative w-full">
           <div className="absolute top-1/2 transform -translate-y-1/2 h-0.5 w-9/12 border-t-2 border-dotted border-gray-300"></div>
           {items.map((item, index) => (
-            <div key={index} className="flex flex-col items-center mx-1">
+            <div key={index} className="flex flex-col items-center">
               <div className="relative z-10 bg-white mb-2">
                 <img src={item.icon} alt={item.label} className="h-10 w-10" />
               </div>
