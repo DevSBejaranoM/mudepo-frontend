@@ -15,7 +15,7 @@ const DownloadSection = () => {
             Descárgate la app de Mudepo para estar siempre conectado a tu
             organización deportiva con las últimas publicaciones, notificaciones,
             comentarios, vídeos, fotos, resultados, horarios, noticias, clasificaciones,
-            equipos, plantillas y mucho más!
+            equipos, plantillas ¡y mucho más!
           </p>
           <div className="flex space-x-4">
             <a href="#" target="_blank" rel="noopener noreferrer">

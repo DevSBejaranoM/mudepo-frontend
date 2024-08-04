@@ -1,9 +1,12 @@
+import Link from "next/link";
+
 interface FeatureSectionProps {
   title: string;
   description: string;
   features: string[];
   imageUrl: string;
   reverse?: boolean;
+  buttonLink?: string;
 }
 
 const FeatureSection = ({
@@ -12,6 +15,7 @@ const FeatureSection = ({
   features,
   imageUrl,
   reverse,
+  buttonLink,
 }: FeatureSectionProps) => {
   return (
     <div
@@ -29,16 +33,21 @@ const FeatureSection = ({
             </li>
           ))}
         </ul>
-        <a href="#" className="color-primary hover-color-primary-dark font-bold">
-          Descubre más →
-        </a>
+        {
+          buttonLink && (
+            <Link href={buttonLink}>
+              <span className="color-primary hover-color-primary-dark font-bold">
+                Descubre más →
+              </span>
+            </Link>
+          )
+        }
       </div>
       <div className="md:w-1/2 p-6 md:flex md:justify-center">
         <img
           src={imageUrl}
           alt="Feature image"
           className="md:max-h-96"
-          // className="rounded-lg shadow-lg"
         />
       </div>
     </div>
