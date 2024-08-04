@@ -71,6 +71,7 @@ const ContactForm = () => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-lg mb-12"
+      id="contactForm"
     >
       <div className="mb-4">
         <label
