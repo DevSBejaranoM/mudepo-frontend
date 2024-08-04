@@ -1,3 +1,4 @@
+import CustomList from "../ComunicationContent/CustomList";
 import AudienceSection from "./AudienceSection";
 import ContactForm from "./ContactForm";
 import FeatureSection from "./FeatureSection";
@@ -5,17 +6,43 @@ import InfoImagesSection from "./InfoImagesSection";
 import TitleDescription from "./TitleDescription";
 
 const HomeContent = () => {
+  const points = [
+    {
+      title: "Gestión integral de tu campeonato, liga y torneos",
+      description: "Personaliza tus torneos y ligas con un software en formato app o versión web para la gestión de calendarios y resultados en tiempo real.",
+    },
+    {
+      title: "Ahorro de tiempo",
+      description: "Permite realizar las inscripciones de los equipos de forma sencilla. Olvídate de la gestión de los torneos en excel y automatiza la administración de las competiciones.",
+    },
+    {
+      title: "Resultados en tiempo real",
+      description: "Seguir cada partido, encuentro y competición al instante, con actualizaciones automáticas que te mantienen al tanto de los últimos resultados, goles marcados, tarjetas y mucho más.",
+    },
+    {
+      title: "Mantente conectado",
+      description: "Conecta tu organización y saca el máximo partido a todas nuestras funcionalidades.",
+    },
+    {
+      title: "Mejor comunicación para los aficionados",
+      description: "Ofrece una App para mantener tus equipos y aficionados informados en cualquier momento y lugar.",
+    },
+    {
+      title: "Interactúa con el resto de deportistas",
+      description: "Aporta una experiencia inolvidable para todos los participantes de los torneos, permitiéndoles seguir los eventos, categorías, equipos y recibir notificaciones en tiempo real.",
+    },
+    {
+      title: "Destaca los mejores momentos de los eventos",
+      description: "con noticias, fotos, videos…",
+    },
+  ];
+
   return (
     <div>
       <TitleDescription
-        title="Gestiona como un profesional"
-        description="Todos los tipos de organización tienen su sitio en Mudepo"
+        title="Bienvenido a MUDEPO"
       />
-      <InfoImagesSection
-        image1="/images/home/clubes.png"
-        image2="/images/home/torneos.png"
-        image3="/images/home/federaciones.png"
-      />
+      <CustomList points={points} />
       <TitleDescription
         title="Lleva a tu organización al máximo nivel con Mudepo"
         description="Te presentamos nuestras funcionalidades"
@@ -71,25 +98,25 @@ const HomeContent = () => {
         title="Unifica a toda tu comunidad"
         description="Integra a todos los integrantes y grupos de tu club: Directores, Técnicos, Deportistas, Familias, Socios, Aficionados, y más.Crear algo así similar visual"
       />
-       <AudienceSection
+      <AudienceSection
         items={[
-          { icon: '/images/audience/directores.svg', label: 'Directores' },
-          { icon: '/images/audience/entrenadores.svg', label: 'Entrenadores' },
-          { icon: '/images/audience/deportistas.svg', label: 'Deportistas' },
-          { icon: '/images/audience/familias.svg', label: 'Familias' },
-          { icon: '/images/audience/aficionados.svg', label: 'Aficionados' },
+          { icon: "/images/audience/directores.svg", label: "Directores" },
+          { icon: "/images/audience/entrenadores.svg", label: "Entrenadores" },
+          { icon: "/images/audience/deportistas.svg", label: "Deportistas" },
+          { icon: "/images/audience/familias.svg", label: "Familias" },
+          { icon: "/images/audience/aficionados.svg", label: "Aficionados" },
         ]}
         managementTool={{
-          label: 'Herramienta de gestión',
-          imageUrl: '/images/audience/audience-one.png',
+          label: "Herramienta de gestión",
+          imageUrl: "/images/audience/audience-one.png",
         }}
         webTool={{
-          label: 'Web personalizada',
-          imageUrl: '/images/audience/audience-two.png',
+          label: "Web personalizada",
+          imageUrl: "/images/audience/audience-two.png",
         }}
         appTool={{
-          label: 'App personalizada',
-          imageUrl: '/images/audience/audience-three.png',
+          label: "App personalizada",
+          imageUrl: "/images/audience/audience-three.png",
         }}
       />
       <ContactForm />
