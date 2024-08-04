@@ -1,6 +1,8 @@
 import { NavigationItem } from "@/app/types/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 interface MenuProps {
   navigation: NavigationItem[];
@@ -8,6 +10,12 @@ interface MenuProps {
 }
 
 const Menu = ({ navigation, setCurrentNavigation }: MenuProps) => {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setCurrentNavigation(pathname);
+  }, [pathname]);
+  
   return (
     <div className="flex flex-1 items-center justify-center sm:justify-start">
       <div className="flex flex-shrink-0 items-center">

@@ -7,14 +7,20 @@ const UseCustomNavigation = () => {
 
   const initialNavigation: NavigationItem[] = [
     { name: "Inicio", href: "/", current: pathname === "/" },
-    // {
-    //   name: "Categorías",
-    //   href: "/categories",
-    //   current: pathname === "/categories",
-    // }
+    {
+      name: "Organización y administración",
+      href: "/organization",
+      current: pathname === "/organization",
+    },
+    {
+      name: "Comunicación del club",
+      href: "/comunication",
+      current: pathname === "/comunication",
+    },
   ];
 
-  const [navigation, setNavigation] = useState<NavigationItem[]>(initialNavigation);
+  const [navigation, setNavigation] =
+    useState<NavigationItem[]>(initialNavigation);
 
   const setCurrentNavigation = (href: string) => {
     setNavigation((prev) =>

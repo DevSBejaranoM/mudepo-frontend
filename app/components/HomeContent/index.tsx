@@ -30,7 +30,7 @@ const HomeContent = () => {
           "Administración y asignación de árbitros.",
         ]}
         imageUrl="/images/home/feature.png"
-        buttonLink="#"
+        buttonLink="/organization"
       />
       <FeatureSection
         title="2. Comunicación del club"
@@ -42,7 +42,7 @@ const HomeContent = () => {
           "Automatización de los resultados.",
         ]}
         imageUrl="/images/home/feature.png"
-        buttonLink="#"
+        buttonLink="/comunication"
         reverse
       />
       <FeatureSection

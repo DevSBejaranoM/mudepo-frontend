@@ -1,3 +1,5 @@
+"use client";
+import UseCustomNavigation from "@/app/hooks/useCustomNavigation";
 import Link from "next/link";
 
 interface FeatureSectionProps {
@@ -17,6 +19,8 @@ const FeatureSection = ({
   reverse,
   buttonLink,
 }: FeatureSectionProps) => {
+  const { setCurrentNavigation } = UseCustomNavigation();
+
   return (
     <div
       className={`flex flex-col md:flex-row items-center md:items-start md:mx-16 ${
@@ -33,22 +37,16 @@ const FeatureSection = ({
             </li>
           ))}
         </ul>
-        {
-          buttonLink && (
-            <Link href={buttonLink}>
-              <span className="color-primary hover-color-primary-dark font-bold">
-                Descubre más →
-              </span>
-            </Link>
-          )
-        }
+        {buttonLink && (
+          <Link href={buttonLink} onClick={() => setCurrentNavigation(buttonLink)}>
+            <span className="color-primary hover-color-primary-dark font-bold">
+              Descubre más →
+            </span>
+          </Link>
+        )}
       </div>
       <div className="md:w-1/2 p-6 md:flex md:justify-center">
-        <img
-          src={imageUrl}
-          alt="Feature image"
-          className="md:max-h-96"
-        />
+        <img src={imageUrl} alt="Feature image" className="md:max-h-96" />
       </div>
     </div>
   );
