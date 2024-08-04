@@ -69,7 +69,7 @@ const ContactForm = () => {
 
   return (
     <div id="contactForm">
-      <header className={`text-center mx-auto mt-8 mb-8`}>
+      <header className={`text-center mx-auto mt-8 mb-8 md:mt-20`}>
         <h2 className="text-4xl leading-normal mb-2 font-bold text-gray-700">
           Ponte en contacto con nosotros
         </h2>
@@ -283,7 +283,14 @@ const ContactForm = () => {
                 value={field.value}
                 countryCodeEditable={false}
                 onChange={(e, phone) => handlePhoneChange(e, phone)}
-                inputStyle={{ marginLeft: 60, paddingLeft: 5 }}
+                inputStyle={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  border: "1px solid #d1d5db",
+                  borderRadius: "0.375rem",
+                  fontSize: "0.875rem",
+                  paddingLeft: "3rem",
+                }}
                 containerClass="mt-2"
                 inputClass="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 dropdownClass="bg-white"

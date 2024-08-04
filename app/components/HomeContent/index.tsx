@@ -1,3 +1,4 @@
+import AudienceSection from "./AudienceSection";
 import ContactForm from "./ContactForm";
 import FeatureSection from "./FeatureSection";
 import InfoImagesSection from "./InfoImagesSection";
@@ -69,6 +70,27 @@ const HomeContent = () => {
       <TitleDescription
         title="Unifica a toda tu comunidad"
         description="Integra a todos los integrantes y grupos de tu club: Directores, Técnicos, Deportistas, Familias, Socios, Aficionados, y más.Crear algo así similar visual"
+      />
+       <AudienceSection
+        items={[
+          { icon: '/images/audience/directores.svg', label: 'Directores' },
+          { icon: '/images/audience/entrenadores.svg', label: 'Entrenadores' },
+          { icon: '/images/audience/deportistas.svg', label: 'Deportistas' },
+          { icon: '/images/audience/familias.svg', label: 'Familias' },
+          { icon: '/images/audience/aficionados.svg', label: 'Aficionados' },
+        ]}
+        managementTool={{
+          label: 'Herramienta de gestión',
+          imageUrl: '/images/audience/audience-one.png',
+        }}
+        webTool={{
+          label: 'Web personalizada',
+          imageUrl: '/images/audience/audience-two.png',
+        }}
+        appTool={{
+          label: 'App personalizada',
+          imageUrl: '/images/audience/audience-three.png',
+        }}
       />
       <ContactForm />
     </div>
