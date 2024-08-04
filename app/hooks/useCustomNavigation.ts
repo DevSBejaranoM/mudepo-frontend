@@ -7,11 +7,11 @@ const UseCustomNavigation = () => {
 
   const initialNavigation: NavigationItem[] = [
     { name: "Inicio", href: "/", current: pathname === "/" },
-    {
-      name: "Categorías",
-      href: "/categories",
-      current: pathname === "/categories",
-    }
+    // {
+    //   name: "Categorías",
+    //   href: "/categories",
+    //   current: pathname === "/categories",
+    // }
   ];
 
   const [navigation, setNavigation] = useState<NavigationItem[]>(initialNavigation);
