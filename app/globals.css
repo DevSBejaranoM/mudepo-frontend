@@ -35,3 +35,8 @@
 .slick-track {
   margin-left: 0;
 }
+
+.react-tel-input .flag-dropdown {
+  background-color: white !important;
+  border-radius: 3px !important;
+}

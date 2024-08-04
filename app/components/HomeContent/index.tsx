@@ -1,4 +1,4 @@
-import DownloadSection from "./DownloadSection";
+import ContactForm from "./ContactForm";
 import FeatureSection from "./FeatureSection";
 import OurTeamSection from "./OurTeamSection";
 import TitleDescription from "./TitleDescription";
@@ -61,6 +61,7 @@ const HomeContent = () => {
         imageUrl="/images/home/feature.png"
         reverse
       />
+      <ContactForm />
     </div>
   );
 };
