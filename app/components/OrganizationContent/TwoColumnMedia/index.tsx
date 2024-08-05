@@ -17,7 +17,7 @@ const TwoColumnMedia: React.FC<TwoColumnMediaProps> = ({
 
   return (
     <div className="flex flex-col md:flex-row mb-10">
-      <div className="w-full md:w-1/2 p-4">
+      <div className="w-full md:w-1/2 p-4 hidden md:block">
         <img
           src={imageUrl}
           alt="Media Image"
