@@ -4,6 +4,7 @@ import Teams from "./Teams";
 import Classification from "./Classification";
 import Statistics from "./Statistics";
 import Calendar from "./Calendar";
+import BannerPartner from "../BannerPartner";
 
 interface CategoryContentProps {
   categoryId: string;
@@ -34,6 +35,7 @@ const CategoryContent = ({ categoryId }: CategoryContentProps) => {
       {category === "CLASIFICACIÓN" && <Classification />}
       {category === "CALENDARIO" && <Calendar />}
       {category === "ESTADÍSTICAS" && <Statistics />}
+      <BannerPartner imageUrl="/images/header-background.jpg" altText="Banner Sponsor"/>
     </div>
   );
 };
