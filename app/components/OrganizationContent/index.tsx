@@ -34,17 +34,6 @@ const OrganizationContent = () => {
         reverse={true}
       />
       <InfoColumnsSection
-        title="Consolida toda la información en una sola base de datos"
-        points={[
-          "Digitaliza los procesos de cobro en tu organización. Ofrecemos diversas opciones de pago: en línea, domiciliación bancaria, transferencia y efectivo.",
-          "Adopta el pago en línea. Los usuarios pueden realizar pagos desde cualquier dispositivo y en cualquier momento usando sus tarjetas de crédito o débito, mientras tú mantienes un control detallado de tus ingresos.",
-          "Gestiona todos los pagos y cobros de manera centralizada: inscripciones, cuotas, tienda online, y más.",
-          "Cada usuario puede revisar el estado de sus cuentas y recibir notificaciones, eliminando la necesidad de responder constantemente a consultas sobre pagos.",
-        ]}
-        imageUrl="/images/categories/liga5.jpg"
-        reverse={false}
-      />
-      <InfoColumnsSection
         title="Administra tus pagos y cobros de manera eficiente"
         points={[
           "Gestiona todas tus inscripciones desde un solo lugar, ya sean nuevas altas, eventos o gestiones de la competición o torneo.",
@@ -53,7 +42,7 @@ const OrganizationContent = () => {
           "Recibe notificaciones para revisar y validar las inscripciones. Accede a toda la información desde la web y la app móvil para administrar en cualquier momento.",
         ]}
         imageUrl="/images/categories/liga4.jpg"
-        reverse={true}
+        reverse={false}
       />
       <TitleDescription title="Mudepo/ Administración y gestión / Gestión de usuarios" />
 
@@ -65,7 +54,7 @@ const OrganizationContent = () => {
           "Un usuario puede tener múltiples roles, y también puedes designar un tutor para representar a los usuarios menores de edad.",
         ]}
         imageUrl="/images/categories/liga5.jpg"
-        reverse={false}
+        reverse={true}
       />
       <InfoColumnsSection
         title="Importa usuarios masivamente."
@@ -75,7 +64,7 @@ const OrganizationContent = () => {
           "Si no tienes una base de datos o deseas actualizar la información existente, puedes crear formularios de inscripción para que los usuarios ingresen los datos que necesitas almacenar.",
         ]}
         imageUrl="/images/categories/liga4.jpg"
-        reverse={true}
+        reverse={false}
       />
       <InfoColumnsSection
         title="Gestión arbitral"
@@ -87,7 +76,7 @@ const OrganizationContent = () => {
           "Por ello MUDEPO da la posibilidad de digitalizar y obtener en tiempo real la cumplimentación de las actas y documentación arbitral. "
         ]}
         imageUrl="/images/categories/liga5.jpg"
-        reverse={false}
+        reverse={true}
       />
     </div>
   );

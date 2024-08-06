@@ -8,10 +8,6 @@ import TitleDescription from "./TitleDescription";
 const HomeContent = () => {
   const points = [
     {
-      title: "Gestión integral de tu campeonato, liga y torneos",
-      description: "Personaliza tus torneos y ligas con un software en formato app o versión web para la gestión de calendarios y resultados en tiempo real.",
-    },
-    {
       title: "Ahorro de tiempo",
       description: "Permite realizar las inscripciones de los equipos de forma sencilla. Olvídate de la gestión de los torneos en excel y automatiza la administración de las competiciones.",
     },
