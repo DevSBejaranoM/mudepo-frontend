@@ -312,24 +312,24 @@ const ContactForm = () => {
 
         <div className="my-8">
           <p className="text-xs my-2">
-          <strong>PROTECCIÓN DE DATOS:</strong> De conformidad con las normativas de protección
-          de datos, le facilitamos la siguiente información del tratamiento:
+            <strong>PROTECCIÓN DE DATOS:</strong> De conformidad con las
+            normativas de protección de datos, le facilitamos la siguiente
+            información del tratamiento:
           </p>
           <p className="text-xs my-2">
-          <strong>Responsable:</strong> MUDEPO 1988 SL Fines del tratamiento: Atender su
-          solicitud y contactarle para ofrecerle la información solicitada.
+            <strong>Responsable:</strong> MUDEPO 1988 SL Fines del tratamiento:
+            Atender su solicitud y contactarle para ofrecerle la información
+            solicitada.
           </p>
           <p className="text-xs my-2">
-          <strong>Derechos:</strong> acceso, rectificación, portabilidad, supresión, limitación y
-          oposición 
+            <strong>Derechos:</strong> acceso, rectificación, portabilidad,
+            supresión, limitación y oposición
           </p>
           <p className="text-xs my-2">
-          <strong>Más información</strong> del tratamiento en la <Link href={"/politica-de-privacidad"} target="_blank">Política de privacidad</Link>
-          </p>
-          <p className="text-xs my-2">
-          <strong>O</strong> He leído y acepto política de
-          privacidad de MUDEPO 1988 SL y consiento el tratamiento de mis datos
-          con los fines expuestos.
+            <strong>Más información</strong> del tratamiento en la{" "}
+            <Link href={"/politica-de-privacidad"} target="_blank">
+              Política de privacidad
+            </Link>
           </p>
         </div>
 
@@ -341,7 +341,9 @@ const ContactForm = () => {
             className="mr-2"
           />
           <label htmlFor="terms" className="text-sm font-medium text-gray-700">
-            Acepto las{" "}
+            He leído y acepto la <Link href={"/politica-de-privacidad"} target="_blank">política de privacidad</Link> de MUDEPO 1988 SL y
+            consiento el tratamiento de mis datos con los fines expuestos.
+            {/* Acepto las{" "}
             <Link
               href="/aviso-legal"
               target="_blank"
@@ -356,7 +358,7 @@ const ContactForm = () => {
               className="text-indigo-600"
             >
               política de protección de datos
-            </Link>
+            </Link> */}
           </label>
           {errors.terms && (
             <span className="block text-red-600 text-sm">

@@ -1,5 +1,16 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const PoliticaDeCookiesPage = () => {
+  const [hydrate, setHydrate] = useState(false);
+  useEffect(() => {
+    setHydrate(true);
+  }, []);
+
   return (
+    <>
+    {
+      hydrate && (
     <div className="p-8 bg-white text-gray-700 md:mx-24">
       <h1 className="text-2xl font-bold my-16 text-center">
         INFORMACIÓN SOBRE COOKIES
@@ -510,7 +521,9 @@ const PoliticaDeCookiesPage = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div>)
+    }
+    </>
   );
 };
 
