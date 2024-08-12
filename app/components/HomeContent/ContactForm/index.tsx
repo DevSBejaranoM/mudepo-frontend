@@ -327,7 +327,7 @@ const ContactForm = () => {
           </p>
           <p className="text-xs my-2">
             <strong>Más información</strong> del tratamiento en la{" "}
-            <Link href={"/politica-de-privacidad"} target="_blank">
+            <Link className="text-blue-500 underline" href={"/politica-de-privacidad"} target="_blank">
               Política de privacidad
             </Link>
           </p>
@@ -341,7 +341,7 @@ const ContactForm = () => {
             className="mr-2"
           />
           <label htmlFor="terms" className="text-sm font-medium text-gray-700">
-            He leído y acepto la <Link href={"/politica-de-privacidad"} target="_blank">política de privacidad</Link> de MUDEPO 1988 SL y
+            He leído y acepto la política de privacidad de MUDEPO 1988 SL y
             consiento el tratamiento de mis datos con los fines expuestos.
             {/* Acepto las{" "}
             <Link
