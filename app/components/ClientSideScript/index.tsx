@@ -5,8 +5,7 @@ import { useEffect } from "react";
 const ClientSideScript: React.FC = () => {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://pdcc.gdpr.es/pdcc.min.js";
-    script.charset = "utf-8";
+    script.type = "text/javascript";
     script.async = true;
     script.onload = () => {
       if (window.PDCookieConsent) {
