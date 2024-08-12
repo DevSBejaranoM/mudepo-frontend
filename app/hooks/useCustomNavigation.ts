@@ -8,9 +8,9 @@ const UseCustomNavigation = () => {
   const initialNavigation: NavigationItem[] = [
     { name: "Inicio", href: "/", current: pathname === "/" },
     {
-      name: "Organización y administración",
-      href: "/organization",
-      current: pathname === "/organization",
+      name: "Funcionalidades",
+      href: "/functionalities",
+      current: pathname === "/functionalities",
     },
     {
       name: "Comunicación del club",

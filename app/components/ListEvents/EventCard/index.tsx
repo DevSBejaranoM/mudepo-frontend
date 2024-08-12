@@ -1,18 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
-interface CategoryCardProps {
-  category: any;
+interface EventCardProps {
+  event: any;
   index: number | string;
+  slug: string;
 }
 
-const CategoryCard = ({ category, index }: CategoryCardProps) => {
+const EventCard = ({ event, index, slug }: EventCardProps) => {
   const router = useRouter();
 
-  const handleNavigate = (slug: string) => {
-    if (slug) {
-      router.push(`/category/${slug}`);
+  const handleNavigate = (id: string) => {
+    if (id) {
+      router.push(`/evento/${slug}/${id}`);
     }
   };
 
@@ -34,18 +34,18 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
   return (
     <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
       <img
-        src={category.image}
+        src={event?.tabOne?.poster?.url ? event?.tabOne?.poster?.url : "/images/placeholder-liga.png"}
         alt="category-image"
-        className="w-full h-80 rounded-lg"
+        className="w-full h-80 rounded-lg min-w-80 md:min-w-96"
         // className="w-full h-60 rounded-t-lg"
       />
       {/* <div className="z-10 bottom-0 left-0 right-0 h-28 bg-black text-white p-4 rounded-b-lg text-center"> */}
       <div className="absolute z-10 bottom-0 left-0 right-0 h-28 bg-black bg-opacity-50 backdrop-blur text-white p-4 rounded-b-lg text-center">
-        <h1 className="text-2xl font-semibold">{category.title}</h1>
+        <h1 className="text-2xl font-semibold">FÚTBOL {event?.tabOne?.formato}</h1>
         <div className="border-t border-gray-300 my-1" />
-        <p className="text-xl font-semibold">{category.subtitle}</p>
+        <p className="text-xl font-semibold">{event?.name}</p>
         <div className="flex">
-          {category.competitions.length > 1 && (
+          {event.competitions.length > 1 && (
             <div className="relative mt-2 w-full">
               <button
                 type="button"
@@ -56,7 +56,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
                 onClick={() => openListAndClose(`listbox-option-${index}`)}
               >
                 <span className="flex items-center justify-center">
-                  <span className="ml-3 block truncate">COMPETICIONES</span>
+                  <span className="ml-3 block truncate">LIGAS</span>
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                   <svg
@@ -81,14 +81,14 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
                 aria-labelledby="listbox-label"
                 aria-activedescendant="listbox-option-3"
               >
-                {category.competitions.map(
+                {event.competitions.map(
                   (competition: any, index: number) => (
                     <li
                       key={index}
                       className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
                       id="listbox-option-0"
                       role="option"
-                      onClick={(e) => handleNavigate(competition.slug)}
+                      onClick={(e) => handleNavigate(event.id)}
                     >
                       <div className="flex items-center">
                         {competition.title}
@@ -99,20 +99,20 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
               </ul>
             </div>
           )}
-          {category.competitions.length === 1 && (
+          {event.competitions.length === 1 && (
             <button
-              onClick={() => handleNavigate(category.competitions[0].slug)}
+              onClick={() => handleNavigate(event.id)}
               className="bg-primary hover-bg-primary-dark text-white px-4 py-2 rounded-md mt-2 w-full cursor-pointer"
             >
-              {category.competitions[0].title}
+              {event.competitions[0].title}
             </button>
           )}
-          {category.competitions.length === 0 && (
+          {event.competitions.length === 0 && (
             <button
-              onClick={() => handleNavigate(category.slug)}
+              onClick={() => handleNavigate(event.id)}
               className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 w-full cursor-default"
             >
-              SIN COMPETICIONES
+              SIN LIGAS
             </button>
           )}
         </div>
@@ -121,4 +121,4 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
   );
 };
 
-export default CategoryCard;
+export default EventCard;

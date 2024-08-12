@@ -1,6 +1,6 @@
 import OrganizationContent from "../components/OrganizationContent";
 
-const OrganizationPage = () => {
+const FunctionalitiesPage = () => {
   return (
     <div>
       <section className="mx-auto mt-10 lg:h-auto flex items-center justify-center">
@@ -10,4 +10,4 @@ const OrganizationPage = () => {
   );
 };
 
-export default OrganizationPage;
+export default FunctionalitiesPage;

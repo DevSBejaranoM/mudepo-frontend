@@ -73,6 +73,9 @@ const ContactForm = () => {
         <h2 className="text-4xl leading-normal mb-2 font-bold text-gray-700">
           Ponte en contacto con nosotros
         </h2>
+        <span className=" text-md font-light md:text-xl">
+        Transforma digitalmente tu club y enfócate en lo que realmente importa: tus deportistas. Con color verde. 
+      </span>
       </header>
       <form
         onSubmit={handleSubmit(onSubmit)}

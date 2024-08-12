@@ -36,8 +36,11 @@ const HomeContent = () => {
   return (
     <div>
       <TitleDescription
+      textColor="color-primary"
         title="Bienvenido a MUDEPO"
       />
+      <TitleDescription
+        title="¿Por qué elegir MUDEPO para tu club?"/>
       <CustomList points={points} />
       <TitleDescription
         title="Lleva a tu organización al máximo nivel con Mudepo"
@@ -47,13 +50,14 @@ const HomeContent = () => {
         title="1. Organización y administración del torneo o liga"
         description="La administración de MUDEPO es extremadamente poderosa . Te permite gestionar todos los aspectos de tu organización de manera eficiente."
         features={[
+          "Base de datos consolidada y digital.",
           "Digitaliza las inscripciones.",
           "Administra tus pagos y cobros de manera eficiente.",
           "Gestión de usuarios.",
           "Administración y asignación de árbitros.",
         ]}
         imageUrl="/images/home/feature.png"
-        buttonLink="/organization"
+        buttonLink="/functionalities"
       />
       <FeatureSection
         title="2. Comunicación del club"
@@ -92,7 +96,7 @@ const HomeContent = () => {
       />
       <TitleDescription
         title="Unifica a toda tu comunidad"
-        description="Integra a todos los integrantes y grupos de tu club: Directores, Técnicos, Deportistas, Familias, Socios, Aficionados, y más.Crear algo así similar visual"
+        description="Integra a todos los integrantes y grupos de tu club: Directores, Técnicos, Deportistas, Familias, Socios, Aficionados, y más."
       />
       <AudienceSection
         items={[

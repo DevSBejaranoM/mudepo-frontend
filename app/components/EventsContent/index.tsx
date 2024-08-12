@@ -1,7 +1,32 @@
-import ListCategories from "../components/ListCategories";
-import MainSection from "../components/MainSection";
+"use client";
+import { useEffect, useState } from "react";
+import ListEvents from "../ListEvents";
+import { axiosAdapter } from "@/app/config/axios.adapter";
+import MainSection from "../MainSection";
 
-const CategoriesPage = () => {
+const EventsContent = (slug: any) => {
+  const [events, setEvents] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchEvents = async () => {
+    try {
+      const data = await axiosAdapter.fetchData("/events");
+    //   const data = await axiosAdapter.fetchData(`/events/${slug}`);
+      console.log("Events data:", data);
+      setEvents(data[1]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error retrieving events:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (events === null) {
+      fetchEvents();
+    }
+    setLoading(false);
+  }, []);
+
   const categories = [
     {
       title: "FÚTBOL 11",
@@ -30,7 +55,7 @@ const CategoriesPage = () => {
         {
           title: "FÚTBOl 11 - VETERANOS 45 - 2023",
           slug: "once_veteranos_45_2023",
-        }
+        },
       ],
     },
     {
@@ -76,13 +101,21 @@ const CategoriesPage = () => {
   ];
 
   return (
-    <div>
-      <MainSection title="CATEGORÍAS" image={"/images/header-background.jpg"} />
+    <>
+      <MainSection
+        title={events?.name ? events.name : "Eventos"}
+        image={
+          events?.tabOne?.portada?.url
+            ? events?.tabOne?.portada?.url
+            : "/images/header-background.jpg"
+        }
+      />
       <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
-        <ListCategories categories={categories} />
+        <ListEvents events={categories} slug={slug}/>
+        {/* <ListEvents events={events.tabTwo.leagues} /> */}
       </section>
-    </div>
+    </>
   );
 };
 
-export default CategoriesPage;
+export default EventsContent;
