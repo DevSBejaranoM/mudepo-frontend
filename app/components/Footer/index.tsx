@@ -83,6 +83,14 @@ const Footer = () => {
                       Política de Cookies
                     </a>
                   </li>
+                  <li>
+                    <a
+                      className="text-gray-600 hover:underline py-1 text-sm hover-color-primary pdcc-open-modal"
+                      href="#"
+                    >
+                      Panel de cookies
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

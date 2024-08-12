@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
+import ClientSideScript from "./components/ClientSideScript";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +21,19 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="https://pdcc.gdpr.es/pdcc.min.css" />
+        <script charSet="utf-8" src="https://pdcc.gdpr.es/pdcc.min.js"></script>
+      </head>
       <body className={inter.className}>
         <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            {children}            
+            </main>
           <Footer />
+      <ClientSideScript />
+
         </div>
       </body>
     </html>
