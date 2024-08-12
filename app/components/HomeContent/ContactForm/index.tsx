@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
@@ -73,9 +74,10 @@ const ContactForm = () => {
         <h2 className="text-4xl leading-normal mb-2 font-bold text-gray-700">
           Ponte en contacto con nosotros
         </h2>
-        <span className=" text-md font-light md:text-xl">
-        Transforma digitalmente tu club y enfócate en lo que realmente importa: tus deportistas. Con color verde. 
-      </span>
+        <span className=" text-md font-light md:text-xl color-primary">
+          Transforma digitalmente tu club y enfócate en lo que realmente
+          importa: tus deportistas.
+        </span>
       </header>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -308,6 +310,29 @@ const ContactForm = () => {
           )}
         </div>
 
+        <div className="my-8">
+          <p className="text-xs my-2">
+          <strong>PROTECCIÓN DE DATOS:</strong> De conformidad con las normativas de protección
+          de datos, le facilitamos la siguiente información del tratamiento:
+          </p>
+          <p className="text-xs my-2">
+          <strong>Responsable:</strong> MUDEPO 1988 SL Fines del tratamiento: Atender su
+          solicitud y contactarle para ofrecerle la información solicitada.
+          </p>
+          <p className="text-xs my-2">
+          <strong>Derechos:</strong> acceso, rectificación, portabilidad, supresión, limitación y
+          oposición 
+          </p>
+          <p className="text-xs my-2">
+          <strong>Más información</strong> del tratamiento en la <Link href={"/politica-de-privacidad"} target="_blank">Política de privacidad</Link>
+          </p>
+          <p className="text-xs my-2">
+          <strong>O</strong> He leído y acepto política de
+          privacidad de MUDEPO 1988 SL y consiento el tratamiento de mis datos
+          con los fines expuestos.
+          </p>
+        </div>
+
         <div className="mb-4">
           <input
             type="checkbox"
@@ -317,13 +342,21 @@ const ContactForm = () => {
           />
           <label htmlFor="terms" className="text-sm font-medium text-gray-700">
             Acepto las{" "}
-            <a href="#condiciones" className="text-indigo-600">
+            <Link
+              href="/aviso-legal"
+              target="_blank"
+              className="text-indigo-600"
+            >
               condiciones
-            </a>{" "}
+            </Link>{" "}
             y{" "}
-            <a href="#privacy" className="text-indigo-600">
+            <Link
+              href="/politica-de-privacidad"
+              target="_blank"
+              className="text-indigo-600"
+            >
               política de protección de datos
-            </a>
+            </Link>
           </label>
           {errors.terms && (
             <span className="block text-red-600 text-sm">

@@ -12,7 +12,7 @@ export const axiosAdapter = {
   fetchData: async (url: string, options = {}) => {
     try {
       const response = await axiosInstance(url, options);
-      const data = response.data.json();
+      const data = response.data;
       return data;
     } catch (error) {
       console.error("Error retrieving data:", error);

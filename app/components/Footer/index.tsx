@@ -60,7 +60,7 @@ const Footer = () => {
                   <li>
                     <a
                       className="text-gray-600 hover:underline py-1 text-sm hover-color-primary"
-                      href="#"
+                      href="/aviso-legal"
                     >
                       Aviso legal
                     </a>
@@ -69,9 +69,18 @@ const Footer = () => {
                   <li>
                     <a
                       className="text-gray-600 hover:underline py-1 text-sm hover-color-primary"
-                      href="#"
+                      href="/politica-de-privacidad"
                     >
-                      Cookies
+                      Política de privacidad
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      className="text-gray-600 hover:underline py-1 text-sm hover-color-primary"
+                      href="/politica-de-cookies"
+                    >
+                      Política de Cookies
                     </a>
                   </li>
                 </ul>
