@@ -12,8 +12,9 @@ const EventsContent = (slug: any) => {
     try {
       const data = await axiosAdapter.fetchData("/events");
     //   const data = await axiosAdapter.fetchData(`/events/${slug}`);
-      console.log("Events data:", data);
-      setEvents(data[1]);
+      setEvents(data.docs[0]);
+      console.log("Events", data.docs[0]);
+
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving events:", error);
@@ -24,84 +25,27 @@ const EventsContent = (slug: any) => {
     if (events === null) {
       fetchEvents();
     }
-    setLoading(false);
   }, []);
-
-  const categories = [
-    {
-      title: "FÚTBOL 11",
-      subtitle: "Veteranos 36",
-      image: "/images/categories/liga1.jpg",
-      competitions: [
-        {
-          title: "FÚTBOl 11 - VETERANOS 36 - 2023",
-          slug: "once_veteranos_36_2023",
-        },
-        {
-          title: "FÚTBOl 11 - VETERANOS 36 - 2022",
-          slug: "once_veteranos_36_2022",
-        },
-        {
-          title: "FÚTBOl 11 - VETERANOS 36 - 2021",
-          slug: "once_veteranos_36_2021",
-        },
-      ],
-    },
-    {
-      title: "FÚTBOL 11",
-      subtitle: "Veteranos 45",
-      image: "/images/categories/liga2.jpg",
-      competitions: [
-        {
-          title: "FÚTBOl 11 - VETERANOS 45 - 2023",
-          slug: "once_veteranos_45_2023",
-        },
-      ],
-    },
-    {
-      title: "FÚTBOL 11",
-      subtitle: "Veteranos 27",
-      image: "/images/categories/liga3.jpg",
-      competitions: [],
-    },
-    {
-      title: "FÚTBOL 7",
-      subtitle: "18 años",
-      image: "/images/categories/liga4.jpg",
-      competitions: [
-        {
-          title: "FÚTBOl 7 - 18 AÑOS - 2023",
-          slug: "siete_18_2023",
-        },
-        {
-          title: "FÚTBOl 7 - 18 AÑOS - 2022",
-          slug: "siete_18_2022",
-        },
-      ],
-    },
-    {
-      title: "FÚTBOL 7",
-      subtitle: "30 años",
-      image: "/images/categories/liga5.jpg",
-      competitions: [
-        {
-          title: "FÚTBOl 7 - 30 AÑOS - 2023",
-          slug: "siete_30_2023",
-        },
-        {
-          title: "FÚTBOl 7 - 30 AÑOS - 2022",
-          slug: "siete_30_2022",
-        },
-        {
-          title: "FÚTBOl 7 - 30 AÑOS - 2021",
-          slug: "siete_30_2021",
-        },
-      ],
-    },
-  ];
 
   return (
     <>
+    {
+      loading && (
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        </div>
+      )
+    }
+    {
+      !loading && !events && (
+        <div className="flex justify-center items-center h-screen">
+          <h1 className="text-2xl text-gray-900">No hay eventos disponibles</h1>
+        </div>
+      )
+    }
+    {
+      !loading && events && (
+        <>
       <MainSection
         title={events?.name ? events.name : "Eventos"}
         image={
@@ -111,9 +55,15 @@ const EventsContent = (slug: any) => {
         }
       />
       <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
-        <ListEvents events={categories} slug={slug}/>
-        {/* <ListEvents events={events.tabTwo.leagues} /> */}
+        {
+          !loading && events?.tabTwo?.leagues && (
+            <ListEvents events={events?.tabTwo?.leagues} slug={slug} />
+          )
+        }
       </section>
+      </>
+      )
+    }
     </>
   );
 };

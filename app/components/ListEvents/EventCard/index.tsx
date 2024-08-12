@@ -4,15 +4,18 @@ import { useRouter } from "next/navigation";
 interface EventCardProps {
   event: any;
   index: number | string;
-  slug: string;
+  slug: any;
 }
 
 const EventCard = ({ event, index, slug }: EventCardProps) => {
   const router = useRouter();
 
+  console.log("slug", slug.slug);
+  console.log("EventCard", event);
+
   const handleNavigate = (id: string) => {
     if (id) {
-      router.push(`/evento/${slug}/${id}`);
+      router.push(`/evento/${slug.slug}/${id}`);
     }
   };
 
@@ -34,18 +37,24 @@ const EventCard = ({ event, index, slug }: EventCardProps) => {
   return (
     <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
       <img
-        src={event?.tabOne?.poster?.url ? event?.tabOne?.poster?.url : "/images/placeholder-liga.png"}
+        src={
+          event?.tabOne?.poster?.url
+            ? event?.tabOne?.poster?.url
+            : "/images/placeholder-liga.png"
+        }
         alt="category-image"
         className="w-full h-80 rounded-lg min-w-80 md:min-w-96"
         // className="w-full h-60 rounded-t-lg"
       />
       {/* <div className="z-10 bottom-0 left-0 right-0 h-28 bg-black text-white p-4 rounded-b-lg text-center"> */}
       <div className="absolute z-10 bottom-0 left-0 right-0 h-28 bg-black bg-opacity-50 backdrop-blur text-white p-4 rounded-b-lg text-center">
-        <h1 className="text-2xl font-semibold">FÚTBOL {event?.tabOne?.formato}</h1>
+        <h1 className="text-2xl font-semibold">
+          FÚTBOL {event?.tabOne?.formato}
+        </h1>
         <div className="border-t border-gray-300 my-1" />
         <p className="text-xl font-semibold">{event?.name}</p>
         <div className="flex">
-          {event.competitions.length > 1 && (
+          {/* {event.competitions.length > 1 && (
             <div className="relative mt-2 w-full">
               <button
                 type="button"
@@ -108,6 +117,22 @@ const EventCard = ({ event, index, slug }: EventCardProps) => {
             </button>
           )}
           {event.competitions.length === 0 && (
+            <button
+              onClick={() => handleNavigate(event.id)}
+              className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 w-full cursor-default"
+            >
+              SIN LIGAS
+            </button>
+          )} */}
+          {event?.name && (
+            <button
+              onClick={() => handleNavigate(event.id)}
+              className="bg-primary hover-bg-primary-dark text-white px-4 py-2 rounded-md mt-2 w-full cursor-pointer"
+            >
+              {event?.name}
+            </button>
+          )}
+          {!event.name && (
             <button
               onClick={() => handleNavigate(event.id)}
               className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 w-full cursor-default"

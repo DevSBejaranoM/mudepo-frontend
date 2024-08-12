@@ -2,7 +2,7 @@ import EventCard from "./EventCard";
 
 interface ListEventsProps {
   events: any;
-  slug: string;
+  slug: any;
 }
 
 const ListEvents = ({ events, slug }: ListEventsProps) => {

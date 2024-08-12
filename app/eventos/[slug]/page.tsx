@@ -8,7 +8,7 @@ const fetchEvent = async (slug: string): Promise<Event | null> => {
   return { slug };
 };
 
-const EventsPage = async ({ params }: { params: { slug: string } }) => {
+const EventsPage = async ({ params }: { params: { slug: any } }) => {
   const slug = await fetchEvent(params.slug);
 
   if (!slug) {
@@ -17,7 +17,7 @@ const EventsPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <EventsContent slug={slug} />
+      <EventsContent slug={slug.slug} />
     </div>
   );
 };
