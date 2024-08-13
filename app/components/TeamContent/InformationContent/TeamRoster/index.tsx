@@ -13,7 +13,7 @@ interface TeamRosterProps {
 const TeamRoster = ({players, team}: TeamRosterProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-bold mb-4">{team} Plantilla</h3>
+      <h3 className="text-lg font-bold mb-4">{team} - Plantilla</h3>
       <table className="w-full text-left">
         <thead>
           <tr>

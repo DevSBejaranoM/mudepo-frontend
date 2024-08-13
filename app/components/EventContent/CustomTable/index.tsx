@@ -103,9 +103,10 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
                   <td className="text-center py-2 pl-5">{team.position}</td>
                   <td className="text-center py-2 px-5">
                     <img
-                      src={team.logo}
+                      src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
                       alt={team.name}
                       className="w-8 h-8 mx-auto cursor-pointer"
+                      style={{ objectFit: "contain" }}
                       onClick={()=> router.push(`/team/${team.id}`)}
                     />
                   </td>
@@ -205,11 +206,11 @@ const CustomTable = ({ data, type, journey, setSelectedInfo = ()=>{} }: TablePro
                           width={25}
                           fill="#000000"
                         >
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                           <g
                             id="SVGRepo_tracerCarrier"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           ></g>
                           <g id="SVGRepo_iconCarrier">
                             {" "}

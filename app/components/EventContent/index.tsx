@@ -22,7 +22,6 @@ const EventContent = ({ eventId }: EventContentProps) => {
   const fetchEvents = async () => {
     try {
       const data = await axiosAdapter.fetchData(`/leagues/${eventId}`);
-      console.log("Events", data);
       setEvent(data);
 
       setLoading(false);
@@ -63,7 +62,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
                   {event?.name ? event.name : "Evento"}
                 </h2>
               </div>
-              {category === "EQUIPOS" && <Teams />}
+              {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
               {category === "CLASIFICACIÓN" && <Classification />}
               {category === "CALENDARIO" && <Calendar />}
               {category === "ESTADÍSTICAS" && <Statistics />}

@@ -1,3 +1,4 @@
+import { use, useEffect } from "react";
 import TitleDescription from "../../HomeContent/TitleDescription";
 import MatchList from "./MatchList";
 import NextMatchList from "./NextMatchList";
@@ -5,32 +6,54 @@ import TeamHistory from "./TeamHistory";
 import TeamInfo from "./TeamInfo";
 import TeamRoster from "./TeamRoster";
 
-const InformationContent = () => {
+const InformationContent = ({ dataTeam }: any) => {
+  console.log("dataTeam", dataTeam);
 
+  const getEdad = (date: string) => {
+    const today = new Date();
+    const birthDate = new Date(date);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  // TeamInfo
   const team = {
-    name: "Tamaraceite Veteranos",
-    logo: "/images/team/tamaraceite.png",
+    name: dataTeam?.name,
+    logo: dataTeam?.tabOne?.poster?.url,
     foundation: "1902",
-    coach: "Carlo Ancelotti",
-    stadium: "Santiago Bernabéu",
-    league: "La Liga",
-    location: "Madrid, España",
+    president: dataTeam?.tabOne?.presidente?.name,
+    stadium: dataTeam?.tabFive?.terrenodejuego?.name,
+    league: dataTeam?.tabOne?.leagues
+      .map((league: any) => league.name)
+      .join(", "),
+    location: dataTeam?.tabFive?.terrenodejuego?.location,
   };
 
-  const playersTeam = [
-    { number: 1, name: 'Thibaut Courtois', position: 'ARQ', age: 32 },
-    { number: 13, name: 'Andriy Lunin', position: 'ARQ', age: 25},
-    { number: 4, name: 'David Alaba', position: 'D(C)', age: 32 },
-  ];
+  // TeamRoster
+  const playersTeam = dataTeam?.tabTwo?.players.map((player: any) => ({
+    number: player.dorsal,
+    name: `${player.name} ${player.lastname || ""}`,
+    position: player.roles.map((role: any) => role).join(", "),
+    age: getEdad(player.birthdate) || "",
+  }));
 
   const historyTeam = [
-    { competition: 'La Liga', titles: 36 },
-    { competition: 'UEFA Champions League', titles: 15 },
-    { competition: 'Supercopa de España', titles: 11 },
+    { competition: "La Liga", titles: 36 },
+    { competition: "UEFA Champions League", titles: 15 },
+    { competition: "Supercopa de España", titles: 11 },
   ];
 
   const matches = [
-    { date: "2024-01-15", opponent: "FC Barcelona", result: "3-1", isHome: true },
+    {
+      date: "2024-01-15",
+      opponent: "FC Barcelona",
+      result: "3-1",
+      isHome: true,
+    },
     {
       date: "2024-01-22",
       opponent: "Atlético Madrid",
@@ -47,7 +70,6 @@ const InformationContent = () => {
       isHome: false,
     },
   ];
-  
 
   return (
     <div>
@@ -59,10 +81,10 @@ const InformationContent = () => {
       <div className="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
           <TeamInfo {...team} />
-          <TeamRoster players={playersTeam} team={team.name} />
+          <TeamRoster players={playersTeam} team={dataTeam?.name} />
         </div>
         <div>
-          <TeamHistory history={historyTeam} team={team.name}/>
+          {/* <TeamHistory history={historyTeam} team={dataTeam?.name} /> */}
           <NextMatchList matches={nextMatches} />
         </div>
         <div className="lg:col-span-2">

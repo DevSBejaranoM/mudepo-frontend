@@ -11,7 +11,7 @@ interface TeamHistoryProps {
 const TeamHistory = ({history, team}: TeamHistoryProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md mb-4">
-      <h3 className="text-lg font-bold mb-4">{team} Historia del Equipo</h3>
+      <h3 className="text-lg font-bold mb-4">{team} - Historia del Equipo</h3>
       <table className="w-full text-left">
         <thead>
           <tr>

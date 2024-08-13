@@ -22,7 +22,7 @@ const TeamPage = async ({ params }: { params: { id: string } }) => {
       {/* <MainSection image={"/images/header-background.jpg"} title={team.id} /> */}
       <CustomTab options={["Inicio", "Formación"]} />
       <section className="mx-auto my-10 p-4 lg:h-auto items-center justify-center">
-        <TeamContent />
+        <TeamContent teamId={team.id}/>
       </section>
     </div>
   );
