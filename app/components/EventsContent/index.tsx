@@ -49,7 +49,7 @@ const EventsContent = (slug: any) => {
         title={events?.name ? events.name : "Eventos"}
         image={
           events?.tabOne?.portada?.url
-            ? events?.tabOne?.portada?.url
+            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${events?.tabOne?.portada?.url}`
             : "/images/header-background.jpg"
         }
       />

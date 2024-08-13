@@ -10,11 +10,11 @@ import NavCategories from "../NavCategories";
 import { useEffect, useState } from "react";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 
-interface CategoryContentProps {
+interface EventContentProps {
   eventId: string;
 }
 
-const CategoryContent = ({ eventId }: CategoryContentProps) => {
+const EventContent = ({ eventId }: EventContentProps) => {
   const category = useCategoryStore((state) => state.category);
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +48,9 @@ const CategoryContent = ({ eventId }: CategoryContentProps) => {
       {!loading && (
         <>
           <MainSection
-            image={"/images/header-background.jpg"}
+            image={event?.tabOne?.poster?.url
+              ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
+              : "/images/header-background.jpg"}
             title={event?.name ? event.name : "Evento"}
           />
           <NavCategories />
@@ -76,4 +78,4 @@ const CategoryContent = ({ eventId }: CategoryContentProps) => {
   );
 };
 
-export default CategoryContent;
+export default EventContent;
