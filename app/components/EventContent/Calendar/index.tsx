@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
 
 interface CalendarInfo {
@@ -7,8 +8,20 @@ interface CalendarInfo {
   hora: string;
 }
 
-const Calendar = () => {
+interface Calendar {
+  id?: number;
+  local?: string;
+  visitante?: string;
+  logoLocal?: string;
+  logoVisitante?: string;
+  localGoals?: number;
+  visitanteGoals?: number;
+  info?: CalendarInfo;
+}
+
+const Calendar = ({ data }: any) => {
   const [selectedInfo, setSelectedInfo] = useState<null | CalendarInfo>(null);
+  const [journey, setJourney] = useState(null);
 
   const journeyList = [
     [
@@ -408,6 +421,28 @@ const Calendar = () => {
       },
     ],
   ];
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      // setJourney(
+      //   data.map((journey: any) => ({
+      //     id: journey.value.id,
+      //     phases: journey.value.tabFour.fases,
+      //     groups: journey.visitante.name,
+      //     logoLocal: journey.local.logo.url,
+      //     logoVisitante: journey.visitante.logo.url,
+      //     localGoals: journey.local_goals,
+      //     visitanteGoals: journey.visitante_goals,
+      //     info: {
+      //       lugar: journey.lugar,
+      //       fecha: journey.fecha,
+      //       hora: journey.hora,
+      //     },
+      //   }))
+      // );
+    }
+  }, []);
 
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3">

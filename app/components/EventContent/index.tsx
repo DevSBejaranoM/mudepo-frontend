@@ -64,7 +64,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
               </div>
               {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
               {category === "CLASIFICACIÓN" && <Classification />}
-              {category === "CALENDARIO" && <Calendar />}
+              {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>}
               {category === "ESTADÍSTICAS" && <Statistics />}
               <BannerPartner
                 imageUrl="/images/header-background.jpg"
