@@ -36,11 +36,11 @@ const EventCard = ({ event, index, eventName }: EventCardProps) => {
       <img
         src={
           event?.tabOne?.poster?.url
-            ? event?.tabOne?.poster?.url
+            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
             : "/images/placeholder-liga.png"
         }
         alt="category-image"
-        className="w-full h-80 rounded-lg min-w-80 md:min-w-96"
+        className="w-full h-80 rounded-lg min-w-80 md:min-w-96 object-scale-down"
         // className="w-full h-60 rounded-t-lg"
       />
       {/* <div className="z-10 bottom-0 left-0 right-0 h-28 bg-black text-white p-4 rounded-b-lg text-center"> */}
