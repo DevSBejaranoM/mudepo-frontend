@@ -10,14 +10,13 @@ const EventsContent = (slug: any) => {
 
   const fetchEvents = async () => {
     try {
-      const data = await axiosAdapter.fetchData("/events");
-    //   const data = await axiosAdapter.fetchData(`/events/${slug}`);
-      setEvents(data.docs[0]);
-      console.log("Events", data.docs[0]);
+      const data = await axiosAdapter.fetchData(`/events/${slug.slug}`);
+      setEvents(data);
 
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving events:", error);
+      setLoading(false);
     }
   };
 
@@ -57,7 +56,7 @@ const EventsContent = (slug: any) => {
       <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
         {
           !loading && events?.tabTwo?.leagues && (
-            <ListEvents events={events?.tabTwo?.leagues} slug={slug} />
+            <ListEvents events={events?.tabTwo?.leagues} slug={slug} eventName={events?.name} />
           )
         }
       </section>

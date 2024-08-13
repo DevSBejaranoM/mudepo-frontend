@@ -4,20 +4,24 @@ interface Event {
   id: string;
 }
 
-const fetchEvent = async (id: string): Promise<Event | null> => {
-  return { id };
+const fetchEvent = async (slug: string, id: string): Promise<Event | null> => {
+  return { id: id };
 };
 
-const EventPage = async ({ params }: { params: { id: string } }) => {
-  const category = await fetchEvent(params.id);
+const EventPage = async ({
+  params,
+}: {
+  params: { slug: string; id: string };
+}) => {
+  const event = await fetchEvent(params.slug, params.id);
 
-  if (!category) {
-    return <div className="text-center mt-10">Evento no encontrado</div>;
+  if (!event) {
+    return <div className="text-center mt-10">Liga no encontrado</div>;
   }
 
   return (
     <div>
-      <EventContent eventId={category.id} />
+      <EventContent eventId={event.id}/>
     </div>
   );
 };

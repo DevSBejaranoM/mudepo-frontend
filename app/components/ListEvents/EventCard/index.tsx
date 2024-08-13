@@ -4,18 +4,15 @@ import { useRouter } from "next/navigation";
 interface EventCardProps {
   event: any;
   index: number | string;
-  slug: any;
+  eventName: string;
 }
 
-const EventCard = ({ event, index, slug }: EventCardProps) => {
+const EventCard = ({ event, index, eventName }: EventCardProps) => {
   const router = useRouter();
-
-  console.log("slug", slug.slug);
-  console.log("EventCard", event);
 
   const handleNavigate = (id: string) => {
     if (id) {
-      router.push(`/evento/${slug.slug}/${id}`);
+      router.push(`/evento/${eventName.toLowerCase().replaceAll(" ", "-")}/${id}`);
     }
   };
 
