@@ -28,7 +28,7 @@ const TeamInfo = ({
         />
         <div>
           <h2 className="text-xl font-bold">{name}</h2>
-          <p className="text-gray-600">Fundado en {foundation}</p>
+          {/* <p className="text-gray-600">Fundado en {foundation}</p> */}
         </div>
       </div>
       <p>
