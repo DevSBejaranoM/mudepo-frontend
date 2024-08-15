@@ -3,426 +3,10 @@ import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
 import Loader from "../../Loader";
 
-interface CalendarInfo {
-  lugar: string;
-  fecha: string;
-  hora: string;
-}
-
-interface Calendar {
-  id?: number;
-  local?: string;
-  visitante?: string;
-  logoLocal?: string;
-  logoVisitante?: string;
-  localGoals?: number;
-  visitanteGoals?: number;
-  info?: CalendarInfo;
-}
-
 const Calendar = ({ data }: any) => {
-  const [selectedInfo, setSelectedInfo] = useState<null | CalendarInfo>(null);
+  const [selectedInfo, setSelectedInfo] = useState<any>(null);
   const [days, setDays] = useState<any>(null);
-
-  const journeyList = [
-    [
-      {
-        id: 1,
-        name: "1",
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-    [
-      {
-        id: 1,
-        local: "Tamaraceite Veteranos",
-        visitante: "Veteranos Tejeda C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 4,
-        info: {
-          lugar: "Juan Guedes",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 2,
-        local: "Veterano Led Bee Happy",
-        visitante: "Los Cernícalos C.F.",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 6,
-        visitanteGoals: 0,
-        info: {
-          lugar: "Pedro Hidalgo",
-          fecha: "11/10/2023",
-          hora: "21:30",
-        },
-      },
-      {
-        id: 3,
-        local: "F.C. Guanarteme Veterano",
-        visitante: "PLAYA DEL HOMBRE	",
-        logoLocal: "/images/team/tamaraceite.png",
-        logoVisitante: "/images/team/veterano-tejeda.jpg",
-        localGoals: 5,
-        visitanteGoals: 1,
-        info: {
-          lugar: " Las Torres",
-          fecha: "13/10/2023",
-          hora: "21:30",
-        },
-      },
-    ],
-  ];
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (data) {
@@ -1212,24 +796,39 @@ const Calendar = ({ data }: any) => {
           ],
         },
       ];
+      console.log(jornadas.length);
       setDays(jornadas);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   }, []);
 
   return (
-    <div className="mt-10 grid grid-cols-1 lg:grid-cols-2  2xl:grid-cols-3">
-      {!days ? (
-        <Loader />
-      ) : (
-        days.map((day: any, index: number) => (
-          <CustomTable
-            key={index}
-            data={day}
-            type="calendar"
-            journey={day.name}
-            setSelectedInfo={setSelectedInfo}
-          />
-        ))
+    <>
+      {!days && loading && <Loader />}
+      {!days && !loading && (
+        <div className="flex justify-center my-5 text-center w-full">
+          <h3 className="text-4xl font-bold">No hay partidos disponibles</h3>
+        </div>
+      )}
+      {days && days.length === 0 && !loading && (
+        <div className="flex justify-center my-5 text-center w-full">
+          <h3 className="text-4xl font-bold">No hay partidos disponibles</h3>
+        </div>
+      )}
+      {days && days.length > 0 && !loading && (
+        <div className={`mt-10 grid grid-cols-1 ${days.length === 2 ? 'lg:grid-cols-2 2xl:grid-cols-2' : days.length > 2 ? 'lg:grid-cols-2 2xl:grid-cols-3' : ''}`}>
+          {days.map((day: any, index: number) => (
+            <CustomTable
+              key={index}
+              data={day}
+              type="calendar"
+              journey={day.name}
+              setSelectedInfo={setSelectedInfo}
+            />
+          ))}
+        </div>
       )}
       {selectedInfo && (
         <div
@@ -1266,7 +865,7 @@ const Calendar = ({ data }: any) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default Calendar;
