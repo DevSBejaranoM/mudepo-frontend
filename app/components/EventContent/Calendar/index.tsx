@@ -796,7 +796,6 @@ const Calendar = ({ data }: any) => {
           ],
         },
       ];
-      console.log(jornadas.length);
       setDays(jornadas);
       setLoading(false);
     } else {
