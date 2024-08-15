@@ -221,11 +221,10 @@ const CustomTable = ({
           }
         };
 
-        const numberToLetter = (num: number)=> {
+        const numberToLetter = (num: number) => {
           const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
           return alphabet[num] || "";
-      }
-      
+        };
 
         return (
           <>
@@ -335,22 +334,23 @@ const CustomTable = ({
                           aria-labelledby="listbox-grupo-label"
                           aria-activedescendant="listbox-grupo-option-3"
                         >
-                          {
-                            data?.fases[phaseSelected]?.grupos.map(
-                              (grupo: any, index: number) => (
-                                <li
-                                  key={index}
-                                  className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
-                                  role="option"
-                                  onClick={() =>
-                                    handleChangeGroup(index, "listbox-grupo-option")
-                                  }
-                                >
-                                  {grupo.name}
-                                </li>
-                              )
+                          {data?.fases[phaseSelected]?.grupos.map(
+                            (grupo: any, index: number) => (
+                              <li
+                                key={index}
+                                className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                                role="option"
+                                onClick={() =>
+                                  handleChangeGroup(
+                                    index,
+                                    "listbox-grupo-option"
+                                  )
+                                }
+                              >
+                                Grupo {numberToLetter(index)}
+                              </li>
                             )
-                          }
+                          )}
                         </ul>
                       </div>
                     </div>
