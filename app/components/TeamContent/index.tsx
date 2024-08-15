@@ -5,6 +5,7 @@ import InformationContent from "./InformationContent";
 import BannerPartner from "../BannerPartner";
 import { useEffect, useState } from "react";
 import { axiosAdapter } from "@/app/config/axios.adapter";
+import Loader from "../Loader";
 
 interface TeamContentProps {
   teamId: string;
@@ -38,9 +39,7 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
       {team === "Inicio" && (
         <>
           {loading && (
-            <div className="flex justify-center items-center h-screen">
-              <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-            </div>
+            <Loader />
           )}
           {!loading && <InformationContent dataTeam={dataTeam} />}
         </>

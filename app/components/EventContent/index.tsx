@@ -9,6 +9,7 @@ import MainSection from "../MainSection";
 import NavCategories from "../NavCategories";
 import { useEffect, useState } from "react";
 import { axiosAdapter } from "@/app/config/axios.adapter";
+import Loader from "../Loader";
 
 interface EventContentProps {
   eventId: string;
@@ -40,9 +41,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
   return (
     <>
       {loading && (
-        <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
+        <Loader />
       )}
       {!loading && (
         <>

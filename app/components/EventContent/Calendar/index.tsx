@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
+import Loader from "../../Loader";
 
 interface CalendarInfo {
   lugar: string;
@@ -21,12 +22,13 @@ interface Calendar {
 
 const Calendar = ({ data }: any) => {
   const [selectedInfo, setSelectedInfo] = useState<null | CalendarInfo>(null);
-  const [journey, setJourney] = useState(null);
+  const [days, setDays] = useState<any>(null);
 
   const journeyList = [
     [
       {
         id: 1,
+        name: "1",
         local: "Tamaraceite Veteranos",
         visitante: "Veteranos Tejeda C.F.",
         logoLocal: "/images/team/tamaraceite.png",
@@ -424,37 +426,811 @@ const Calendar = ({ data }: any) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
-      // setJourney(
-      //   data.map((journey: any) => ({
-      //     id: journey.value.id,
-      //     phases: journey.value.tabFour.fases,
-      //     groups: journey.visitante.name,
-      //     logoLocal: journey.local.logo.url,
-      //     logoVisitante: journey.visitante.logo.url,
-      //     localGoals: journey.local_goals,
-      //     visitanteGoals: journey.visitante_goals,
-      //     info: {
-      //       lugar: journey.lugar,
-      //       fecha: journey.fecha,
-      //       hora: journey.hora,
-      //     },
-      //   }))
-      // );
+      const jornadas = [
+        {
+          name: "1",
+          startDate: "13/10/2023",
+          endDate: "13/10/2023",
+          id: "jornada1",
+          fases: [
+            {
+              name: "Fase 1",
+              id: "fase1Jornada1",
+              grupos: [
+                {
+                  name: "Grupo A",
+                  id: "grupoAJornada1",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/11/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/15/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/12/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo B",
+                  id: "grupoBJornada1",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase1GrupoB",
+                      localGoals: 1,
+                      visitanteGoals: 1,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase1GrupoB",
+                      localGoals: 2,
+                      visitanteGoals: 2,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase1GrupoB",
+                      localGoals: 3,
+                      visitanteGoals: 3,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P1 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P1 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase1GrupoB",
+                      localGoals: 4,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo C",
+                  id: "grupoCJornada1",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Fase 2",
+              id: "fase2Jornada1",
+              grupos: [
+                {
+                  name: "Grupo A",
+                  id: "grupoAJornada1Fase2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veterano J1 P2 GAs",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GA",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GA",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo B",
+                  id: "grupoBJornada1",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase2GrupoB",
+                      localGoals: 1,
+                      visitanteGoals: 1,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase2GrupoB",
+                      localGoals: 2,
+                      visitanteGoals: 2,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase2GrupoB",
+                      localGoals: 3,
+                      visitanteGoals: 3,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos J1 P2 GB",
+                      teamVisitante: "Veteranos Tejeda C.F. J1 P2 GB",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase2GrupoB",
+                      localGoals: 4,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo C",
+                  id: "grupoCJornada1",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada1Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada1Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada1Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada1Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "2",
+          startDate: "13/10/2023",
+          endDate: "13/10/2023",
+          id: "jornada2",
+          fases: [
+            {
+              name: "Fase 1",
+              id: "fase1Jornada2",
+              grupos: [
+                {
+                  name: "Grupo A",
+                  id: "grupoAJornada2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase1GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo B",
+                  id: "grupoBJornada2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase1GrupoB",
+                      localGoals: 1,
+                      visitanteGoals: 1,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase1GrupoB",
+                      localGoals: 2,
+                      visitanteGoals: 2,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase1GrupoB",
+                      localGoals: 3,
+                      visitanteGoals: 3,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase1GrupoB",
+                      localGoals: 4,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo C",
+                  id: "grupoCJornada2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase1GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Fase 2",
+              id: "fase2Jornada2",
+              grupos: [
+                {
+                  name: "Grupo A",
+                  id: "grupoAJornada2Fase2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase2GrupoA",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo B",
+                  id: "grupoBJornada2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase2GrupoB",
+                      localGoals: 1,
+                      visitanteGoals: 1,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase2GrupoB",
+                      localGoals: 2,
+                      visitanteGoals: 2,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase2GrupoB",
+                      localGoals: 3,
+                      visitanteGoals: 3,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase2GrupoB",
+                      localGoals: 4,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: "Grupo C",
+                  id: "grupoCJornada2",
+                  partidos: [
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido1Jornada2Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido2Jornada2Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido3Jornada2Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                    {
+                      teamLocal: "Tamaraceite Veteranos",
+                      teamVisitante: "Veteranos Tejeda C.F.",
+                      logoLocal: "/images/team/tamaraceite.png",
+                      logoVisitante: "/images/team/veterano-tejeda.jpg",
+                      id: "partido4Jornada2Fase2GrupoC",
+                      localGoals: 6,
+                      visitanteGoals: 4,
+                      info: {
+                        lugar: "Juan Guedes",
+                        fecha: "13/10/2023",
+                        hora: "21:30",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      setDays(jornadas);
     }
   }, []);
 
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3">
-      {journeyList.map((journey, index) => (
-        <CustomTable
-          key={index}
-          data={journey}
-          type="calendar"
-          journey={index + 1}
-          setSelectedInfo={setSelectedInfo}
-        />
-      ))}
+      {!days ? (
+        <Loader />
+      ) : (
+        days.map((day: any, index: number) => (
+          <CustomTable
+            key={index}
+            data={day}
+            type="calendar"
+            journey={day.name}
+            setSelectedInfo={setSelectedInfo}
+          />
+        ))
+      )}
       {selectedInfo && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
           <div className="bg-white p-6 rounded-md min-w-[20%]">

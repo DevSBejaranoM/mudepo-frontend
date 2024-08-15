@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ListEvents from "../ListEvents";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 import MainSection from "../MainSection";
+import Loader from "../Loader";
 
 const EventsContent = (slug: any) => {
   const [events, setEvents] = useState<any>(null);
@@ -30,9 +31,7 @@ const EventsContent = (slug: any) => {
     <>
     {
       loading && (
-        <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
+        <Loader />
       )
     }
     {

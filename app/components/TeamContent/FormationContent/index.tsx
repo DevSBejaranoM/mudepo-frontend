@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import PlayerCarousel from "./PlayerCarousel";
+import Loader from "../../Loader";
 
 const FormationContent = ({ dataPlayers }: any) => {
   console.log("dataPlayers", dataPlayers);
@@ -30,9 +31,7 @@ const FormationContent = ({ dataPlayers }: any) => {
   return (
     <div className="mx-auto p-4">
       {!players && (
-        <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
+        <Loader />
       )}
       {players && (
         <>

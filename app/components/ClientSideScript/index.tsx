@@ -10,6 +10,7 @@ const ClientSideScript: React.FC = () => {
     script.onload = () => {
       if (window.PDCookieConsent) {
         window.PDCookieConsent.config({
+          defaultLang: "es",
           brand: {
             dev: true,
             name: "DATA5",
@@ -17,8 +18,13 @@ const ClientSideScript: React.FC = () => {
             websiteOwner: "",
           },
           showRejectButton: true,
-          cookiePolicyLink: "https://mudepo-frontend.vercel.app/politica-de-cookies",
-          hideModalIn: ["https://mudepo-frontend.vercel.app/politica-de-cookies",],
+          cookiePolicyLink:
+            "https://mudepo-frontend.vercel.app/politica-de-cookies",
+          hideModalIn: [
+            "https://mudepo-frontend.vercel.app/politica-de-cookies",
+            "https://mudepo-frontend.vercel.app/politica-de-privacidad",
+            "https://mudepo-frontend.vercel.app/aviso-legal",
+          ],
           styles: {
             primaryButton: {
               bgColor: "#EEEEEE",
@@ -34,6 +40,20 @@ const ClientSideScript: React.FC = () => {
             },
           },
         });
+        // window.PDCookieConsent.blockList([
+        //   {
+        //     domain: "google.com/recaptcha",
+        //     name: "Google reCaptcha",
+        //     report: true,
+        //   },
+        //   {
+        //     contain: "gstatic",
+        //     name: "Nombre Grupo",
+        //     actived: true,
+        //     editable: false,
+        //     visible: false,
+        //   },
+        // ]);
       }
     };
 
