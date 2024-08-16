@@ -63,9 +63,24 @@ const ContactForm = () => {
     }
   };
 
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    // Aquí puedes manejar el envío del formulario, como enviarlo a tu backend
+  const onSubmit = async(formData: IFormInput) => {
+    const data = {
+      data: formData
+    }
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(data),
+    };
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, requestOptions);
+    const dataResponse = await response.json();
+    console.log(dataResponse);
+    
+    if (dataResponse) {
+      alert("Formulario enviado correctamente");
+    } else {
+      alert("Ha ocurrido un error, por favor intenta de nuevo");
+    }
   };
 
   return (
