@@ -74,9 +74,8 @@ const ContactForm = () => {
     };
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, requestOptions);
     const dataResponse = await response.json();
-    console.log(dataResponse);
     
-    if (dataResponse) {
+    if (dataResponse && !dataResponse.errors) {
       alert("Formulario enviado correctamente");
     } else {
       alert("Ha ocurrido un error, por favor intenta de nuevo");
