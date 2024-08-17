@@ -250,7 +250,7 @@ const CustomTable = ({
                           aria-expanded="true"
                           aria-labelledby="listbox-fase-label"
                           onClick={() =>
-                            openListAndClose("listbox-fase-option")
+                            openListAndClose(`listbox-fase-option-${journey}`)
                           }
                         >
                           <span className="flex items-center justify-center">
@@ -276,7 +276,7 @@ const CustomTable = ({
                         <ul
                           className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
                           role="listbox"
-                          id="listbox-fase-option"
+                          id={`listbox-fase-option-${journey}`}
                           aria-labelledby="listbox-fase-label"
                           aria-activedescendant="listbox-fase-option-3"
                         >
@@ -286,7 +286,10 @@ const CustomTable = ({
                               className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
                               role="option"
                               onClick={() =>
-                                handleChangePhase(index, "listbox-fase-option")
+                                handleChangePhase(
+                                  index,
+                                  `listbox-fase-option-${journey}`
+                                )
                               }
                             >
                               {fase.name}
@@ -304,7 +307,7 @@ const CustomTable = ({
                           aria-expanded="true"
                           aria-labelledby="listbox-grupo-label"
                           onClick={() =>
-                            openListAndClose("listbox-grupo-option")
+                            openListAndClose(`listbox-grupo-option-${journey}`)
                           }
                         >
                           <span className="flex items-center justify-center">
@@ -330,7 +333,7 @@ const CustomTable = ({
                         <ul
                           className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
                           role="listbox"
-                          id="listbox-grupo-option"
+                          id={`listbox-grupo-option-${journey}`}
                           aria-labelledby="listbox-grupo-label"
                           aria-activedescendant="listbox-grupo-option-3"
                         >
@@ -343,7 +346,7 @@ const CustomTable = ({
                                 onClick={() =>
                                   handleChangeGroup(
                                     index,
-                                    "listbox-grupo-option"
+                                    `listbox-grupo-option-${journey}`
                                   )
                                 }
                               >
