@@ -27,11 +27,11 @@ const InfoImagesSection = ({
         <div className="flex flex-wrap md:flex-nowrap flex-row -mx-4 justify-center">
           <div className="flex-shrink max-w-full px-4 w-3/3 sm:w-1/2 md:w-8/12 lg:w-3/4">
             <div
-              className="relative overflow-hidden bg-white mb-12 hover-grayscale-0 wow fadeInUp"
+              className="relative overflow-hidden bg-white mb-12 hover-grayscale-0 wow fadeInUpr"
               data-wow-duration="1s"
             >
-              <div className="relative overflow-hidden">
-                <img src={image1} alt="title image" className="h-64 w-full rounded-3xl" />
+              <div className="relative overflow-hidden rounded-full h-72 min-w-72 mx-auto shadow-lg">
+                <img src={image1} alt="title image" className="h-72 w-72" />
               </div>
               {
                 title1 && (
@@ -57,8 +57,8 @@ const InfoImagesSection = ({
               data-wow-duration="1s"
               data-wow-delay=".1s"
             >
-              <div className="relative overflow-hidden">
-                <img src={image2} alt="title image" className="h-64 w-full rounded-3xl"/>
+              <div className="relative overflow-hidden rounded-full h-72 max-w-72 mx-auto shadow-lg">
+                <img src={image2} alt="title image" className="h-72 max-w-72"/>
               </div>
               {
                 title2 && (
@@ -84,8 +84,8 @@ const InfoImagesSection = ({
               data-wow-duration="1s"
               data-wow-delay=".3s"
             >
-              <div className="relative overflow-hidden">
-                <img src={image3} alt="title image" className="h-64 w-full rounded-3xl" />
+              <div className="relative overflow-hidden rounded-full h-72 max-w-72 mx-auto shadow-lg">
+                <img src={image3} alt="title image" className="h-72 max-w-72" />
               </div>
               {
                 title3 && (
