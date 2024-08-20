@@ -56,7 +56,7 @@ const AudienceSection: React.FC<AudienceSectionProps> = ({
           <img
             src={managementTool.imageUrl}
             alt={managementTool.label}
-            className="h-full w-auto"
+            className="h-full w-auto shadow-lg rounded-lg"
           />
         </div>
         {/* <div className="flex items-center space-x-2">

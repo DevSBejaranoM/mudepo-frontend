@@ -46,7 +46,7 @@ const FeatureSection = ({
         )}
       </div>
       <div className="md:w-1/2 p-6 md:flex md:justify-center">
-        <img src={imageUrl} alt="Feature image" className="md:max-h-96" />
+        <img src={imageUrl} alt="Feature image" className="md:max-h-96 rounded-lg shadow-lg" />
       </div>
     </div>
   );

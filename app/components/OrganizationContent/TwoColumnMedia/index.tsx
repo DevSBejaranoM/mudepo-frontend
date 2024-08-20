@@ -21,7 +21,7 @@ const TwoColumnMedia: React.FC<TwoColumnMediaProps> = ({
         <img
           src={imageUrl}
           alt="Media Image"
-          className="w-full h-auto object-cover"
+          className="object-cover rounded-lg shadow-lg"
         />
       </div>
       <div className="w-full md:w-1/2 p-4 mt-10">

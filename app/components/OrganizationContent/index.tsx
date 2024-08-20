@@ -8,7 +8,7 @@ const OrganizationContent = () => {
     <div className="container mx-auto">
       <TitleDescription title="¿Cómo funciona MUDEPO?" />
       <TwoColumnMedia
-        imageUrl="/images/home/feature.png"
+        imageUrl="/images/funcionalities/como-funciona-mudepo.jpg"
         videoUrl="https://www.youtube.com/watch?v=DMfaAGQ6e2o"
       />
       <InfoColumnsSection
@@ -19,7 +19,7 @@ const OrganizationContent = () => {
           "Visualiza los datos en tiempo real, ya que todos los usuarios utilizan la misma herramienta conectada.",
           "Para facilitar el acceso, utiliza buscadores y filtros y consulta la información de manera rápida con vistas personalizables.",
         ]}
-        imageUrl="/images/categories/liga5.jpg"
+        imageUrl="/images/funcionalities/consolida-informacion.jpg"
         reverse={false}
       />
       <InfoColumnsSection
@@ -30,7 +30,7 @@ const OrganizationContent = () => {
           "Supervisa la disponibilidad de plazas para cada inscripción. La información está sincronizada para usuarios y administradores, lo que simplifica el proceso de inscripción y su posterior gestión.",
           "Recibe notificaciones para revisar y validar las inscripciones. Accede a toda la información desde la web y la app móvil para administrar en cualquier momento.",
         ]}
-        imageUrl="/images/categories/liga4.jpg"
+        imageUrl="/images/funcionalities/digitaliza-todas-inscripciones.jpg"
         reverse={true}
       />
       <InfoColumnsSection
@@ -41,7 +41,7 @@ const OrganizationContent = () => {
           "Supervisa la disponibilidad de plazas para cada inscripción. La información está sincronizada para usuarios y administradores, lo que simplifica el proceso de inscripción y su posterior gestión.",
           "Recibe notificaciones para revisar y validar las inscripciones. Accede a toda la información desde la web y la app móvil para administrar en cualquier momento.",
         ]}
-        imageUrl="/images/categories/liga4.jpg"
+        imageUrl="/images/funcionalities/administrar-pagos-y-cobros.jpg"
         reverse={false}
       />
       <TitleDescription title="Mudepo/ Administración y gestión / Gestión de usuarios" />
@@ -53,7 +53,7 @@ const OrganizationContent = () => {
           "Estos roles definen el nivel de acceso que cada usuario tiene.",
           "Un usuario puede tener múltiples roles, y también puedes designar un tutor para representar a los usuarios menores de edad.",
         ]}
-        imageUrl="/images/categories/liga5.jpg"
+        imageUrl="/images/funcionalities/administracion-y-gestion.jpg"
         reverse={true}
       />
       <InfoColumnsSection
@@ -63,7 +63,7 @@ const OrganizationContent = () => {
           "Asigna equipos o grupos directamente durante la importación para ahorrar tiempo de manera significativa.",
           "Si no tienes una base de datos o deseas actualizar la información existente, puedes crear formularios de inscripción para que los usuarios ingresen los datos que necesitas almacenar.",
         ]}
-        imageUrl="/images/categories/liga4.jpg"
+        imageUrl="/images/funcionalities/importar-usuarios.jpg"
         reverse={false}
       />
       <InfoColumnsSection
@@ -75,7 +75,7 @@ const OrganizationContent = () => {
           "Además, el control de las sanciones puede no estar actualizado, lo que podría llevar a alineaciones indebidas y sanciones más severas para los clubes en futuros partidos.",
           "Por ello MUDEPO da la posibilidad de digitalizar y obtener en tiempo real la cumplimentación de las actas y documentación arbitral. "
         ]}
-        imageUrl="/images/categories/liga5.jpg"
+        imageUrl="/images/funcionalities/gestion-arbitral.jpg"
         reverse={true}
       />
     </div>

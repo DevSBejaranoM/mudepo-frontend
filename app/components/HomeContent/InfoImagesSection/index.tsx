@@ -31,7 +31,7 @@ const InfoImagesSection = ({
               data-wow-duration="1s"
             >
               <div className="relative overflow-hidden">
-                <img src={image1} alt="title image" />
+                <img src={image1} alt="title image" className="h-64 w-full rounded-3xl" />
               </div>
               {
                 title1 && (
@@ -58,7 +58,7 @@ const InfoImagesSection = ({
               data-wow-delay=".1s"
             >
               <div className="relative overflow-hidden">
-                <img src={image2} alt="title image" />
+                <img src={image2} alt="title image" className="h-64 w-full rounded-3xl"/>
               </div>
               {
                 title2 && (
@@ -85,7 +85,7 @@ const InfoImagesSection = ({
               data-wow-delay=".3s"
             >
               <div className="relative overflow-hidden">
-                <img src={image3} alt="title image" />
+                <img src={image3} alt="title image" className="h-64 w-full rounded-3xl" />
               </div>
               {
                 title3 && (

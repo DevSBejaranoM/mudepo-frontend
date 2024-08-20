@@ -9,23 +9,28 @@ const HomeContent = () => {
   const points = [
     {
       title: "Ahorro de tiempo",
-      description: "Permite realizar las inscripciones de los equipos de forma sencilla. Olvídate de la gestión de los torneos en excel y automatiza la administración de las competiciones.",
+      description:
+        "Permite realizar las inscripciones de los equipos de forma sencilla. Olvídate de la gestión de los torneos en excel y automatiza la administración de las competiciones.",
     },
     {
       title: "Resultados en tiempo real",
-      description: "Seguir cada partido, encuentro y competición al instante, con actualizaciones automáticas que te mantienen al tanto de los últimos resultados, goles marcados, tarjetas y mucho más.",
+      description:
+        "Seguir cada partido, encuentro y competición al instante, con actualizaciones automáticas que te mantienen al tanto de los últimos resultados, goles marcados, tarjetas y mucho más.",
     },
     {
       title: "Mantente conectado",
-      description: "Conecta tu organización y saca el máximo partido a todas nuestras funcionalidades.",
+      description:
+        "Conecta tu organización y saca el máximo partido a todas nuestras funcionalidades.",
     },
     {
       title: "Mejor comunicación para los aficionados",
-      description: "Ofrece una App para mantener tus equipos y aficionados informados en cualquier momento y lugar.",
+      description:
+        "Ofrece una App para mantener tus equipos y aficionados informados en cualquier momento y lugar.",
     },
     {
       title: "Interactúa con el resto de deportistas",
-      description: "Aporta una experiencia inolvidable para todos los participantes de los torneos, permitiéndoles seguir los eventos, categorías, equipos y recibir notificaciones en tiempo real.",
+      description:
+        "Aporta una experiencia inolvidable para todos los participantes de los torneos, permitiéndoles seguir los eventos, categorías, equipos y recibir notificaciones en tiempo real.",
     },
     {
       title: "Destaca los mejores momentos de los eventos",
@@ -34,14 +39,15 @@ const HomeContent = () => {
   ];
 
   return (
-    <div>
-      <TitleDescription
-      textColor="color-primary"
-        title="Bienvenido a MUDEPO"
+    <div className="container mx-auto">
+      <TitleDescription textColor="color-primary" title="Bienvenido a MUDEPO" />
+      {/* <TitleDescription
+        title="¿Por qué elegir MUDEPO para tu club?"/> */}
+      <CustomList
+        points={points}
+        title="¿Por qué elegir MUDEPO para tu club?"
+        center={true}
       />
-      <TitleDescription
-        title="¿Por qué elegir MUDEPO para tu club?"/>
-      <CustomList points={points} />
       <TitleDescription
         title="Lleva a tu organización al máximo nivel con Mudepo"
         description="Te presentamos nuestras funcionalidades"
@@ -56,7 +62,7 @@ const HomeContent = () => {
           "Gestión de usuarios.",
           "Administración y asignación de árbitros.",
         ]}
-        imageUrl="/images/home/feature.png"
+        imageUrl="/images/home/organizacion-y-administracion.jpg"
         buttonLink="/functionalities"
       />
       <FeatureSection
@@ -68,7 +74,7 @@ const HomeContent = () => {
           "Registro de asistencias.",
           "Automatización de los resultados.",
         ]}
-        imageUrl="/images/home/feature.png"
+        imageUrl="/images/home/comunicacion-del-club.jpg"
         buttonLink="/comunication"
         reverse
       />
@@ -80,13 +86,13 @@ const HomeContent = () => {
           "Competiciones de cualquier deporte.",
           "Gestión de partidos/liga/torneo.",
         ]}
-        imageUrl="/images/home/feature.png"
+        imageUrl="/images/home/area-deportiva.jpg"
       />
       <TitleDescription title="¡Descubre el potencial de Mudepo para llevar a su liga deportiva al siguiente nivel de manera eficiente y sencilla!" />
       <InfoImagesSection
-        image1="/images/home/clubes.png"
-        image2="/images/home/torneos.png"
-        image3="/images/home/federaciones.png"
+        image1="/images/home/forma-parte-de-mudepo.jpg"
+        image2="/images/home/entrenamiento.jpg"
+        image3="/images/home/asistencia-tecnica.jpg"
         title1="Forma parte de MUDEPO"
         description1="Nuestro equipo te acompañará en cada etapa del proceso. Desde el registro hasta que MUDEPO opere a su máxima capacidad en tu club."
         title2="Entrenamiento"
@@ -108,7 +114,7 @@ const HomeContent = () => {
         ]}
         managementTool={{
           label: "Herramienta de gestión",
-          imageUrl: "/images/audience/audience-one.png",
+          imageUrl: "/images/home/unifica-toda-tu-comunidad.jpg",
         }}
         webTool={{
           label: "Web personalizada",
