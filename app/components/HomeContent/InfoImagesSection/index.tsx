@@ -30,8 +30,8 @@ const InfoImagesSection = ({
               className="relative overflow-hidden bg-white mb-12 hover-grayscale-0 wow fadeInUpr"
               data-wow-duration="1s"
             >
-              <div className="relative overflow-hidden rounded-full h-72 min-w-72 mx-auto shadow-lg">
-                <img src={image1} alt="title image" className="h-72 w-72" />
+              <div className="relative overflow-hidden rounded-full h-72 min-w-72 max-w-72 mx-auto shadow-lg">
+                <img src={image1} alt="title image" className="h-72 min-w-72 max-w-72" />
               </div>
               {
                 title1 && (
@@ -57,8 +57,8 @@ const InfoImagesSection = ({
               data-wow-duration="1s"
               data-wow-delay=".1s"
             >
-              <div className="relative overflow-hidden rounded-full h-72 max-w-72 mx-auto shadow-lg">
-                <img src={image2} alt="title image" className="h-72 max-w-72"/>
+              <div className="relative overflow-hidden rounded-full h-72 min-w-72 max-w-72 mx-auto shadow-lg">
+                <img src={image2} alt="title image" className="h-72 min-w-72 max-w-72"/>
               </div>
               {
                 title2 && (
@@ -84,8 +84,8 @@ const InfoImagesSection = ({
               data-wow-duration="1s"
               data-wow-delay=".3s"
             >
-              <div className="relative overflow-hidden rounded-full h-72 max-w-72 mx-auto shadow-lg">
-                <img src={image3} alt="title image" className="h-72 max-w-72" />
+              <div className="relative overflow-hidden rounded-full h-72 min-w-72 max-w-72 mx-auto shadow-lg">
+                <img src={image3} alt="title image" className="h-72 min-w-72 max-w-72" />
               </div>
               {
                 title3 && (
