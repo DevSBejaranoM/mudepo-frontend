@@ -11,30 +11,36 @@ const HomeContent = () => {
       title: "Ahorro de tiempo",
       description:
         "Permite realizar las inscripciones de los equipos de forma sencilla. Olvídate de la gestión de los torneos en excel y automatiza la administración de las competiciones.",
+        icon: "/images/home/icons/limite-de-tiempo.png",
     },
     {
       title: "Resultados en tiempo real",
       description:
         "Seguir cada partido, encuentro y competición al instante, con actualizaciones automáticas que te mantienen al tanto de los últimos resultados, goles marcados, tarjetas y mucho más.",
+        icon: "/images/home/icons/resultados.png",
     },
     {
       title: "Mantente conectado",
       description:
         "Conecta tu organización y saca el máximo partido a todas nuestras funcionalidades.",
+        icon: "/images/home/icons/conectado.png",
     },
     {
       title: "Mejor comunicación para los aficionados",
       description:
         "Ofrece una App para mantener tus equipos y aficionados informados en cualquier momento y lugar.",
+        icon: "/images/home/icons/comunicacion.png",
     },
     {
       title: "Interactúa con el resto de deportistas",
       description:
         "Aporta una experiencia inolvidable para todos los participantes de los torneos, permitiéndoles seguir los eventos, categorías, equipos y recibir notificaciones en tiempo real.",
+        icon: "/images/home/icons/visualizacion-interactiva.png",
     },
     {
       title: "Destaca los mejores momentos de los eventos",
       description: "con noticias, fotos, videos…",
+      icon: "/images/home/icons/destaca-momentos.png",
     },
   ];
 

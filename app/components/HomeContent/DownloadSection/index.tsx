@@ -4,7 +4,7 @@ const DownloadSection = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
         <div className="md:w-1/2 flex justify-center md:justify-center">
           <img
-            src="/images/home/home-section.png"
+            src="/images/home/mobil.png"
             alt="Mudepo App"
             className="w-80 h-auto"
           />
