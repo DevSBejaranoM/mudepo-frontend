@@ -9,7 +9,7 @@ const Calendar = ({ data }: any) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (data) {
+    if (true) {
       const jornadas = [
         {
           name: "1",
