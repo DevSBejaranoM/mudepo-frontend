@@ -10,6 +10,7 @@ import NavCategories from "../NavCategories";
 import { useEffect, useState } from "react";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 import Loader from "../Loader";
+import CalendarTwo from "./CalendarTwo";
 
 interface EventContentProps {
   eventId: string;
@@ -24,7 +25,6 @@ const EventContent = ({ eventId }: EventContentProps) => {
     try {
       const data = await axiosAdapter.fetchData(`/leagues/${eventId}`);
       setEvent(data);
-
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving events:", error);
@@ -63,7 +63,8 @@ const EventContent = ({ eventId }: EventContentProps) => {
               </div>
               {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
               {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} />}
-              {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>}
+              {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
+              {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases}/>}
               {category === "ESTADÍSTICAS" && <Statistics />}
               <BannerPartner
                 imageUrl="/images/header-background.jpg"

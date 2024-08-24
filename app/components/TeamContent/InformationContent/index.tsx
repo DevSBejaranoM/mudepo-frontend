@@ -7,7 +7,8 @@ import TeamInfo from "./TeamInfo";
 import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
-  console.log("dataTeam", dataTeam);
+
+  // console.log(dataTeam);
 
   const getEdad = (date: string) => {
     const today = new Date();

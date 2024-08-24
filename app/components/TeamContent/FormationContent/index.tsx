@@ -4,7 +4,6 @@ import PlayerCarousel from "./PlayerCarousel";
 import Loader from "../../Loader";
 
 const FormationContent = ({ dataPlayers }: any) => {
-  console.log("dataPlayers", dataPlayers);
   const [players, setPlayers] = useState<any>(null);
 
   useEffect(() => {
@@ -12,9 +11,10 @@ const FormationContent = ({ dataPlayers }: any) => {
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,
-          image: "/images/team/jugador.webp",
+          image: player.image ? player.image : "",
           number: player.dorsal,
-          name: `${player.name} ${player.lastname || ""}`,
+          name: player.name,
+          lastname: player.lastname,
           position: player.roles.map((role: any) => role).join(", "),
         }))
       );

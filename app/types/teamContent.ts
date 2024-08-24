@@ -3,5 +3,6 @@ export interface Player {
   image: string;
   number: number;
   name: string;
+  lastname: string;
   position: string;
 }
