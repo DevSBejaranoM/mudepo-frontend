@@ -14,6 +14,7 @@ const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 2,
+    initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
