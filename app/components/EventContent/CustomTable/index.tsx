@@ -95,7 +95,7 @@ const CustomTable = ({
               </thead>
               <tbody>
                 {data.map((team: Team, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100 cursor-pointer" onClick={() => router.push(`/team/${team.id}`)}>
+                  <tr key={index} className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20" onClick={() => router.push(`/team/${team.id}`)}>
                     {/* <td className="text-center py-2 pl-5">{team.position}</td> */}
                     <td className="text-center py-2 px-5">
                       <img
