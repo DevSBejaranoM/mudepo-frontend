@@ -8,7 +8,7 @@ import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
 
-  // console.log(dataTeam);
+  console.log(dataTeam);
 
   const getEdad = (date: string) => {
     const today = new Date();
@@ -42,11 +42,11 @@ const InformationContent = ({ dataTeam }: any) => {
     age: getEdad(player.birthdate) || "",
   }));
 
-  const historyTeam = [
-    { competition: "La Liga", titles: 36 },
-    { competition: "UEFA Champions League", titles: 15 },
-    { competition: "Supercopa de España", titles: 11 },
-  ];
+  // const historyTeam = [
+  //   { competition: "La Liga", titles: 36 },
+  //   { competition: "UEFA Champions League", titles: 15 },
+  //   { competition: "Supercopa de España", titles: 11 },
+  // ];
 
   const matches = [
     {
