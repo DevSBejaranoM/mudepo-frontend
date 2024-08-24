@@ -9,10 +9,10 @@ const HomeMainSection = () => {
       className="relative bg-cover bg-center h-screen"
       style={{ backgroundImage: "url('/images/home/home-header-bg.jpg')" }}
     >
-      <div className=" inset-0 bg-black opacity-50"></div>
+      <div className="inset-0 bg-black opacity-20 absolute"></div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
-        <div className="grid grid-cols-1 md:grid-cols-3 space-y-16">
-          <div className="md:col-span-2 md:ml-10 lg:ml-20 mb-40 md:mb-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+          <div className="col-span-1 lg:col-span-2 md:ml-20 mb-10 lg:mb-0 content-center">
             <h1 className="text-4xl lg:text-5xl 2xl:text-6xl md:text-start font-bold">
               Gestión integral de tu campeonato, liga y torneos
             </h1>
@@ -23,27 +23,20 @@ const HomeMainSection = () => {
             </p>
             <div className="mt-8 flex flex-col md:flex-row gap-4 mx-10 md:mx-0">
               <button
-                className="bg-primary hover-bg-primary-dark text-white font-bold py-2 px-4 rounded-full"
+                className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-full"
                 onClick={() => router.push("/#contactForm")}
               >
                 Empieza tu prueba gratuita
               </button>
             </div>
           </div>
-          <div className="hidden md:flex justify-center md:justify-end absolute place-self-center bottom-36 md:place-self-end 2xl:bottom-96">
+          <div className="hidden md:flex justify-center lg:justify-end items-center">
             <img
               src="/images/home/mobil.png"
               alt="Logo"
-              className="w-full h-auto 2xl:h-[700px]"
+              className="max-w-[80%] h-auto lg:max-h-[600px]"
             />
           </div>
-             {/* <div className="hidden md:flex justify-center md:justify-end absolute place-self-center bottom-36 md:place-self-end lg:right-36 2xl:right-20 2xl:bottom-96">
-            <img
-              src="/images/home/mobil.png"
-              alt="Logo"
-              className="w-48 lg:w-[40%]"
-            />
-          </div> */}
         </div>
       </div>
     </header>
