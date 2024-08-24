@@ -10,7 +10,7 @@ interface Team {
   points?: number;
   played?: number;
   won?: number;
-  drawn?: number;
+  draw?: number;
   lost?: number;
   goalsFor?: number;
   goalsAgainst?: number;
@@ -88,22 +88,21 @@ const CustomTable = ({
             <table className="min-w-full bg-white">
               <thead className="bg-gray-300">
                 <tr>
-                  <th className="w-16 py-2 pl-5">POS</th>
+                  {/* <th className="w-16 py-2 pl-5">POS</th> */}
                   <th className="w-16 py-2 px-5">ESC</th>
                   <th className="w-80 py-2 pr-5">EQUIPO</th>
                 </tr>
               </thead>
               <tbody>
                 {data.map((team: Team, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{team.position}</td>
+                  <tr key={index} className="border-t even:bg-gray-100 cursor-pointer" onClick={() => router.push(`/team/${team.id}`)}>
+                    {/* <td className="text-center py-2 pl-5">{team.position}</td> */}
                     <td className="text-center py-2 px-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
                         alt={team.name}
-                        className="w-8 h-8 mx-auto cursor-pointer"
+                        className="w-8 h-8 mx-auto"
                         style={{ objectFit: "contain" }}
-                        onClick={() => router.push(`/team/${team.id}`)}
                       />
                     </td>
                     <td className=" text-center py-2 pr-5">{team.name}</td>
@@ -115,10 +114,11 @@ const CustomTable = ({
         );
       case "classification":
         data = data.sort((a: Team, b: Team) => {
-          if (a.points! > b.points!) return -1;
-          else if (a.points! < b.points!) return 1;
+          if (a.position! > b.position!) return 1;
+          else if (a.position! < b.position!) return -1;
           else return 0;
         });
+        console.log(data);
         return (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white">
@@ -134,7 +134,6 @@ const CustomTable = ({
                   <th className="w-16 py-2 px-5">PP</th>
                   <th className="w-16 py-2 px-5">GF</th>
                   <th className="w-16 py-2 px-5">GC</th>
-                  <th className="w-16 py-2 pr-5">Mod</th>
                 </tr>
               </thead>
               <tbody>
@@ -152,13 +151,12 @@ const CustomTable = ({
                     <td className="text-center py-2 px-5">{team.points}</td>
                     <td className="text-center py-2 px-5">{team.played}</td>
                     <td className="text-center py-2 px-5">{team.won}</td>
-                    <td className="text-center py-2 px-5">{team.drawn}</td>
+                    <td className="text-center py-2 px-5">{team.draw}</td>
                     <td className="text-center py-2 px-5">{team.lost}</td>
                     <td className="text-center py-2 px-5">{team.goalsFor}</td>
                     <td className="text-center py-2 px-5">
                       {team.goalsAgainst}
                     </td>
-                    <td className="text-center py-2 pr-5">{team.modifier}</td>
                   </tr>
                 ))}
               </tbody>

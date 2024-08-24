@@ -34,7 +34,7 @@ const InformationContent = ({ dataTeam }: any) => {
   };
 
   // TeamRoster
-  const playersTeam = dataTeam?.tabTwo?.players.map((player: any) => ({
+  const playersTeam = dataTeam?.tabTwo?.players?.map((player: any) => ({
     number: player.dorsal,
     name: `${player.name} ${player.lastname || ""}`,
     position: player.roles.map((role: any) => role).join(", "),

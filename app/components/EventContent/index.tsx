@@ -50,7 +50,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
               ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
               : "/images/header-background.jpg"}
             title={event?.name ? event.name : "Evento"}
-            bgSize="auto"
+            // bgSize="auto"
           />
           <NavCategories />
           <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
@@ -62,7 +62,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
                 </h2>
               </div>
               {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
-              {category === "CLASIFICACIÓN" && <Classification />}
+              {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} />}
               {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>}
               {category === "ESTADÍSTICAS" && <Statistics />}
               <BannerPartner

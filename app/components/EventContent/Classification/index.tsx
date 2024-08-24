@@ -1,51 +1,45 @@
+import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
 
-const Classification = () => {
-  const dataTeams = [
-    {
-      position: 1,
-      logo: "/images/team/tamaraceite.png",
-      name: "Tamaraceite Veteranos",
-      points: 79,
-      played: 28,
-      won: 26,
-      drawn: 1,
-      lost: 1,
-      goalsFor: 105,
-      goalsAgainst: 34,
-      modifier: 0,
-    },
-    {
-      position: 2,
-      logo: "/images/team/veterano-tejeda.jpg",
-      name: "Veteranos Tejeda C.F.",
-      points: 70,
-      played: 28,
-      won: 23,
-      drawn: 1,
-      lost: 4,
-      goalsFor: 102,
-      goalsAgainst: 31,
-      modifier: 0,
-    },
-    {
-      position: 3,
-      logo: "/images/team/veterano-led-bee.jpg",
-      name: "Veterano Led Bee Happy",
-      points: 62,
-      played: 28,
-      won: 20,
-      drawn: 2,
-      lost: 6,
-      goalsFor: 110,
-      goalsAgainst: 50,
-      modifier: 0,
-    },
-  ];
+interface ClassificationProps {
+  data: any;
+}
+
+const Classification = ({ data }: ClassificationProps) => {
+  const [dataClassification, setDataClassification] = useState<any>(null);
+
+  useEffect(() => {
+    if (data) {
+      const classification = data.map((team: any) => {
+        return {
+          position: team?.value?.position,
+          name: team?.value?.team?.name,
+          logo: team?.value?.team?.tabOne?.poster?.url || "",
+          points: team?.value?.puntos,
+          played: team?.value?.partidos_jugados,
+          won: team?.value?.partidos_ganados,
+          draw: team?.value?.partidos_empatados,
+          lost: team?.value?.partidos_perdidos,
+          goalsFor: team?.value?.goles_favor,
+          goalsAgainst: team?.value?.goles_contra,
+        };
+      });
+      setDataClassification(classification);
+    }
+  }, []);
 
   return (
     <div className="mt-10">
-      <CustomTable data={dataTeams} type="classification" />
+      {
+        dataClassification && dataClassification.length > 0 && (
+          <CustomTable data={dataClassification} type="classification" />
+        )
+      }
+      {
+        dataClassification && dataClassification.length === 0 && (
+          <h2 className="text-2xl text-center font-semibold">Aún no hay clasificación disponible</h2>
+        )
+      }
     </div>
   );
 };

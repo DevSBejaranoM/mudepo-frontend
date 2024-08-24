@@ -24,7 +24,7 @@ const TeamRoster = ({players, team}: TeamRosterProps) => {
           </tr>
         </thead>
         <tbody>
-          {players.map(player => (
+          {players?.map(player => (
             <tr key={player.number}>
               <td className="border-b p-2">{player.number}</td>
               <td className="border-b p-2">{player.name}</td>

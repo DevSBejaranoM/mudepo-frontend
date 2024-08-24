@@ -37,6 +37,13 @@ const HomeMainSection = () => {
               className="w-full h-auto 2xl:h-[700px]"
             />
           </div>
+             {/* <div className="hidden md:flex justify-center md:justify-end absolute place-self-center bottom-36 md:place-self-end lg:right-36 2xl:right-20 2xl:bottom-96">
+            <img
+              src="/images/home/mobil.png"
+              alt="Logo"
+              className="w-48 lg:w-[40%]"
+            />
+          </div> */}
         </div>
       </div>
     </header>
