@@ -11,8 +11,9 @@ const CalendarTwo = ({ data }: any) => {
   const [phaseSelected, setPaheSelected] = useState<number>(0);
   const [dataPhaseSelected, setDataPhaseSelected] = useState<any>(null);
   const [groupSelected, setGroupSelected] = useState<number>(-1);
-  const [firstLoad,setFirstLoad] = useState<boolean>(true);
+  const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [dataFiltered, setDataFiltered] = useState<any>(null);
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
 
   useEffect(() => {
     if (data) {
@@ -41,43 +42,66 @@ const CalendarTwo = ({ data }: any) => {
     idSelect: string,
     firstLoad: boolean = false
   ) => {
+    setIsLoadingData(true);
     const dataPhase = await axiosAdapter.fetchData(
-      `/fases/${firstLoad ? data[index].value : phases[index]?.value}`
+      `/fases/${firstLoad ? data[index].value?.id : phases[index]?.value?.id}`
     );
     setDataPhaseSelected(dataPhase);
     setPaheSelected(index);
     setGroupSelected(-1);
-    handleChangeGroup(-1, `listbox-grupo-option`, dataPhase);
-    // let newData = phases[index]?.grupos[groupSelected]?.partidos;
-    // newData = orderData(newData);
-    // setDataFiltered(newData);
-    openListAndClose(idSelect);
+    handleChangeGroup(-1, `listbox-grupo-option`, dataPhase, true);
+    if (!firstLoad) openListAndClose(idSelect);
   };
 
-  const handleAllGroups = () => {
+  const handleAllGroups = () => {};
 
-};
-
-  const handleChangeGroup = (value: any, idSelect: string, data: any = []) => {
-    setGroupSelected(value);
-    if (value === -1) {
-        console.log("TODOS LOS GRUPOS", data?.tabTwo?.grupos);
-        // const allJourney = [];
-        // if(data?.tabTwo?.grupos){
-        //     data?.tabTwo?.forEach((grupo: any) => {
-        //         console.log("GRUPO", grupo.tabTwo.jornadas);
-        //         grupo?.tabTwo?.jornadas.forEach((jornada: any) => {
-
-        //         });
-        //     });
-        // }
-
-      // se recogen todos los partidos de todos los gruposs
+  const handleChangeGroup = async (
+    index: any,
+    idSelect: string,
+    data: any = [],
+    firstLoad: boolean = false
+  ) => {
+    setIsLoadingData(true);
+    setGroupSelected(index);
+    if (index === -1) {
+      let dataJorney: any = [];
+      data?.tabTwo?.grupos?.map((grupo: any) => {
+        dataJorney = [...dataJorney, ...grupo?.tabTwo?.jornadas];
+      });
+      if (dataJorney.length === 0) {
+        setIsLoadingData(false);
+      } else {
+        const response = await Promise.all(
+          dataJorney.map(async (jornada: any) => {
+            const dataJorney = await axiosAdapter.fetchData(
+              `/jornadas/${jornada.id}`
+            );
+            return dataJorney;
+          })
+        );
+        setIsLoadingData(false);
+        setDataFiltered(response);
+        if (!firstLoad) openListAndClose(idSelect);
+      }
     } else {
-    //   let newData = phases[phaseSelected]?.grupos[value]?.partidos;
-    //   newData = orderData(newData);
-    //   setDataFiltered(newData);
-    //   openListAndClose(idSelect);
+      let dataJorney: any = [];
+      dataJorney = data?.tabTwo?.jornadas;
+      if (dataJorney.length === 0) {
+        setIsLoadingData(false);
+        openListAndClose(idSelect);
+      } else {
+        const response = await Promise.all(
+          dataJorney.map(async (jornada: any) => {
+            const dataJorney = await axiosAdapter.fetchData(
+              `/jornadas/${jornada}`
+            );
+            return dataJorney;
+          })
+        );
+        setIsLoadingData(false);
+        setDataFiltered(response);
+        openListAndClose(idSelect);
+      }
     }
   };
 
@@ -213,29 +237,45 @@ const CalendarTwo = ({ data }: any) => {
                     className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
                     role="option"
                     onClick={() =>
-                      handleChangeGroup(-1, `listbox-grupo-option`)
+                      handleChangeGroup(
+                        -1,
+                        `listbox-grupo-option`,
+                        dataPhaseSelected
+                      )
                     }
                   >
                     Todos los grupos
                   </li>
-                  {/* {phases[phaseSelected]?.grupos.map(
+                  {phases[phaseSelected]?.value?.tabTwo?.grupos?.map(
                     (grupo: any, index: number) => (
                       <li
                         key={index}
                         className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
                         role="option"
                         onClick={() =>
-                          handleChangeGroup(index, `listbox-grupo-option`)
+                          handleChangeGroup(
+                            index,
+                            `listbox-grupo-option`,
+                            grupo
+                          )
                         }
                       >
                         Grupo {numberToLetter(index)}
                       </li>
                     )
-                  )} */}
+                  )}
                 </ul>
               </div>
             </div>
           </div>
+          {isLoadingData && <Loader />}
+          {!isLoadingData && dataFiltered?.length === 0 && (
+            <div className="flex justify-center my-5 text-center w-full">
+              <h3 className="text-4xl font-bold">
+                No hay partidos disponibles
+              </h3>
+            </div>
+          )}
           <div
             className={`mt-10 grid grid-cols-1 ${
               phases.length === 2
@@ -245,18 +285,24 @@ const CalendarTwo = ({ data }: any) => {
                 : ""
             }`}
           >
-            {/* {phases.map((phase: any, index: number) => (
-            <CustomTable
-              key={index}
-              data={phase}
-              type="calendar-2"
-              journey={phase.name}
-              setSelectedInfo={setSelectedInfo}
-            />
-          ))} */}
+            {dataFiltered &&
+              dataFiltered.length > 0 &&
+              dataFiltered?.map((journey: any, index: number) =>
+                isLoadingData ? (
+                  <Loader key={index + index + index} />
+                ) : (
+                  <CustomTable
+                    key={index}
+                    data={journey}
+                    type="calendar-2"
+                    setSelectedInfo={setSelectedInfo}
+                  />
+                )
+              )}
           </div>
         </>
       )}
+
       {selectedInfo && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10"

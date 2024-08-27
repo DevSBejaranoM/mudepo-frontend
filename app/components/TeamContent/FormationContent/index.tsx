@@ -5,9 +5,14 @@ import Loader from "../../Loader";
 
 const FormationContent = ({ dataPlayers }: any) => {
   const [players, setPlayers] = useState<any>(null);
+  const [goalkeepers, setGoalkeepers] = useState<any>(null);
+  const [defenders, setDefenders] = useState<any>(null);
+  const [midfielders, setMidfielders] = useState<any>(null);
+  const [forwards, setForwards] = useState<any>(null);
 
   useEffect(() => {
     if (dataPlayers) {
+      console.log("DP",dataPlayers);
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,
@@ -15,23 +20,28 @@ const FormationContent = ({ dataPlayers }: any) => {
           number: player.dorsal,
           name: player.name,
           lastname: player.lastname,
-          position: player.roles.map((role: any) => role).join(", "),
+          // position: player.roles.map((role: any) => role).join(", "),
+          position: player.position,
         }))
       );
     }
   }, []);
 
-  // const goalkeepers = players.filter((player) => player.position === "Portero");
-  // const defenders = players.filter((player) => player.position === "Defensa");
-  // const midfielders = players.filter(
-  //   (player) => player.position === "Centrocampista"
-  // );
-  // const forwards = players.filter((player) => player.position === "Delantero");
+  useEffect(() => {
+    if (players) {
+      setGoalkeepers(players.filter((player: any) => player.position === "Portero"));
+      setDefenders(players.filter((player: any) => player.position === "Defensa"));
+      setMidfielders(players.filter((player: any) => player.position === "Centrocampista"));
+      setForwards(players.filter((player: any) => player.position === "Delantero"));
+    }
+  }, [players]);
 
   return (
     <div className="mx-auto p-4">
       {!players && (
-        <Loader />
+        <div className="text-center">
+        <h2 className="text-3xl">No hay jugadores</h2>
+        </div>
       )}
       {players && (
         <>

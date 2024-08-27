@@ -55,7 +55,7 @@ interface TableProps {
     | "teams"
     | "classification"
     | "calendar"
-    | "calendar-2" 
+    | "calendar-2"
     | "statistics-1"
     | "statistics-2"
     | "statistics-3"
@@ -680,24 +680,24 @@ const CustomTable = ({
           </>
         );
       case "calendar-2":
-
+        console.log("calendar-2", data);
         return (
           <>
             {!data && <Loader />}
-            {data && data.length === 0 && (
+            {data && data?.tabOne?.partidos.length === 0 && (
               <div className="flex justify-center items-center h-screen">
                 <h1 className="text-2xl text-gray-900">No hay partidos</h1>
               </div>
             )}
-            {dataFiltered && dataFiltered.length > 0 && (
+            {data && data?.tabOne?.partidos.length > 0 && (
               <div className="relative">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
                   <h2 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
-                    Jornada {journey}
+                    {data?.name}
                   </h2>
                 </div>
 
-                {/* <div className="overflow-x-auto">
+                <div className="overflow-x-auto">
                   <table className="min-w-full bg-gray-300">
                     <thead>
                       <tr>
@@ -711,14 +711,18 @@ const CustomTable = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {dataFiltered.map((calendar: any, index: number) => (
+                      {data?.tabOne?.partidos?.map((calendar: any, index: number) => (
                         <tr
                           key={calendar.id}
                           className={index % 2 === 0 ? "bg-gray-100" : ""}
                         >
                           <td className="py-2 px-4 border-b text-center bg-primary">
                             <button
-                              onClick={() => setSelectedInfo(calendar.info!)}
+                              onClick={() => setSelectedInfo({
+                                lugar: calendar?.tabFour?.location?.name,
+                                fecha: new Date(calendar?.tabOne?.dateTime).toLocaleDateString(),
+                                hora: (new Date(calendar?.tabOne?.dateTime).getHours() === 0 ? new Date(calendar?.tabOne?.dateTime).getHours()+"0" : new Date(calendar?.tabOne?.dateTime).getHours() )+ ':' + (new Date(calendar?.tabOne?.dateTime).getMinutes() === 0 ? new Date(calendar?.tabOne?.dateTime).getMinutes()+"0" : new Date(calendar?.tabOne?.dateTime).getMinutes() ),
+                              })}
                             >
                               <svg
                                 version="1.1"
@@ -981,26 +985,26 @@ const CustomTable = ({
                           </td>
                           <td className="py-2 px-4 border-b text-center">
                             <img
-                              src={calendar.logoLocal}
+                              src={""}
                               alt="local"
                               className="w-8 h-8 mx-auto"
                             />
                           </td>
                           <td className="py-2 px-4 border-b">
-                            {calendar.teamLocal}
+                            {calendar?.tabTwo?.team1?.name}
                           </td>
                           <td className="py-2 px-4 border-b text-center bg-gray-800 text-white border-r-2">
-                            {calendar.localGoals}
+                            {/* {calendar.localGoals} */}0
                           </td>
                           <td className="py-2 px-4 border-b text-center bg-gray-800 text-white">
-                            {calendar.visitanteGoals}
+                            {/* {calendar.visitanteGoals} */}0
                           </td>
                           <td className="py-2 px-4 border-b">
-                            {calendar.teamVisitante}
+                            {calendar?.tabTree?.team2?.name}
                           </td>
                           <td className="py-2 px-4 border-b text-center">
                             <img
-                              src={calendar.logoVisitante}
+                              src={""}
                               alt="visitante"
                               className="w-8 h-8 mx-auto"
                             />
@@ -1009,7 +1013,7 @@ const CustomTable = ({
                       ))}
                     </tbody>
                   </table>
-                </div> */}
+                </div>
               </div>
             )}
           </>

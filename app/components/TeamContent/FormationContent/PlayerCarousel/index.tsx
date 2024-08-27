@@ -1,12 +1,11 @@
-import Slider from 'react-slick';
-import PlayerCard from './PlayerCard';
-import { Player } from '@/app/types/teamContent';
+import Slider from "react-slick";
+import PlayerCard from "./PlayerCard";
+import { Player } from "@/app/types/teamContent";
 
 interface PlayerCarouselProps {
   title: string;
   players: Player[];
 }
-
 const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
   const settings = {
     dots: true,
@@ -44,7 +43,7 @@ const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
     <div className="my-8">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <Slider {...settings}>
-        {players.map(player => (
+        {players.map((player) => (
           <PlayerCard key={player.id} {...player} />
         ))}
       </Slider>

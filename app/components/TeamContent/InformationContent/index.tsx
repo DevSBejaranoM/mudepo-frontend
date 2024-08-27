@@ -38,7 +38,8 @@ const InformationContent = ({ dataTeam }: any) => {
   const playersTeam = dataTeam?.tabTwo?.players?.map((player: any) => ({
     number: player.dorsal,
     name: `${player.name} ${player.lastname || ""}`,
-    position: player.roles.map((role: any) => role).join(", "),
+    // position: player.roles.map((role: any) => role).join(", "),
+    position: player?.position,
     age: getEdad(player.birthdate) || "",
   }));
 
@@ -79,18 +80,20 @@ const InformationContent = ({ dataTeam }: any) => {
           Información del equipo
         </h2>
       </header>
-      <div className="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
+      <div className="container mx-auto p-4 grid grid-cols-1 gap-4">
+      {/* <div className="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-4"> */}
+        {/* <div className="lg:col-span-2"> */}
+        <div>
           <TeamInfo {...team} />
           <TeamRoster players={playersTeam} team={dataTeam?.name} />
         </div>
-        <div>
-          {/* <TeamHistory history={historyTeam} team={dataTeam?.name} /> */}
+        {/* <div>
+          <TeamHistory history={historyTeam} team={dataTeam?.name} />
           <NextMatchList matches={nextMatches} />
         </div>
         <div className="lg:col-span-2">
           <MatchList matches={matches} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

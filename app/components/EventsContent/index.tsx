@@ -12,9 +12,8 @@ const EventsContent = (slug: any) => {
   const fetchEvents = async () => {
     // http://localhost:3021/api/get-events?slug=trofeo-diputacion-oficial
     try {
-      const data = await axiosAdapter.fetchData(`/events/${slug.slug}`);
-      // const data = await axiosAdapter.fetchData(`/get-events?slug=${slug.slug}`);
-      setEvents(data);
+      const data = await axiosAdapter.fetchData(`/get-events?slug=${slug.slug}`);
+      setEvents(data.data[0]);
 
       setLoading(false);
     } catch (error) {

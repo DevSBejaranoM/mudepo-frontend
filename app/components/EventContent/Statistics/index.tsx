@@ -147,14 +147,6 @@ const Statistics = () => {
         JUGADORES CON MÁS TARJETAS AMARILLAS
       </h3>
       <CustomTable data={dataPlayers} type="statistics-6" />
-      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES MÁS NOBLES
-      </h3>
-      <CustomTable data={dataPlayers} type="statistics-7" />
-      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES MÁS VALIOSOS
-      </h3>
-      <CustomTable data={dataPlayers} type="statistics-8" />
     </div>
   );
 };
