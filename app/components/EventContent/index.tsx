@@ -19,11 +19,20 @@ interface EventContentProps {
 const EventContent = ({ eventId }: EventContentProps) => {
   const category = useCategoryStore((state) => state.category);
   const [event, setEvent] = useState<any>(null);
+  const [teamLogos, setTeamLogos] = useState<any>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchEvents = async () => {
     try {
       const data = await axiosAdapter.fetchData(`/leagues/${eventId}`);
+      data?.tabTree?.teams?.forEach((item: any) => {
+        const logo = {
+          // id: item?.value?.id, // no tienen el mismo id
+          name: item?.value?.name,
+          logo: item?.value?.tabOne?.poster?.url
+        }
+        setTeamLogos((prev: any) => [...prev, logo]);
+      })
       setEvent(data);
       setLoading(false);
     } catch (error) {
@@ -62,9 +71,9 @@ const EventContent = ({ eventId }: EventContentProps) => {
                 </h2>
               </div>
               {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
-              {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} />}
+              {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} logos={teamLogos}/>}
               {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
-              {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases}/>}
+              {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos}/>}
               {category === "ESTADÍSTICAS" && <Statistics />}
               <BannerPartner
                 imageUrl="/images/header-background.jpg"

@@ -14,8 +14,6 @@ interface MatchListProps {
 const MatchList = ({ matches }: MatchListProps) => {
   const [selectedYear, setSelectedYear] = useState("2024");
 
-  console.log(matches);
-
   const handleYearChange = (event: any) => {
     setSelectedYear(event.target.value);
   };

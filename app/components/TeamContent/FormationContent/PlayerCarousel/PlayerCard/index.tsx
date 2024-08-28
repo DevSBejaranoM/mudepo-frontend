@@ -1,8 +1,7 @@
 import { Player } from "@/app/types/teamContent";
 
 const PlayerCard = ({ image, number, name, lastname, position }: Player) => {
-  // console.log(image);
-  // console.log(`${process.env.NEXT_PUBLIC_MAIN_URL}${image}`);
+
   return (
     <div className="text-center p-4 bg-gradient-to-t from-[#4C7D2F] to-[#75AB4D] mx-4 rounded-xl shadow-xl max-w-96">
       <div className="flex justify-center">

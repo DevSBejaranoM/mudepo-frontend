@@ -4,7 +4,7 @@ import CustomTable from "../CustomTable";
 import Loader from "../../Loader";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 
-const CalendarTwo = ({ data }: any) => {
+const CalendarTwo = ({ data, logos }: any) => {
   const [selectedInfo, setSelectedInfo] = useState<any>(null);
   const [phases, setPhases] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -296,6 +296,7 @@ const CalendarTwo = ({ data }: any) => {
                     data={journey}
                     type="calendar-2"
                     setSelectedInfo={setSelectedInfo}
+                    logos={logos}
                   />
                 )
               )}

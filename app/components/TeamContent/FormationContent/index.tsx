@@ -12,7 +12,6 @@ const FormationContent = ({ dataPlayers }: any) => {
 
   useEffect(() => {
     if (dataPlayers) {
-      console.log("DP",dataPlayers);
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,

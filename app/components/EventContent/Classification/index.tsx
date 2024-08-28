@@ -3,9 +3,10 @@ import CustomTable from "../CustomTable";
 
 interface ClassificationProps {
   data: any;
+  logos: any;
 }
 
-const Classification = ({ data }: ClassificationProps) => {
+const Classification = ({ data, logos }: ClassificationProps) => {
   const [dataClassification, setDataClassification] = useState<any>(null);
 
   useEffect(() => {
@@ -14,7 +15,7 @@ const Classification = ({ data }: ClassificationProps) => {
         return {
           position: team?.value?.position,
           name: team?.value?.team?.name,
-          logo: team?.value?.team?.tabOne?.poster?.url || "",
+          logo: team?.value?.team?.tabOne?.poster?.url || logos.find((logo: any) => logo.name === team?.value?.team?.name)?.logo,
           points: team?.value?.puntos,
           played: team?.value?.partidos_jugados,
           won: team?.value?.partidos_ganados,

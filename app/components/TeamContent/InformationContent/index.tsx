@@ -8,8 +8,6 @@ import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
 
-  console.log(dataTeam);
-
   const getEdad = (date: string) => {
     const today = new Date();
     const birthDate = new Date(date);
