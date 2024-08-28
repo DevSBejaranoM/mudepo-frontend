@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+import { axiosAdapter } from "@/app/config/axios.adapter";
+import { useEffect, useState } from "react";
 
 interface Match {
   date: string;
@@ -8,41 +10,84 @@ interface Match {
 }
 
 interface MatchListProps {
-  matches: Match[];
+  id: string;
+  teamName: string;
 }
 
-const MatchList = ({ matches }: MatchListProps) => {
+const MatchList = ({ id, teamName }: MatchListProps) => {
   const [selectedYear, setSelectedYear] = useState("2024");
+  const [filteredMatches, setFilteredMatches] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [firstLoad, setFirstLoad] = useState(true);
 
-  const handleYearChange = (event: any) => {
-    setSelectedYear(event.target.value);
-  };
+  useEffect(() => {
+    const getMatches = async () => {
+      const response = await axiosAdapter.fetchData(
+        `/get-partido-equipo?idequipo=${id}`
+      );
+      setFilteredMatches(response?.data);
+      setFirstLoad(false);
+    };
+    getMatches();
+  }, []);
 
-  const filteredMatches = matches.filter((match) =>
-    match.date.startsWith(selectedYear)
-  );
+  useEffect(() => {
+    if (!firstLoad && filteredMatches) {
+      const getResults = async () => {
+        let newFilteredMatches = filteredMatches.map(async (match: any) => {
+          const data = await axiosAdapter.fetchData(
+            `/get-resultado?idpartido=${match?.id}`
+          );
+          return {
+            ...match,
+            result: data?.data?.tabOne?.resultado,
+          };
+        });
+        Promise.all(newFilteredMatches).then((data) => {
+          setFilteredMatches(data);
+          setLoading(false);
+        });
+        try {
+        } catch (error) {
+          setLoading(false);
+        }
+      };
 
-  const openListAndClose = (id: string) => {
-    const list = document.getElementById(id);
-    const lists = document.querySelectorAll("[role='listbox']");
-    lists.forEach((list) => {
-      if (list.id !== id) {
-        list.classList.replace("block", "hidden");
-      }
-    });
-    if (list && list.classList.contains("hidden")) {
-      list.classList.replace("hidden", "block");
-    } else if (list && list.classList.contains("block")) {
-      list.classList.replace("block", "hidden");
+      getResults();
     }
-  };
+  }, [firstLoad]);
+
+  // const handleYearChange = (event: any) => {
+  //   setSelectedYear(event.target.value);
+  // };
+
+  // useEffect(() => {
+  //   setFilteredMatches(
+  //     matches.filter((match) => match.date.startsWith(selectedYear))
+  //   );
+  // }, [selectedYear]);
+
+  // const openListAndClose = (id: string) => {
+  //   const list = document.getElementById(id);
+  //   const lists = document.querySelectorAll("[role='listbox']");
+  //   lists.forEach((list) => {
+  //     if (list.id !== id) {
+  //       list.classList.replace("block", "hidden");
+  //     }
+  //   });
+  //   if (list && list.classList.contains("hidden")) {
+  //     list.classList.replace("hidden", "block");
+  //   } else if (list && list.classList.contains("block")) {
+  //     list.classList.replace("block", "hidden");
+  //   }
+  // };
 
   return (
     <div className="p-4 rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Partidos del Equipo</h3>
 
       <div className="mb-4">
-        <label
+        {/* <label
           htmlFor="year"
           className="block text-lg font-medium text-gray-700"
         >
@@ -83,61 +128,92 @@ const MatchList = ({ matches }: MatchListProps) => {
               aria-labelledby="listbox-fase-label"
               aria-activedescendant="listbox-fase-option-3"
             >
-              {matches.map((match: any, index: number) => {
-                const year = match.date.split("-")[0];
-                return (
-                  <li
-                    key={index}
-                    className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300 text-center"
-                    role="option"
-                    onClick={() =>
-                      setSelectedYear(year)
-                    }
-                  >
-                    {year}
-                  </li>
-                );
-              })}
+              {filteredMatches &&
+                filteredMatches.map((match: any, index: number) => {
+                  const year = match.date.split("-")[0];
+                  return (
+                    <li
+                      key={index}
+                      className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300 text-center"
+                      role="option"
+                      onClick={() => setSelectedYear(year)}
+                    >
+                      {year}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="container mx-auto p-4">
         <div className={`overflow-x-auto`}>
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
                   Fecha
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  Oponente
+                <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
+                  Equipos
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
                   Resultado
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
                   Local/Visitante
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredMatches.map((match, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    {match.date}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    {match.opponent}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    {match.result}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    {match.isHome ? "Local" : "Visitante"}
+              {filteredMatches &&
+                !loading &&
+                filteredMatches.map((match: any, index: number) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      {new Date(match?.tabOne?.dateTime).toLocaleDateString()}
+                      {" - "}
+                      {(new Date(match?.tabOne?.dateTime).getHours() === 0
+                        ? new Date(match?.tabOne?.dateTime).getHours() + "0"
+                        : new Date(match?.tabOne?.dateTime).getHours()) +
+                        ":" +
+                        (new Date(match?.tabOne?.dateTime).getMinutes() === 0
+                          ? new Date(match?.tabOne?.dateTime).getMinutes() + "0"
+                          : new Date(match?.tabOne?.dateTime).getMinutes())}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      {match?.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      {match?.result ? match?.result : "-"}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                      {match?.name.split(" vs ")[0] === teamName
+                        ? "Local"
+                        : "Visitante"}
+                    </td>
+                  </tr>
+                ))}
+              {!filteredMatches && !loading && (
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="px-6 py-4 whitespace-nowrap text-sm text-center"
+                  >
+                    No hay partidos
                   </td>
                 </tr>
-              ))}
+              )}
+              {loading && (
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="px-6 py-4 whitespace-nowrap text-sm text-center"
+                  >
+                    Cargando...
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

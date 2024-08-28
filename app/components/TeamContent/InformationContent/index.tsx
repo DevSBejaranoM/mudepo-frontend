@@ -8,8 +8,6 @@ import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
 
-  console.log(dataTeam);
-
   const getEdad = (date: string) => {
     const today = new Date();
     const birthDate = new Date(date);
@@ -42,36 +40,6 @@ const InformationContent = ({ dataTeam }: any) => {
     age: getEdad(player.birthdate) || "",
   }));
 
-  // const historyTeam = [
-  //   { competition: "La Liga", titles: 36 },
-  //   { competition: "UEFA Champions League", titles: 15 },
-  //   { competition: "Supercopa de España", titles: 11 },
-  // ];
-
-  const matches = [
-    {
-      date: "2024-01-15",
-      opponent: "FC Barcelona",
-      result: "3-1",
-      isHome: true,
-    },
-    {
-      date: "2024-01-22",
-      opponent: "Atlético Madrid",
-      result: "2-2",
-      isHome: false,
-    },
-  ];
-
-  const nextMatches = [
-    { date: "2024-01-15", opponent: "FC Barcelona", isHome: true },
-    {
-      date: "2024-01-22",
-      opponent: "Atlético Madrid",
-      isHome: false,
-    },
-  ];
-
   return (
     <div>
       <header className={`text-center mx-auto mt-8 mb-8 md:mb-16 lg:mb-20`}>
@@ -89,10 +57,10 @@ const InformationContent = ({ dataTeam }: any) => {
         {/* <div>
           <TeamHistory history={historyTeam} team={dataTeam?.name} />
           <NextMatchList matches={nextMatches} />
-        </div>
-        <div className="lg:col-span-2">
-          <MatchList matches={matches} />
         </div> */}
+        <div className="lg:col-span-2">
+          <MatchList id={dataTeam?.id} teamName={dataTeam?.name} />
+        </div>
       </div>
     </div>
   );

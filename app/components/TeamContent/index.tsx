@@ -20,7 +20,6 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
     try {
       const data = await axiosAdapter.fetchData(`/teams/${teamId}`);
       setDataTeam(data);
-
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving events:", error);
