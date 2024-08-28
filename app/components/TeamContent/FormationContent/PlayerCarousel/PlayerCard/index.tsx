@@ -6,7 +6,8 @@ const PlayerCard = ({ image, number, name, lastname, position }: Player) => {
     <div className="text-center p-4 bg-gradient-to-t from-[#4C7D2F] to-[#75AB4D] mx-4 rounded-xl shadow-xl max-w-96">
       <div className="flex justify-center">
         <img
-          src={`${process.env.NEXT_PUBLIC_MAIN_URL}${image}`}
+          // src={`${process.env.NEXT_PUBLIC_MAIN_URL}${image}`}
+          src={`${image}`}
           alt={name}
           className="rounded-xl mb-4 h-52 object-cover"
         />

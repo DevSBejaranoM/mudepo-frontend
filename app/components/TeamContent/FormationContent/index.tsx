@@ -9,18 +9,21 @@ const FormationContent = ({ dataPlayers }: any) => {
   const [defenders, setDefenders] = useState<any>(null);
   const [midfielders, setMidfielders] = useState<any>(null);
   const [forwards, setForwards] = useState<any>(null);
+  const [notAssigned, setNotAssigned] = useState<any>(null);
 
   useEffect(() => {
     if (dataPlayers) {
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,
-          image: player.image ? player.image : "",
+          image: player.image
+            ? player.image
+            : "/images/team/avatar-player.jpeg",
           number: player.dorsal,
           name: player.name,
           lastname: player.lastname,
           // position: player.roles.map((role: any) => role).join(", "),
-          position: player.position,
+          position: player.position ? player.position : "Sin posición asignada",
         }))
       );
     }
@@ -28,10 +31,23 @@ const FormationContent = ({ dataPlayers }: any) => {
 
   useEffect(() => {
     if (players) {
-      setGoalkeepers(players.filter((player: any) => player.position === "Portero"));
-      setDefenders(players.filter((player: any) => player.position === "Defensa"));
-      setMidfielders(players.filter((player: any) => player.position === "Centrocampista"));
-      setForwards(players.filter((player: any) => player.position === "Delantero"));
+      setGoalkeepers(
+        players.filter((player: any) => player.position === "Portero")
+      );
+      setDefenders(
+        players.filter((player: any) => player.position === "Defensa")
+      );
+      setMidfielders(
+        players.filter((player: any) => player.position === "Centrocampista")
+      );
+      setForwards(
+        players.filter((player: any) => player.position === "Delantero")
+      );
+      setNotAssigned(
+        players.filter(
+          (player: any) => player.position === "Sin posición asignada"
+        )
+      );
     }
   }, [players]);
 
@@ -39,15 +55,49 @@ const FormationContent = ({ dataPlayers }: any) => {
     <div className="mx-auto p-4">
       {!players && (
         <div className="text-center">
-        <h2 className="text-3xl">No hay jugadores</h2>
+          <h2 className="text-3xl">No hay jugadores</h2>
         </div>
       )}
       {players && (
         <>
-          <PlayerCarousel title="Portero" players={players} />
-          <PlayerCarousel title="Defensa" players={players} />
-          <PlayerCarousel title="Centrocampista" players={players} />
-          <PlayerCarousel title="Delantero" players={players} />
+          {notAssigned.length && (
+            <PlayerCarousel
+              title="Sin posición asignada"
+              players={notAssigned}
+            />
+          )}
+          {!goalkeepers.length && (
+            <div className="text-center">
+              <h2 className="text-3xl">No hay porteros asignados</h2>
+            </div>
+          )}
+          {goalkeepers.length && (
+            <PlayerCarousel title="Portero" players={goalkeepers} />
+          )}
+          {!defenders.length && (
+            <div className="text-center">
+              <h2 className="text-3xl">No hay defensas asignados</h2>
+            </div>
+          )}
+          {defenders.length && (
+            <PlayerCarousel title="Defensa" players={defenders} />
+          )}
+          {!midfielders.length && (
+            <div className="text-center">
+              <h2 className="text-3xl">No hay centrocampistas asignados</h2>
+            </div>
+          )}
+          {midfielders.length && (
+            <PlayerCarousel title="Centrocampista" players={midfielders} />
+          )}
+          {!forwards.length && (
+            <div className="text-center">
+              <h2 className="text-3xl">No hay delanteros asignados</h2>
+            </div>
+          )}
+          {forwards.length && (
+            <PlayerCarousel title="Delantero" players={forwards} />
+          )}
         </>
       )}
     </div>

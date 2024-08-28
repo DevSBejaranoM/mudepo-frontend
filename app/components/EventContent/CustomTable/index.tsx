@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Loader from "../../Loader";
+import MatchResult from "./MatchResult";
 
 interface Team {
   id?: number;
@@ -683,7 +684,6 @@ const CustomTable = ({
           </>
         );
       case "calendar-2":
-        console.log("calendar-2", data);
         return (
           <>
             {!data && <Loader />}
@@ -696,8 +696,8 @@ const CustomTable = ({
               <div className="relative">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
                   <h2 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
-                    {/* {data?.name} - {data?.tabOne?.partidos[0]?.tabSeven?.grupo?.name} */}
-                    {data?.name}
+                    {data?.name} - {data?.tabOne?.partidos[0]?.tabSeven?.grupo?.name}
+                    {/* {data?.name} */}
                   </h2>
                 </div>
 
@@ -1022,12 +1022,7 @@ const CustomTable = ({
                             <td className="py-2 px-4 border-b">
                               {calendar?.tabTwo?.team1?.name}
                             </td>
-                            <td className="py-2 px-4 border-b text-center bg-gray-800 text-white border-r-2">
-                              {/* {calendar.localGoals} */}0
-                            </td>
-                            <td className="py-2 px-4 border-b text-center bg-gray-800 text-white">
-                              {/* {calendar.visitanteGoals} */}0
-                            </td>
+                            <MatchResult id={calendar?.id}/>
                             <td className="py-2 px-4 border-b">
                               {calendar?.tabTree?.team2?.name}
                             </td>

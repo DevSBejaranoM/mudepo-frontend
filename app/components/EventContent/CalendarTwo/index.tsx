@@ -207,7 +207,9 @@ const CalendarTwo = ({ data, logos }: any) => {
                     <span className="ml-3 block truncate">
                       {groupSelected === -1
                         ? "Todos los grupos"
-                        : `Grupo ${numberToLetter(groupSelected)}`}
+                        // : `Grupo ${numberToLetter(groupSelected)}`}
+                        : `Grupo ${groupSelected}`}
+
                     </span>
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -260,7 +262,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                           )
                         }
                       >
-                        Grupo {numberToLetter(index)}
+                        Grupo {index}
                       </li>
                     )
                   )}
