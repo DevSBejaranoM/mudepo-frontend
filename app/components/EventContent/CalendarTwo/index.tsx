@@ -11,7 +11,6 @@ const CalendarTwo = ({ data, logos }: any) => {
   const [phaseSelected, setPaheSelected] = useState<number>(0);
   const [dataPhaseSelected, setDataPhaseSelected] = useState<any>(null);
   const [groupSelected, setGroupSelected] = useState<number>(-1);
-  const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [dataFiltered, setDataFiltered] = useState<any>(null);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
 
@@ -53,8 +52,6 @@ const CalendarTwo = ({ data, logos }: any) => {
     if (!firstLoad) openListAndClose(idSelect);
   };
 
-  const handleAllGroups = () => {};
-
   const handleChangeGroup = async (
     index: any,
     idSelect: string,
@@ -66,7 +63,8 @@ const CalendarTwo = ({ data, logos }: any) => {
     if (index === -1) {
       let dataJorney: any = [];
       data?.tabTwo?.grupos?.map((grupo: any) => {
-        dataJorney = [...dataJorney, ...grupo?.tabTwo?.jornadas];
+        let newJourney = [...grupo?.tabTwo?.jornadas.map((jornada: any) => ({...jornada, grupo: grupo?.name}))];
+        dataJorney = [...dataJorney, ...newJourney];
       });
       if (dataJorney.length === 0) {
         setIsLoadingData(false);
@@ -76,7 +74,8 @@ const CalendarTwo = ({ data, logos }: any) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada.id}`
             );
-            return dataJorney;
+            let jorney = {...dataJorney, grupo: jornada?.grupo}
+            return jorney;
           })
         );
         setIsLoadingData(false);
@@ -208,7 +207,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                       {groupSelected === -1
                         ? "Todos los grupos"
                         // : `Grupo ${numberToLetter(groupSelected)}`}
-                        : `Grupo ${groupSelected}`}
+                        : `Grupo ${groupSelected + 1}`}
 
                     </span>
                   </span>
@@ -262,7 +261,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                           )
                         }
                       >
-                        Grupo {index}
+                        Grupo {index +1 }
                       </li>
                     )
                   )}

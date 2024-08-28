@@ -696,7 +696,7 @@ const CustomTable = ({
               <div className="relative">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
                   <h2 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
-                    {data?.name} - {data?.tabOne?.partidos[0]?.tabSeven?.grupo?.name}
+                    {data?.name} {data?.grupo ? ` - ${data?.grupo}` : ""}
                     {/* {data?.name} */}
                   </h2>
                 </div>
