@@ -20,7 +20,6 @@ const TeamRoster = ({players, team}: TeamRosterProps) => {
             <th className="border-b p-2">#</th>
             <th className="border-b p-2">Jugador</th>
             <th className="border-b p-2">Posición</th>
-            <th className="border-b p-2">Edad</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +28,6 @@ const TeamRoster = ({players, team}: TeamRosterProps) => {
               <td className="border-b p-2">{player.number}</td>
               <td className="border-b p-2">{player.name}</td>
               <td className="border-b p-2">{player.position}</td>
-              <td className="border-b p-2">{player.age}</td>
             </tr>
           ))}
         </tbody>

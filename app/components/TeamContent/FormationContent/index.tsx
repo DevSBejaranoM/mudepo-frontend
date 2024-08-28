@@ -16,9 +16,9 @@ const FormationContent = ({ dataPlayers }: any) => {
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,
-          image: player.image
-            ? player.image
-            : "/images/team/avatar-player.jpeg",
+          image: player.avatar
+            ? player.avatar
+            : "/images/team/avatar-player.png",
           number: player.dorsal,
           name: player.name,
           lastname: player.lastname,
@@ -60,42 +60,42 @@ const FormationContent = ({ dataPlayers }: any) => {
       )}
       {players && (
         <>
-          {notAssigned.length && (
+          {notAssigned && notAssigned?.length && (
             <PlayerCarousel
               title="Sin posición asignada"
               players={notAssigned}
             />
           )}
-          {!goalkeepers.length && (
+          {!goalkeepers && (
             <div className="text-center">
               <h2 className="text-3xl">No hay porteros asignados</h2>
             </div>
           )}
-          {goalkeepers.length && (
+          {goalkeepers && goalkeepers.length && (
             <PlayerCarousel title="Portero" players={goalkeepers} />
           )}
-          {!defenders.length && (
+          {!defenders && (
             <div className="text-center">
               <h2 className="text-3xl">No hay defensas asignados</h2>
             </div>
           )}
-          {defenders.length && (
+          {defenders && defenders.length && (
             <PlayerCarousel title="Defensa" players={defenders} />
           )}
-          {!midfielders.length && (
+          {!midfielders && (
             <div className="text-center">
               <h2 className="text-3xl">No hay centrocampistas asignados</h2>
             </div>
           )}
-          {midfielders.length && (
+          {midfielders && midfielders.length && (
             <PlayerCarousel title="Centrocampista" players={midfielders} />
           )}
-          {!forwards.length && (
+          {!forwards && (
             <div className="text-center">
               <h2 className="text-3xl">No hay delanteros asignados</h2>
             </div>
           )}
-          {forwards.length && (
+          {forwards && forwards.length && (
             <PlayerCarousel title="Delantero" players={forwards} />
           )}
         </>

@@ -38,13 +38,18 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
     <div>
       {team === "Inicio" && (
         <>
-          {loading && (
-            <Loader />
-          )}
+          {loading && <Loader />}
           {!loading && <InformationContent dataTeam={dataTeam} />}
         </>
       )}
-      {team === "Formación" && <FormationContent dataPlayers={dataTeam?.tabTwo?.players}/>}
+      {team === "Formación" && (
+        <>
+          {loading && <Loader />}
+          {!loading && (
+            <FormationContent dataPlayers={dataTeam?.tabTwo?.players} />
+          )}
+        </>
+      )}
       <BannerPartner
         imageUrl="/images/header-background.jpg"
         altText="Banner Sponsor"

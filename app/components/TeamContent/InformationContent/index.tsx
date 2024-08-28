@@ -8,6 +8,8 @@ import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
 
+  console.log(dataTeam);
+
   const getEdad = (date: string) => {
     const today = new Date();
     const birthDate = new Date(date);
@@ -36,8 +38,7 @@ const InformationContent = ({ dataTeam }: any) => {
   const playersTeam = dataTeam?.tabTwo?.players?.map((player: any) => ({
     number: player.dorsal,
     name: `${player.name} ${player.lastname || ""}`,
-    // position: player.roles.map((role: any) => role).join(", "),
-    position: player?.position,
+    position: player.position ? player.position : "Sin posición asignada",
     age: getEdad(player.birthdate) || "",
   }));
 
