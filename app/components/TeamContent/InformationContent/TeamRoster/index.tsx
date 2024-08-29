@@ -17,7 +17,7 @@ const TeamRoster = ({players, team}: TeamRosterProps) => {
       <table className="w-full text-left">
         <thead>
           <tr>
-            <th className="border-b p-2">#</th>
+            <th className="border-b p-2">Dorsal</th>
             <th className="border-b p-2">Jugador</th>
             <th className="border-b p-2">Posición</th>
           </tr>
