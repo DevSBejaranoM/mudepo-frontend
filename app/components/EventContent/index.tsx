@@ -21,10 +21,12 @@ const EventContent = ({ eventId }: EventContentProps) => {
   const [event, setEvent] = useState<any>(null);
   const [teamLogos, setTeamLogos] = useState<any>([]);
   const [loading, setLoading] = useState(true);
+  const [banner, setBanner] = useState<any>(null);
 
   const fetchEvents = async () => {
     try {
       const data = await axiosAdapter.fetchData(`/leagues/${eventId}`);
+      setBanner(data?.tabSeven?.patrocinadores);
       data?.tabTree?.teams?.forEach((item: any) => {
         const logo = {
           // id: item?.value?.id, // no tienen el mismo id
@@ -74,11 +76,16 @@ const EventContent = ({ eventId }: EventContentProps) => {
               {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} logos={teamLogos}/>}
               {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
               {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos}/>}
-              {category === "ESTADÍSTICAS" && <Statistics />}
-              <BannerPartner
-                imageUrl="/images/header-background.jpg"
-                altText="Banner Sponsor"
-              />
+              {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
+              {
+                banner && (
+                  <div className="mt-10">
+                  <BannerPartner
+                    sponsors={banner}
+                  />
+                  </div>
+                )
+              }
             </div>
           </section>
         </>

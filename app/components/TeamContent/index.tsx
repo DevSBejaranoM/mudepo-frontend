@@ -49,10 +49,6 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
           )}
         </>
       )}
-      <BannerPartner
-        imageUrl="/images/header-background.jpg"
-        altText="Banner Sponsor"
-      />
     </div>
   );
 };

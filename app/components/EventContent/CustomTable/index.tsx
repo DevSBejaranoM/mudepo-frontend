@@ -14,6 +14,7 @@ interface Team {
   draw?: number;
   lost?: number;
   goalsFor?: number;
+  image?: any;
   goalsAgainst?: number;
   modifier?: number;
   ta?: number;
@@ -40,6 +41,7 @@ interface Player {
   goals?: number;
   assists?: number;
   ta?: number;
+  dorsal?: number;
   tr?: number;
   total?: number;
 }
@@ -75,7 +77,7 @@ const CustomTable = ({
   type,
   journey,
   setSelectedInfo = () => {},
-  logos
+  logos,
 }: TableProps) => {
   const router = useRouter();
 
@@ -148,7 +150,7 @@ const CustomTable = ({
                   <tr key={index} className="border-t even:bg-gray-100">
                     <td className="text-center py-2 pl-5">{team.position}</td>
                     <td className="text-center py-2 px-5">
-                    <img
+                      <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
                         alt={team.name}
                         className="w-8 h-8 mx-auto"
@@ -1013,22 +1015,37 @@ const CustomTable = ({
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${calendar?.tabTwo?.team1?.tabOne?.poster?.url || logos.find((logo: any) => logo.name === calendar?.tabTwo?.team1?.name)?.logo}`}
+                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${
+                                  calendar?.tabTwo?.team1?.tabOne?.poster
+                                    ?.url ||
+                                  logos.find(
+                                    (logo: any) =>
+                                      logo.name ===
+                                      calendar?.tabTwo?.team1?.name
+                                  )?.logo
+                                }`}
                                 alt="local"
                                 className="w-8 h-8 mx-auto"
                               />
-                              
                             </td>
                             <td className="py-2 px-4 border-b">
                               {calendar?.tabTwo?.team1?.name}
                             </td>
-                            <MatchResult id={calendar?.id}/>
+                            <MatchResult id={calendar?.id} />
                             <td className="py-2 px-4 border-b">
                               {calendar?.tabTree?.team2?.name}
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${calendar?.tabTree?.team2?.tabOne?.poster?.url || logos.find((logo: any) => logo.name === calendar?.tabTree?.team2?.name)?.logo}`}
+                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${
+                                  calendar?.tabTree?.team2?.tabOne?.poster
+                                    ?.url ||
+                                  logos.find(
+                                    (logo: any) =>
+                                      logo.name ===
+                                      calendar?.tabTree?.team2?.name
+                                  )?.logo
+                                }`}
                                 alt="visitante"
                                 className="w-8 h-8 mx-auto"
                               />
@@ -1096,9 +1113,9 @@ const CustomTable = ({
           </div>
         );
       case "statistics-2":
-        data = data.sort((a: Team, b: Team) => {
-          if (a.goalsFor! > b.goalsFor!) return -1;
-          else if (a.goalsFor! < b.goalsFor!) return 1;
+        data = data?.sort((a: Team, b: Team) => {
+          if (a.total! > b.total!) return -1;
+          else if (a.total! < b.total!) return 1;
           else return 0;
         });
         return (
@@ -1112,27 +1129,43 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: Team, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      <img
-                        src={team.logo}
-                        alt={team.name}
-                        className="w-8 h-8 mx-auto"
-                      />
+                {data && data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
                     </td>
-                    <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 pr-5">{team.goalsFor}</td>
                   </tr>
-                ))}
+                )}
+                {data &&
+                  data.length > 0 &&
+                  data.map(
+                    (team: Team, index: number) =>
+                      index < 5 && (
+                        <tr key={index} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.image}`}
+                              alt={team.name}
+                              className="w-8 h-8 mx-auto"
+                            />
+                          </td>
+                          <td className=" text-center py-2 px-5">
+                            {team.name}
+                          </td>
+                          <td className="text-center py-2 pr-5">
+                            {team.total}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           </div>
         );
       case "statistics-3":
-        data = data.sort((a: Team, b: Team) => {
-          if (a.goalsAgainst! > b.goalsAgainst!) return 1;
-          else if (a.goalsAgainst! < b.goalsAgainst!) return -1;
+        data = data?.sort((a: Team, b: Team) => {
+          if (a.total! > b.total!) return 1;
+          else if (a.total! < b.total!) return -1;
           else return 0;
         });
         return (
@@ -1142,33 +1175,47 @@ const CustomTable = ({
                 <tr>
                   <th className="w-16 py-2 pl-5">ESC</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
-                  <th className="w-16 py-2 pr-5">GOLES ENCAJADOS</th>
+                  <th className="w-16 py-2 pr-5">GOLES MARCADOS</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: Team, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      <img
-                        src={team.logo}
-                        alt={team.name}
-                        className="w-8 h-8 mx-auto"
-                      />
-                    </td>
-                    <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 pr-5">
-                      {team.goalsAgainst}
+                {data && data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
                     </td>
                   </tr>
-                ))}
+                )}
+                {data &&
+                  data.length > 0 &&
+                  data.map(
+                    (team: Team, index: number) =>
+                      index < 5 && (
+                        <tr key={index} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.image}`}
+                              alt={team.name}
+                              className="w-8 h-8 mx-auto"
+                            />
+                          </td>
+                          <td className=" text-center py-2 px-5">
+                            {team.name}
+                          </td>
+                          <td className="text-center py-2 pr-5">
+                            {team.total}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           </div>
         );
       case "statistics-4":
-        data = data.sort((a: Player, b: Player) => {
-          if (a.goals! > b.goals!) return -1;
-          else if (a.goals! < b.goals!) return 1;
+        data = data?.sort((a: Player, b: Player) => {
+          if (a.total! > b.total!) return -1;
+          else if (a.total! < b.total!) return 1;
           else return 0;
         });
         return (
@@ -1183,22 +1230,42 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((player: Player, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{player.code}</td>
-                    <td className=" text-center py-2 px-5">{player.name}</td>
-                    <td className="text-center py-2 px-5">{player.team}</td>
-                    <td className="text-center py-2 pr-5">{player.goals}</td>
+                {data && data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
+                    </td>
                   </tr>
-                ))}
+                )}
+                {data &&
+                  data.length > 0 &&
+                  data.map(
+                    (player: Player, index: number) =>
+                      index < 5 && (
+                        <tr key={index} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            {player.dorsal}
+                          </td>
+                          <td className=" text-center py-2 px-5">
+                            {player.name}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            {player.team}
+                          </td>
+                          <td className="text-center py-2 pr-5">
+                            {player.total}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           </div>
         );
       case "statistics-5":
-        data = data.sort((a: Player, b: Player) => {
-          if (a.tr! > b.tr!) return -1;
-          else if (a.tr! < b.tr!) return 1;
+        data = data?.sort((a: Player, b: Player) => {
+          if (a.total! > b.total!) return -1;
+          else if (a.total! < b.total!) return 1;
           else return 0;
         });
         return (
@@ -1213,22 +1280,42 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((player: Player, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{player.code}</td>
-                    <td className=" text-center py-2 px-5">-- Oculto --</td>
-                    <td className="text-center py-2 px-5">{player.team}</td>
-                    <td className="text-center py-2 pr-5">{player.tr}</td>
+                {data && data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
+                    </td>
                   </tr>
-                ))}
+                )}
+                {data &&
+                  data.length > 0 &&
+                  data.map(
+                    (player: Player, index: number) =>
+                      index < 5 && (
+                        <tr key={index} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            {player.dorsal}
+                          </td>
+                          <td className=" text-center py-2 px-5">
+                            {player.name}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            {player.team}
+                          </td>
+                          <td className="text-center py-2 pr-5">
+                            {player.total}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           </div>
         );
       case "statistics-6":
-        data = data.sort((a: Player, b: Player) => {
-          if (a.ta! > b.ta!) return -1;
-          else if (a.ta! < b.ta!) return 1;
+        data = data?.sort((a: Player, b: Player) => {
+          if (a.total! > b.total!) return -1;
+          else if (a.total! < b.total!) return 1;
           else return 0;
         });
         return (
@@ -1243,20 +1330,40 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((player: Player, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{player.code}</td>
-                    <td className=" text-center py-2 px-5">-- Oculto --</td>
-                    <td className="text-center py-2 px-5">{player.team}</td>
-                    <td className="text-center py-2 pr-5">{player.ta}</td>
+                {data && data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
+                    </td>
                   </tr>
-                ))}
+                )}
+                {data &&
+                  data.length > 0 &&
+                  data.map(
+                    (player: Player, index: number) =>
+                      index < 5 && (
+                        <tr key={index} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            {player.dorsal}
+                          </td>
+                          <td className=" text-center py-2 px-5">
+                            {player.name}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            {player.team}
+                          </td>
+                          <td className="text-center py-2 pr-5">
+                            {player.total}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           </div>
         );
       case "statistics-7":
-        data = data.sort((a: Player, b: Player) => {
+        data = data?.sort((a: Player, b: Player) => {
           if (a.assists! > b.assists!) return -1;
           else if (a.assists! < b.assists!) return 1;
           else return 0;
@@ -1273,14 +1380,18 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((player: Player, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{player.code}</td>
-                    <td className=" text-center py-2 px-5">{player.name}</td>
-                    <td className="text-center py-2 px-5">{player.team}</td>
-                    <td className="text-center py-2 pr-5">{player.assists}</td>
-                  </tr>
-                ))}
+                {data &&
+                  data.length > 0 &&
+                  data.map((player: Player, index: number) => (
+                    <tr key={index} className="border-t even:bg-gray-100">
+                      <td className="text-center py-2 pl-5">{player.code}</td>
+                      <td className=" text-center py-2 px-5">{player.name}</td>
+                      <td className="text-center py-2 px-5">{player.team}</td>
+                      <td className="text-center py-2 pr-5">
+                        {player.assists}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
