@@ -11,18 +11,29 @@ const FormationContent = ({ dataPlayers }: any) => {
   const [forwards, setForwards] = useState<any>(null);
   const [notAssigned, setNotAssigned] = useState<any>(null);
 
+  const isValidURL = (str: string) => {
+    const pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // Protocolo
+        '((([a-zA-Z0-9-]+)\\.)+[a-zA-Z]{2,})' + // Dominio
+        '(\\:\\d+)?(\\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?' + // Puerto y ruta
+        '(\\?[;&a-zA-Z0-9%_+.~#?&=/-]*)?' + // Cadena de consulta
+        '(\\#[-a-zA-Z0-9_]*)?$',
+      'i',
+    ); // Fragmento de ancla
+    return !!pattern.test(str);
+  };
+
   useEffect(() => {
     if (dataPlayers) {
       setPlayers(
         dataPlayers.map((player: any) => ({
           id: player.id,
-          image: player.avatar
+          image: isValidURL(player?.avatar)
             ? player.avatar
             : "/images/team/avatar-player.png",
           number: player.dorsal,
           name: player.name,
           lastname: player.lastname,
-          // position: player.roles.map((role: any) => role).join(", "),
           position: player.position ? player.position : "Sin posición asignada",
         }))
       );
@@ -60,42 +71,22 @@ const FormationContent = ({ dataPlayers }: any) => {
       )}
       {players && (
         <>
-          {notAssigned && notAssigned?.length && (
+          {notAssigned && notAssigned?.length > 0 && (
             <PlayerCarousel
               title="Sin posición asignada"
               players={notAssigned}
             />
           )}
-          {!goalkeepers && (
-            <div className="text-center">
-              <h2 className="text-3xl">No hay porteros asignados</h2>
-            </div>
-          )}
-          {goalkeepers && goalkeepers.length && (
+          {goalkeepers && goalkeepers.length > 0 && (
             <PlayerCarousel title="Portero" players={goalkeepers} />
           )}
-          {!defenders && (
-            <div className="text-center">
-              <h2 className="text-3xl">No hay defensas asignados</h2>
-            </div>
-          )}
-          {defenders && defenders.length && (
+          {defenders && defenders.length > 0 && (
             <PlayerCarousel title="Defensa" players={defenders} />
           )}
-          {!midfielders && (
-            <div className="text-center">
-              <h2 className="text-3xl">No hay centrocampistas asignados</h2>
-            </div>
-          )}
-          {midfielders && midfielders.length && (
+          {midfielders && midfielders.length > 0 && (
             <PlayerCarousel title="Centrocampista" players={midfielders} />
           )}
-          {!forwards && (
-            <div className="text-center">
-              <h2 className="text-3xl">No hay delanteros asignados</h2>
-            </div>
-          )}
-          {forwards && forwards.length && (
+          {forwards && forwards.length > 0 && (
             <PlayerCarousel title="Delantero" players={forwards} />
           )}
         </>
