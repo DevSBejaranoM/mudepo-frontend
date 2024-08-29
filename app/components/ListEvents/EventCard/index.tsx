@@ -40,7 +40,7 @@ const EventCard = ({ event, index, eventName }: EventCardProps) => {
             : "/images/placeholder-liga.png"
         }
         alt="category-image"
-        className="w-full h-80 rounded-lg min-w-80 md:min-w-96 object-scale-down"
+        className="w-full max-h-80 rounded-lg min-w-80 md:min-w-96 object-scale-down"
         // className="w-full h-60 rounded-t-lg"
       />
       {/* <div className="z-10 bottom-0 left-0 right-0 h-28 bg-black text-white p-4 rounded-b-lg text-center"> */}
@@ -126,7 +126,7 @@ const EventCard = ({ event, index, eventName }: EventCardProps) => {
               onClick={() => handleNavigate(event.id)}
               className="bg-primary hover-bg-primary-dark text-white px-4 py-2 rounded-md mt-2 w-full cursor-pointer"
             >
-              {event?.name}
+              Ir a la liga
             </button>
           )}
           {!event.name && (
