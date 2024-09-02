@@ -3,7 +3,6 @@ import InfoColumnsSection from "./InfoColumnsSection";
 import TwoColumnMedia from "./TwoColumnMedia";
 
 const OrganizationContent = () => {
-
   return (
     <div className="container mx-auto">
       <TitleDescription title="¿Cómo funciona MUDEPO?" />
@@ -73,7 +72,7 @@ const OrganizationContent = () => {
           "Calcular el coste de los arbitrajes para cada partido puede ser complicado, especialmente cuando se juegan numerosos partidos con diferentes árbitros en un solo fin de semana.",
           "Tras los partidos, los árbitros completan el acta en papel y la envían al organizador, lo cual puede tomar uno o dos días. Esto genera un desfase en la publicación de resultados para los aficionados. El uso de actas en papel dificulta el control sobre cuándo se han firmado, lo que puede generar problemas de seguridad o confianza en la validez de la información.",
           "Además, el control de las sanciones puede no estar actualizado, lo que podría llevar a alineaciones indebidas y sanciones más severas para los clubes en futuros partidos.",
-          "Por ello MUDEPO da la posibilidad de digitalizar y obtener en tiempo real la cumplimentación de las actas y documentación arbitral. "
+          "Por ello MUDEPO da la posibilidad de digitalizar y obtener en tiempo real la cumplimentación de las actas y documentación arbitral. ",
         ]}
         imageUrl="/images/funcionalities/gestion-arbitral.jpg"
         reverse={true}
