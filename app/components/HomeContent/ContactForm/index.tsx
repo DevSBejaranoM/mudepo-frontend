@@ -89,8 +89,7 @@ const ContactForm = () => {
           Ponte en contacto con nosotros
         </h2>
         <span className=" text-md font-light md:text-xl color-primary">
-          Transforma digitalmente tu club y enfócate en lo que realmente
-          importa: tus deportistas.
+        Transforma digitalmente tu campeonato y enfócate en lo que realmente importa: disfrutar del deporte
         </span>
       </header>
       <form
@@ -102,7 +101,7 @@ const ContactForm = () => {
             htmlFor="entityName"
             className="block text-sm font-medium text-gray-700"
           >
-            Nombre de tu entidad deportiva *
+            Nombre del camponato
           </label>
           <input
             id="entityName"
