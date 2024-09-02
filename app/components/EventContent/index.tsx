@@ -73,7 +73,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
                 </h2>
               </div>
               {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
-              {category === "CLASIFICACIÓN" && <Classification data={event?.tabFour?.clasificaciones} logos={teamLogos}/>}
+              {category === "CLASIFICACIÓN" && <Classification data={event?.tabTree?.teams} logos={teamLogos}/>}
               {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
               {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos}/>}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}

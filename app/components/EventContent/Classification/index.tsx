@@ -13,16 +13,17 @@ const Classification = ({ data, logos }: ClassificationProps) => {
     if (data) {
       const classification = data.map((team: any) => {
         return {
-          position: team?.value?.position,
-          name: team?.value?.team?.name,
-          logo: team?.value?.team?.tabOne?.poster?.url || logos.find((logo: any) => logo.name === team?.value?.team?.name)?.logo,
-          points: team?.value?.puntos,
-          played: team?.value?.partidos_jugados,
-          won: team?.value?.partidos_ganados,
-          draw: team?.value?.partidos_empatados,
-          lost: team?.value?.partidos_perdidos,
-          goalsFor: team?.value?.goles_favor,
-          goalsAgainst: team?.value?.goles_contra,
+          name: team?.value?.name,
+          logo:
+            team?.value?.tabOne?.poster?.url ||
+            logos.find((logo: any) => logo.name === team?.name)?.logo,
+          points: team?.value?.tabSix?.puntos,
+          played: team?.value?.tabSix?.partidos_jugados,
+          won: team?.value?.tabSix?.partidos_ganados,
+          draw: team?.value?.tabSix?.partidos_empatados,
+          lost: team?.value?.tabSix?.partidos_perdidos,
+          goalsFor: team?.value?.tabSix?.goles_favor,
+          goalsAgainst: team?.value?.tabSix?.goles_contra,
         };
       });
       setDataClassification(classification);
@@ -31,16 +32,14 @@ const Classification = ({ data, logos }: ClassificationProps) => {
 
   return (
     <div className="mt-10">
-      {
-        dataClassification && dataClassification.length > 0 && (
-          <CustomTable data={dataClassification} type="classification" />
-        )
-      }
-      {
-        dataClassification && dataClassification.length === 0 && (
-          <h2 className="text-2xl text-center font-semibold">Aún no hay clasificación disponible</h2>
-        )
-      }
+      {dataClassification && dataClassification.length > 0 && (
+        <CustomTable data={dataClassification} type="classification" />
+      )}
+      {dataClassification && dataClassification.length === 0 && (
+        <h2 className="text-2xl text-center font-semibold">
+          Aún no hay clasificación disponible
+        </h2>
+      )}
     </div>
   );
 };

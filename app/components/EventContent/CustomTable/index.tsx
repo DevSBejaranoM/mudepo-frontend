@@ -123,10 +123,25 @@ const CustomTable = ({
           </div>
         );
       case "classification":
+        // data = data.sort((a: Team, b: Team) => {
+        //   if (a.points! > b.points!) return -1;
+        //   else if (a.points! < b.points!) return 1;
+        //   else return 0;
+        // });
         data = data.sort((a: Team, b: Team) => {
-          if (a.position! > b.position!) return 1;
-          else if (a.position! < b.position!) return -1;
-          else return 0;
+          if (a.points! > b.points!) {
+            return -1;
+          } else if (a.points! < b.points!) {
+            return 1;
+          } else {
+            if (a.played! > b.played!) {
+              return 1;
+            } else if (a.played! < b.played!) {
+              return -1;
+            } else {
+              return 0;
+            }
+          }
         });
         return (
           <div className="overflow-x-auto">
@@ -148,7 +163,9 @@ const CustomTable = ({
               <tbody>
                 {data.map((team: Team, index: number) => (
                   <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">{team.position}</td>
+                    <td className="text-center py-2 pl-5">
+                      {team.points === 0 ? "-" : index + 1}
+                    </td>
                     <td className="text-center py-2 px-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
