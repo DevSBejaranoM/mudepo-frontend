@@ -123,11 +123,6 @@ const CustomTable = ({
           </div>
         );
       case "classification":
-        // data = data.sort((a: Team, b: Team) => {
-        //   if (a.points! > b.points!) return -1;
-        //   else if (a.points! < b.points!) return 1;
-        //   else return 0;
-        // });
         data = data.sort((a: Team, b: Team) => {
           if (a.points! > b.points!) {
             return -1;
@@ -135,9 +130,9 @@ const CustomTable = ({
             return 1;
           } else {
             if (a.played! > b.played!) {
-              return 1;
-            } else if (a.played! < b.played!) {
               return -1;
+            } else if (a.played! < b.played!) {
+              return 1;
             } else {
               return 0;
             }
