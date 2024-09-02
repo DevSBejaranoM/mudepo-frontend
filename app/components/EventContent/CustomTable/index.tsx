@@ -129,9 +129,9 @@ const CustomTable = ({
           } else if (a.points! < b.points!) {
             return 1;
           } else {
-            if (a.played! > b.played!) {
+            if (a.goalsFor! > b.goalsFor!) {
               return -1;
-            } else if (a.played! < b.played!) {
+            } else if (a.goalsFor! < b.goalsFor!) {
               return 1;
             } else {
               return 0;

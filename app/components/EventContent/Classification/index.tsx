@@ -17,13 +17,13 @@ const Classification = ({ data, logos }: ClassificationProps) => {
           logo:
             team?.value?.tabOne?.poster?.url ||
             logos.find((logo: any) => logo.name === team?.name)?.logo,
-          points: team?.value?.tabSix?.puntos,
-          played: team?.value?.tabSix?.partidos_jugados,
-          won: team?.value?.tabSix?.partidos_ganados,
-          draw: team?.value?.tabSix?.partidos_empatados,
-          lost: team?.value?.tabSix?.partidos_perdidos,
-          goalsFor: team?.value?.tabSix?.goles_favor,
-          goalsAgainst: team?.value?.tabSix?.goles_contra,
+          points: team?.value?.tabSix?.puntos || 0,
+          played: team?.value?.tabSix?.partidos_jugados || 0,
+          won: team?.value?.tabSix?.partidos_ganados || 0,
+          draw: team?.value?.tabSix?.partidos_empatados || 0,
+          lost: team?.value?.tabSix?.partidos_perdidos || 0,
+          goalsFor: team?.value?.tabSix?.goles_favor || 0,
+          goalsAgainst: team?.value?.tabSix?.goles_contra || 0,
         };
       });
       setDataClassification(classification);
