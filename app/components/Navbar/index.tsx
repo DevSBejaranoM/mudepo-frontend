@@ -33,7 +33,7 @@ const Navbar = () => {
                 setCurrentNavigation={setCurrentNavigation}
               />
               <Link
-                href={`${process.env.NEXT_PUBLIC_MAIN_URL}/login`}
+                href={`${process.env.NEXT_PUBLIC_MAIN_URL}`}
                 className="color-primary hover-color-primary-dark rounded-md px-3 py-2 text-sm font-medium"
               >
                 Área interna
