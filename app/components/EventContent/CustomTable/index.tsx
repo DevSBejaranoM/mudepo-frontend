@@ -123,21 +123,58 @@ const CustomTable = ({
           </div>
         );
       case "classification":
-        data = data.sort((a: Team, b: Team) => {
-          if (a.points! > b.points!) {
+        // data = data.sort((a: Team, b: Team) => {
+        //   if (a.points! > b.points!) {
+        //     return -1;
+        //   } else if (a.points! < b.points!) {
+        //     return 1;
+        //   } else {
+        //     if (a.goalsFor! > b.goalsFor!) {
+        //       return -1;
+        //     } else if (a.goalsFor! < b.goalsFor!) {
+        //       return 1;
+        //     } else {
+        //       return 0;
+        //     }
+        //   }
+        // });
+        data = data.sort((a: any, b: any) => {
+          // 1. Ordenar por puntos (descendente)
+          if (a.points > b.points) {
             return -1;
-          } else if (a.points! < b.points!) {
+          } else if (a.points < b.points) {
             return 1;
-          } else {
-            if (a.goalsFor! > b.goalsFor!) {
-              return -1;
-            } else if (a.goalsFor! < b.goalsFor!) {
-              return 1;
-            } else {
-              return 0;
-            }
+          } 
+          
+          // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
+          const goalDifferenceA = a.goalsFor - a.goalsAgainst;
+          const goalDifferenceB = b.goalsFor - b.goalsAgainst;
+        
+          if (goalDifferenceA > goalDifferenceB) {
+            return -1;
+          } else if (goalDifferenceA < goalDifferenceB) {
+            return 1;
           }
+        
+          // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
+          if (a.won > b.won) {
+            return -1;
+          } else if (a.won < b.won) {
+            return 1;
+          }
+        
+          // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
+          if (a.draw > b.draw) {
+            return -1;
+          } else if (a.draw < b.draw) {
+            return 1;
+          }
+        
+          // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
+          return 0;
         });
+        
+        
         return (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white">
