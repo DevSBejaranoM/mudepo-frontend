@@ -18,14 +18,14 @@ const DownloadSection = () => {
             equipos, plantillas ¡y mucho más!
           </p>
           <div className="flex space-x-4">
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://play.google.com/store/apps/details?id=com.mudepoapp" target="_blank" rel="noopener noreferrer">
               <img
                 src="/images/home/google-play-badge.png"
                 alt="Disponible en Google Play"
                 className="w-44 h-auto"
               />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://apps.apple.com/es/app/mudepo-ligas-y-eventos/id6670308937" target="_blank" rel="noopener noreferrer">
               <img
                 src="/images/home/app-store-badge.png"
                 alt="Consíguelo en App Store"

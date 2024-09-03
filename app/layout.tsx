@@ -21,6 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="application-name" content="mudepo" />
+        <meta
+          name="apple-itunes-app"
+          content={`app-id=6670308937, app-argument=https://mudepo.es/`}
+        ></meta>
+
         <link rel="stylesheet" href="https://pdcc.gdpr.es/pdcc.min.css" />
         <script charSet="utf-8" src="https://pdcc.gdpr.es/pdcc.min.js"></script>
         <ClientSideScript />

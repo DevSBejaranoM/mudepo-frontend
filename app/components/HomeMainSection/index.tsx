@@ -30,7 +30,7 @@ const HomeMainSection = () => {
               </button>
             </div>
           </div>
-          <div className="hidden md:flex justify-center lg:justify-end items-center">
+          <div className="hidden md:flex justify-center items-center">
             <img
               src="/images/home/mobil.png"
               alt="Logo"
