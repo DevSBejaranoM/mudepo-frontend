@@ -15,9 +15,9 @@ const CustomTab = ({ options }: CustomTabProps) => {
           <button
             key={option}
             onClick={() => setTeam(option)}
-            className={`py-4 px-6 block hover:text-blue-500 focus:outline-none ${
+            className={`py-4 px-6 block hover:text-[#75ab4d] focus:outline-none ${
               team === option
-                ? "text-blue-500 border-b-2 font-medium border-blue-500"
+                ? "text-[#75ab4d] border-b-2 font-medium border-[#75ab4d]"
                 : "text-gray-600"
             }`}
           >

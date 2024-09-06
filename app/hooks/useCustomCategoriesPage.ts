@@ -8,6 +8,7 @@ const UseCustomCategoriesPage = () => {
     "CLASIFICACIÓN",
     "CALENDARIO",
     "ESTADÍSTICAS",
+    "RESOLUCIONES"
   ];
 
   const [categoriesPage, setCategoriesPage] = useState<string[]>(

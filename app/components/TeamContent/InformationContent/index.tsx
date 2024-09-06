@@ -38,6 +38,9 @@ const InformationContent = ({ dataTeam }: any) => {
     name: `${player.name} ${player.lastname || ""}`,
     position: player.position ? player.position : "Sin posición asignada",
     age: getEdad(player.birthdate) || "",
+    sancion: player?.sancionadoCard,
+    yellowCards: player?.yellowCards?.count ? player?.yellowCards?.count : 0,
+    redCards: player?.redCards?.count ? player?.redCards?.count : 0,
   }));
 
   return (

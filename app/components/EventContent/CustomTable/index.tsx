@@ -66,10 +66,11 @@ interface TableProps {
     | "statistics-5"
     | "statistics-6"
     | "statistics-7"
-    | "statistics-8";
+    | "statistics-8"
+    | "resolutions";
   journey?: string;
   logos?: any;
-  setSelectedInfo?: (info: CalendarInfo) => void;
+  setSelectedInfo?: (info: any) => void;
 }
 
 const CustomTable = ({
@@ -1475,6 +1476,35 @@ const CustomTable = ({
             </table>
           </div>
         );
+        case "resolutions":
+          data = data.sort((a: any, b: any) => {
+            if (a.dateTime! > b.dateTime!) return -1;
+            else if (a.dateTime! < b.dateTime!) return 1;
+            else return 0;
+          });
+
+          return (
+            <div className="overflow-x-auto">
+            <table className="bg-white border-b-2">
+              <thead className="bg-gray-300">
+                <tr>
+                  <th className="w-48 py-2 pl-5">FECHA</th>
+                  <th className="w-64 py-2 px-5">TÍTULO</th>
+                  <th className="w-auto py-2 px-5">OBSERVACIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((resolution: any, index: number) => (
+                  <tr key={index} className="border-t even:bg-gray-100">
+                    <td className="text-center py-3 pl-5">{new Date(resolution.dateTime).toLocaleString()}</td>
+                    <td className=" text-center py-3 px-5">{resolution?.name}</td>
+                    <td className="text-center py-3 px-5 cursor-pointer underline underline-offset-4" onClick={()=>setSelectedInfo(resolution)}>Detalle</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          )
     }
   };
 

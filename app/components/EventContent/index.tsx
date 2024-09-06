@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 import Loader from "../Loader";
 import CalendarTwo from "./CalendarTwo";
+import Resolutions from "./Resolutions";
 
 interface EventContentProps {
   eventId: string;
@@ -77,9 +78,10 @@ const EventContent = ({ eventId }: EventContentProps) => {
               {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
               {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos}/>}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
+              {category === "RESOLUCIONES" && <Resolutions id={eventId} />}
               {
                 banner && (
-                  <div className="mt-10">
+                  <div className="mt-56">
                   <BannerPartner
                     sponsors={banner}
                   />
