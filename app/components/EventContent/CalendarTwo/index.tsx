@@ -24,18 +24,6 @@ const CalendarTwo = ({ data, logos }: any) => {
     }
   }, []);
 
-  const orderData = (data: any) => {
-    if (data.length > 0) {
-      return data.sort((a: any, b: any) => {
-        if (a?.info?.fecha! > b?.info?.fecha!) return -1;
-        else if (a?.info?.fecha! < b?.info?.fecha!) return 1;
-        else return 0;
-      });
-    } else {
-      return data;
-    }
-  };
-
   const handleChangePhase = async (
     index: any,
     idSelect: string,
@@ -62,7 +50,8 @@ const CalendarTwo = ({ data, logos }: any) => {
     setGroupSelected(index);
     if (index === -1) {
       let dataJorney: any = [];
-      data?.tabTwo?.grupos?.map((grupo: any) => {
+      data?.tabTwo?.grupos.map((grupo: any) => {
+        if(!grupo?.tabTwo?.jornadas || grupo?.tabTwo?.jornadas.length === 0) return;
         let newJourney = [...grupo?.tabTwo?.jornadas.map((jornada: any) => ({...jornada, grupo: grupo?.name}))];
         dataJorney = [...dataJorney, ...newJourney];
       });
@@ -117,11 +106,6 @@ const CalendarTwo = ({ data, logos }: any) => {
     } else if (list && list.classList.contains("block")) {
       list.classList.replace("block", "hidden");
     }
-  };
-
-  const numberToLetter = (num: number) => {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return alphabet[num] || "";
   };
 
   return (
