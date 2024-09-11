@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="text-2xl px-4">
               <h3 className="font-bold text-white">Contacto</h3>
               <p className="mt-2 mb-4 text-gray-700 text-xl">
-                futbolmudepo@gmail.com
+                info@mudepo.es
               </p>
               <div className="flex flex-row my-4">
                 <a
