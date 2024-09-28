@@ -187,7 +187,7 @@ const CustomTable = ({
                     <td className="text-center py-2 px-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
-                        alt={team.name}
+                        alt={team.teamName}
                         className="w-8 h-8 mx-auto"
                         style={{ objectFit: "contain" }}
                       />
