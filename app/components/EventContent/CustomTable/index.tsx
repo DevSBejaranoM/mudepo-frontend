@@ -124,21 +124,6 @@ const CustomTable = ({
           </div>
         );
       case "classification":
-        // data = data.sort((a: Team, b: Team) => {
-        //   if (a.points! > b.points!) {
-        //     return -1;
-        //   } else if (a.points! < b.points!) {
-        //     return 1;
-        //   } else {
-        //     if (a.goalsFor! > b.goalsFor!) {
-        //       return -1;
-        //     } else if (a.goalsFor! < b.goalsFor!) {
-        //       return 1;
-        //     } else {
-        //       return 0;
-        //     }
-        //   }
-        // });
         data = data.sort((a: any, b: any) => {
           // 1. Ordenar por puntos (descendente)
           if (a.points > b.points) {
@@ -194,7 +179,7 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: Team, index: number) => (
+                {data.map((team: any, index: number) => (
                   <tr key={index} className="border-t even:bg-gray-100">
                     <td className="text-center py-2 pl-5">
                       {team.points === 0 ? "-" : index + 1}
@@ -207,13 +192,13 @@ const CustomTable = ({
                         style={{ objectFit: "contain" }}
                       />
                     </td>
-                    <td className="text-center py-2 px-5">{team.name}</td>
+                    <td className="text-center py-2 px-5">{team.teamName}</td>
                     <td className="text-center py-2 px-5">{team.points}</td>
-                    <td className="text-center py-2 px-5">{team.played}</td>
-                    <td className="text-center py-2 px-5">{team.won}</td>
-                    <td className="text-center py-2 px-5">{team.draw}</td>
-                    <td className="text-center py-2 px-5">{team.lost}</td>
-                    <td className="text-center py-2 px-5">{team.goalsFor}</td>
+                    <td className="text-center py-2 px-5">{team.matchesPlayed}</td>
+                    <td className="text-center py-2 px-5">{team.matchesWon}</td>
+                    <td className="text-center py-2 px-5">{team.matchesDrawn}</td>
+                    <td className="text-center py-2 px-5">{team.matchesLost}</td>
+                    <td className="text-center py-2 px-5">{team.goals}</td>
                     <td className="text-center py-2 px-5">
                       {team.goalsAgainst}
                     </td>

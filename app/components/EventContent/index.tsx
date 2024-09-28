@@ -19,10 +19,25 @@ interface EventContentProps {
 
 const EventContent = ({ eventId }: EventContentProps) => {
   const category = useCategoryStore((state) => state.category);
+  const [banner, setBanner] = useState<any>(null);
   const [event, setEvent] = useState<any>(null);
   const [teamLogos, setTeamLogos] = useState<any>([]);
-  const [loading, setLoading] = useState(true);
-  const [banner, setBanner] = useState<any>(null);
+  const [ranking, setRanking] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingRanking, setLoadingRanking] = useState(false);
+
+  const fetchRanking = async () => {
+    try {
+      const data = await axiosAdapter.fetchData(
+        `/get-ranking?league_id=${eventId}`
+      );
+      setRanking(data.data);
+      setLoadingRanking(false);
+    } catch (error) {
+      console.error("Error retrieving events:", error);
+      setLoadingRanking(false);
+    }
+  };
 
   const fetchEvents = async () => {
     try {
@@ -32,10 +47,10 @@ const EventContent = ({ eventId }: EventContentProps) => {
         const logo = {
           // id: item?.value?.id, // no tienen el mismo id
           name: item?.value?.name,
-          logo: item?.value?.tabOne?.poster?.url
-        }
+          logo: item?.value?.tabOne?.poster?.url,
+        };
         setTeamLogos((prev: any) => [...prev, logo]);
-      })
+      });
       setEvent(data);
       setLoading(false);
     } catch (error) {
@@ -45,22 +60,27 @@ const EventContent = ({ eventId }: EventContentProps) => {
   };
 
   useEffect(() => {
-    if (event === null) {
+    if (event === null && !loading) {
+      setLoading(true);
       fetchEvents();
+    }
+    if (ranking === null && !loadingRanking) {
+      setLoadingRanking(true);
+      fetchRanking();
     }
   }, []);
 
   return (
     <>
-      {loading && (
-        <Loader />
-      )}
+      {loading && <Loader />}
       {!loading && (
         <>
           <MainSection
-            image={event?.tabOne?.poster?.url
-              ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
-              : "/images/header-background.jpg"}
+            image={
+              event?.tabOne?.poster?.url
+                ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
+                : "/images/header-background.jpg"
+            }
             title={event?.name ? event.name : "Evento"}
             // bgSize="auto"
           />
@@ -73,21 +93,25 @@ const EventContent = ({ eventId }: EventContentProps) => {
                   {event?.name ? event.name : "Evento"}
                 </h2>
               </div>
-              {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams}/>}
-              {category === "CLASIFICACIÓN" && <Classification data={event?.tabTree?.teams} logos={teamLogos}/>}
+              {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams} />}
+              {category === "CLASIFICACIÓN" && (
+                <Classification
+                  ranking={ranking}
+                  loading={loadingRanking}
+                  logos={teamLogos}
+                />
+              )}
               {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
-              {category === "CALENDARIO" && <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos}/>}
+              {category === "CALENDARIO" && (
+                <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos} />
+              )}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
               {category === "RESOLUCIONES" && <Resolutions id={eventId} />}
-              {
-                banner && (
-                  <div className="mt-56">
-                  <BannerPartner
-                    sponsors={banner}
-                  />
-                  </div>
-                )
-              }
+              {banner && (
+                <div className="mt-56">
+                  <BannerPartner sponsors={banner} />
+                </div>
+              )}
             </div>
           </section>
         </>

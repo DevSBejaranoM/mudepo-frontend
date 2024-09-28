@@ -7,10 +7,9 @@ import Loader from "../Loader";
 
 const EventsContent = (slug: any) => {
   const [events, setEvents] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchEvents = async () => {
-    // http://localhost:3021/api/get-events?slug=trofeo-diputacion-oficial
     try {
       const data = await axiosAdapter.fetchData(`/get-events?slug=${slug.slug}`);
       setEvents(data.data[0]);
@@ -23,7 +22,8 @@ const EventsContent = (slug: any) => {
   };
 
   useEffect(() => {
-    if (events === null) {
+    if (events === null && loading === false) {
+      setLoading(true);
       fetchEvents();
     }
   }, []);
