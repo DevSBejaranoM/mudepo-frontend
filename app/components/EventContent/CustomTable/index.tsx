@@ -70,6 +70,7 @@ interface TableProps {
     | "resolutions";
   journey?: string;
   logos?: any;
+  allRanking?: boolean;
   setSelectedInfo?: (info: any) => void;
 }
 
@@ -79,6 +80,7 @@ const CustomTable = ({
   journey,
   setSelectedInfo = () => {},
   logos,
+  allRanking = false,
 }: TableProps) => {
   const router = useRouter();
 
@@ -124,44 +126,161 @@ const CustomTable = ({
           </div>
         );
       case "classification":
-        data = data.sort((a: any, b: any) => {
-          // 1. Ordenar por puntos (descendente)
-          if (a.points > b.points) {
-            return -1;
-          } else if (a.points < b.points) {
-            return 1;
-          } 
-          
-          // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
-          const goalDifferenceA = a.goalsFor - a.goalsAgainst;
-          const goalDifferenceB = b.goalsFor - b.goalsAgainst;
-        
-          if (goalDifferenceA > goalDifferenceB) {
-            return -1;
-          } else if (goalDifferenceA < goalDifferenceB) {
-            return 1;
-          }
-        
-          // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
-          if (a.won > b.won) {
-            return -1;
-          } else if (a.won < b.won) {
-            return 1;
-          }
-        
-          // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
-          if (a.draw > b.draw) {
-            return -1;
-          } else if (a.draw < b.draw) {
-            return 1;
-          }
-        
-          // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
-          return 0;
-        });
-        
-        
-        return (
+        let groupedTeams: any = [];
+        if (allRanking) {
+          groupedTeams = data.reduce((groups: any, team: any) => {
+            if (!groups[team.groupName]) {
+              groups[team.groupName] = [];
+            }
+            groups[team.groupName].push(team);
+            return groups;
+          }, {});
+        } else {
+          data = data.sort((a: any, b: any) => {
+            // 1. Ordenar por puntos (descendente)
+            if (a.points > b.points) {
+              return -1;
+            } else if (a.points < b.points) {
+              return 1;
+            }
+
+            // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
+            const goalDifferenceA = a.goalsFor - a.goalsAgainst;
+            const goalDifferenceB = b.goalsFor - b.goalsAgainst;
+
+            if (goalDifferenceA > goalDifferenceB) {
+              return -1;
+            } else if (goalDifferenceA < goalDifferenceB) {
+              return 1;
+            }
+
+            // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
+            if (a.won > b.won) {
+              return -1;
+            } else if (a.won < b.won) {
+              return 1;
+            }
+
+            // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
+            if (a.draw > b.draw) {
+              return -1;
+            } else if (a.draw < b.draw) {
+              return 1;
+            }
+
+            // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
+            return 0;
+          });
+        }
+
+        return allRanking ? (
+          <div>
+            {Object.keys(groupedTeams).map((groupName, groupIndex) => {
+              const sortedTeams = groupedTeams[groupName].sort(
+                (a: any, b: any) => {
+                  // 1. Ordenar por puntos (descendente)
+                  if (a.points > b.points) {
+                    return -1;
+                  } else if (a.points < b.points) {
+                    return 1;
+                  }
+
+                  // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
+                  const goalDifferenceA = a.goalsFor - a.goalsAgainst;
+                  const goalDifferenceB = b.goalsFor - b.goalsAgainst;
+
+                  if (goalDifferenceA > goalDifferenceB) {
+                    return -1;
+                  } else if (goalDifferenceA < goalDifferenceB) {
+                    return 1;
+                  }
+
+                  // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
+                  if (a.won > b.won) {
+                    return -1;
+                  } else if (a.won < b.won) {
+                    return 1;
+                  }
+
+                  // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
+                  if (a.draw > b.draw) {
+                    return -1;
+                  } else if (a.draw < b.draw) {
+                    return 1;
+                  }
+
+                  // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
+                  return 0;
+                }
+              );
+
+              return (
+                <div key={groupIndex} className="mb-10 mt-5">
+                  <h2 className="text-2xl font-bold mb-4">{groupName}</h2>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                      <thead className="bg-gray-300">
+                        <tr>
+                          <th className="w-16 py-2 pl-5">POS</th>
+                          <th className="w-16 py-2 px-5">ESC</th>
+                          <th className="w-80 py-2 px-5">EQUIPO</th>
+                          <th className="w-16 py-2 px-5">PTS</th>
+                          <th className="w-16 py-2 px-5">PJ</th>
+                          <th className="w-16 py-2 px-5">PG</th>
+                          <th className="w-16 py-2 px-5">PE</th>
+                          <th className="w-16 py-2 px-5">PP</th>
+                          <th className="w-16 py-2 px-5">GF</th>
+                          <th className="w-16 py-2 px-5">GC</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sortedTeams.map((team: any, index: number) => (
+                          <tr key={index} className="border-t even:bg-gray-100">
+                            <td className="text-center py-2 pl-5">
+                              {team.points === 0 ? "-" : index + 1}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
+                                alt={team.teamName}
+                                className="w-8 h-8 mx-auto"
+                                style={{ objectFit: "contain" }}
+                              />
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.teamName}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.points}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.matchesPlayed}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.matchesWon}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.matchesDrawn}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.matchesLost}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.goals}
+                            </td>
+                            <td className="text-center py-2 px-5">
+                              {team.goalsAgainst}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-300">
@@ -194,10 +313,16 @@ const CustomTable = ({
                     </td>
                     <td className="text-center py-2 px-5">{team.teamName}</td>
                     <td className="text-center py-2 px-5">{team.points}</td>
-                    <td className="text-center py-2 px-5">{team.matchesPlayed}</td>
+                    <td className="text-center py-2 px-5">
+                      {team.matchesPlayed}
+                    </td>
                     <td className="text-center py-2 px-5">{team.matchesWon}</td>
-                    <td className="text-center py-2 px-5">{team.matchesDrawn}</td>
-                    <td className="text-center py-2 px-5">{team.matchesLost}</td>
+                    <td className="text-center py-2 px-5">
+                      {team.matchesDrawn}
+                    </td>
+                    <td className="text-center py-2 px-5">
+                      {team.matchesLost}
+                    </td>
                     <td className="text-center py-2 px-5">{team.goals}</td>
                     <td className="text-center py-2 px-5">
                       {team.goalsAgainst}
@@ -724,12 +849,12 @@ const CustomTable = ({
         return (
           <>
             {!data && <Loader />}
-            {data && data?.tabOne?.partidos.length === 0 && (
+            {data && data?.tabOne?.partidos?.length === 0 && (
               <div className="flex justify-center items-center h-screen">
                 <h1 className="text-2xl text-gray-900">No hay partidos</h1>
               </div>
             )}
-            {data && data?.tabOne?.partidos.length > 0 && (
+            {data && data?.tabOne?.partidos?.length > 0 && (
               <div className="relative">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
                   <h2 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
@@ -1461,15 +1586,15 @@ const CustomTable = ({
             </table>
           </div>
         );
-        case "resolutions":
-          data = data.sort((a: any, b: any) => {
-            if (a.dateTime! > b.dateTime!) return -1;
-            else if (a.dateTime! < b.dateTime!) return 1;
-            else return 0;
-          });
+      case "resolutions":
+        data = data.sort((a: any, b: any) => {
+          if (a.dateTime! > b.dateTime!) return -1;
+          else if (a.dateTime! < b.dateTime!) return 1;
+          else return 0;
+        });
 
-          return (
-            <div className="overflow-x-auto">
+        return (
+          <div className="overflow-x-auto">
             <table className="bg-white border-b-2">
               <thead className="bg-gray-300">
                 <tr>
@@ -1481,15 +1606,24 @@ const CustomTable = ({
               <tbody>
                 {data.map((resolution: any, index: number) => (
                   <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-3 pl-5">{new Date(resolution.dateTime).toLocaleString()}</td>
-                    <td className=" text-center py-3 px-5">{resolution?.name}</td>
-                    <td className="text-center py-3 px-5 cursor-pointer underline underline-offset-4" onClick={()=>setSelectedInfo(resolution)}>Detalle</td>
+                    <td className="text-center py-3 pl-5">
+                      {new Date(resolution.dateTime).toLocaleString()}
+                    </td>
+                    <td className=" text-center py-3 px-5">
+                      {resolution?.name}
+                    </td>
+                    <td
+                      className="text-center py-3 px-5 cursor-pointer underline underline-offset-4"
+                      onClick={() => setSelectedInfo(resolution)}
+                    >
+                      Detalle
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          )
+        );
     }
   };
 

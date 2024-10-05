@@ -39,14 +39,20 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
       setDataRanking(newDataRanking);
       setPhases(newPhases);
       setPhaseSelected(newPhases[0] ? newPhases[0] : []);
-      handleChangeGroup(-1, `listbox-grupo-option`, true, newPhases[0], newDataRanking);
+      handleChangeGroup(
+        -1,
+        `listbox-grupo-option`,
+        true,
+        newPhases[0],
+        newDataRanking
+      );
     }
   }, []);
 
   const handleChangePhase = async (
     phase: any,
     idSelect: string,
-    firstLoad: boolean = false,
+    firstLoad: boolean = false
   ) => {
     setPhaseSelected(phase);
     setGroupSelected(-1);
@@ -257,6 +263,7 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
             <CustomTable
               data={dataFiltered}
               type="classification"
+              allRanking={groupSelected === -1 ? true : false}
             />
           )}
         </>
