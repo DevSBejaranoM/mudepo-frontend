@@ -14,7 +14,7 @@ const BannerPartner = ({ sponsors }: BannerPartnerProps) => {
           className="block rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105"
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_MAIN_URL}${sponsor?.photo?.url}`}
+            src={`${process.env.NEXT_PUBLIC_MAIN_URL}${sponsor?.logo}`}
             alt={sponsor?.name}
             className="w-full h-32 object-cover"
           />

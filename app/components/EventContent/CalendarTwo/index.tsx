@@ -31,7 +31,7 @@ const CalendarTwo = ({ data, logos }: any) => {
   ) => {
     setIsLoadingData(true);
     const dataPhase = await axiosAdapter.fetchData(
-      `/fases/${firstLoad ? data[index].value?.id : phases[index]?.value?.id}`
+      `/fases/${firstLoad ? data[index]?.id : phases[index]?.id}`
     );
     setDataPhaseSelected(dataPhase);
     setPaheSelected(index);
@@ -55,11 +55,11 @@ const CalendarTwo = ({ data, logos }: any) => {
         let newJourney = [...grupo?.tabTwo?.jornadas.map((jornada: any) => ({...jornada, grupo: grupo?.name}))];
         dataJorney = [...dataJorney, ...newJourney];
       });
-      if (dataJorney.length === 0) {
+      if (dataJorney?.length === 0) {
         setIsLoadingData(false);
-      } else {
+      } else if(dataJorney?.length > 0) {
         const response = await Promise.all(
-          dataJorney.map(async (jornada: any) => {
+          dataJorney?.map(async (jornada: any) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada.id}`
             );
@@ -69,17 +69,18 @@ const CalendarTwo = ({ data, logos }: any) => {
         );
         setIsLoadingData(false);
         setDataFiltered(response);
+        console.log("response 1", response);
         if (!firstLoad) openListAndClose(idSelect);
       }
     } else {
       let dataJorney: any = [];
       dataJorney = data?.tabTwo?.jornadas;
-      if (dataJorney.length === 0) {
+      if (dataJorney?.length === 0) {
         setIsLoadingData(false);
         openListAndClose(idSelect);
-      } else {
+      } else if(dataJorney?.length > 0) {
         const response = await Promise.all(
-          dataJorney.map(async (jornada: any) => {
+          dataJorney?.map(async (jornada: any) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada}`
             );
@@ -116,12 +117,12 @@ const CalendarTwo = ({ data, logos }: any) => {
           <h3 className="text-4xl font-bold">No hay partidos disponibles</h3>
         </div>
       )}
-      {phases && phases.length === 0 && !loading && (
+      {phases && phases?.length === 0 && !loading && (
         <div className="flex justify-center my-5 text-center w-full">
           <h3 className="text-4xl font-bold">No hay partidos disponibles</h3>
         </div>
       )}
-      {phases && phases.length > 0 && !loading && (
+      {phases && phases?.length > 0 && !loading && (
         <>
           <div className="flex space-x-2 md:mx-96 justify-center">
             <div className="w-full">
@@ -161,7 +162,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                   aria-labelledby="listbox-fase-label"
                   aria-activedescendant="listbox-fase-option-3"
                 >
-                  {phases.map((phase: any, index: number) => (
+                  {phases?.map((phase: any, index: number) => (
                     <li
                       key={index}
                       className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
@@ -231,7 +232,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                   >
                     Todos los grupos
                   </li>
-                  {phases[phaseSelected]?.value?.tabTwo?.grupos?.map(
+                  {phases[phaseSelected]?.grupos?.map(
                     (grupo: any, index: number) => (
                       <li
                         key={index}
@@ -263,9 +264,9 @@ const CalendarTwo = ({ data, logos }: any) => {
           )}
           <div
             className={`mt-10 grid grid-cols-1 ${
-              phases.length === 2
+              phases?.length === 2
                 ? "lg:grid-cols-2 2xl:grid-cols-2"
-                : phases.length > 2
+                : phases?.length > 2
                 ? "lg:grid-cols-2 2xl:grid-cols-3"
                 : ""
             }`}

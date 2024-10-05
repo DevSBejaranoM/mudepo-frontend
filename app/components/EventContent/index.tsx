@@ -26,6 +26,31 @@ const EventContent = ({ eventId }: EventContentProps) => {
   const [loading, setLoading] = useState(false);
   const [loadingRanking, setLoadingRanking] = useState(false);
 
+  const fetchEvents = async () => {
+    try {
+      const data = await axiosAdapter.fetchData(
+        `/get-event-fill?league_id=${eventId}`
+      );
+      setEvent(data.data);
+      if (data.data?.sponsors) {
+        setBanner(data.data.sponsors);
+      }
+      if (data.data?.teams) {
+        const logos = data.data.teams.map((team: any) => {
+          return {
+            id: team.id,
+            logo: team.logo,
+          };
+        });
+        setTeamLogos(logos);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error retrieving events:", error);
+      setLoading(false);
+    }
+  };
+
   const fetchRanking = async () => {
     try {
       const data = await axiosAdapter.fetchData(
@@ -36,26 +61,6 @@ const EventContent = ({ eventId }: EventContentProps) => {
     } catch (error) {
       console.error("Error retrieving events:", error);
       setLoadingRanking(false);
-    }
-  };
-
-  const fetchEvents = async () => {
-    try {
-      const data = await axiosAdapter.fetchData(`/leagues/${eventId}`);
-      setBanner(data?.tabSeven?.patrocinadores);
-      data?.tabTree?.teams?.forEach((item: any) => {
-        const logo = {
-          // id: item?.value?.id, // no tienen el mismo id
-          name: item?.value?.name,
-          logo: item?.value?.tabOne?.poster?.url,
-        };
-        setTeamLogos((prev: any) => [...prev, logo]);
-      });
-      setEvent(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error retrieving events:", error);
-      setLoading(false);
     }
   };
 
@@ -77,8 +82,8 @@ const EventContent = ({ eventId }: EventContentProps) => {
         <>
           <MainSection
             image={
-              event?.tabOne?.poster?.url
-                ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
+              event?.poster_url
+                ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.poster_url}`
                 : "/images/header-background.jpg"
             }
             title={event?.name ? event.name : "Evento"}
@@ -93,7 +98,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
                   {event?.name ? event.name : "Evento"}
                 </h2>
               </div>
-              {category === "EQUIPOS" && <Teams data={event?.tabTree?.teams} />}
+              {category === "EQUIPOS" && <Teams data={event?.teams} />}
               {category === "CLASIFICACIÓN" && (
                 <Classification
                   ranking={ranking}
@@ -101,9 +106,9 @@ const EventContent = ({ eventId }: EventContentProps) => {
                   logos={teamLogos}
                 />
               )}
-              {/* {category === "CALENDARIO" && <Calendar data={event?.tabFive?.jornadas}/>} */}
+              {/* {category === "CALENDARIO" && <Calendar data={event?.jornadas}/>} */}
               {category === "CALENDARIO" && (
-                <CalendarTwo data={event?.tabFive?.fases} logos={teamLogos} />
+                <CalendarTwo data={event?.fases} logos={teamLogos} />
               )}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
               {category === "RESOLUCIONES" && <Resolutions id={eventId} />}
