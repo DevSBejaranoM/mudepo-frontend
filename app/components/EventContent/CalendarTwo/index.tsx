@@ -4,7 +4,7 @@ import CustomTable from "../CustomTable";
 import Loader from "../../Loader";
 import { axiosAdapter } from "@/app/config/axios.adapter";
 
-const CalendarTwo = ({ data, logos }: any) => {
+const CalendarTwo = ({ data, logos, eventId }: any) => {
   const [selectedInfo, setSelectedInfo] = useState<any>(null);
   const [phases, setPhases] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,6 +16,11 @@ const CalendarTwo = ({ data, logos }: any) => {
 
   useEffect(() => {
     if (data) {
+      data = data.map((phase: any) => {
+       if(phase?.grupos?.[0].tabTree?.leagues === eventId) return phase;
+      }).filter((phase: any) => {
+        if(phase) return phase;
+      });
       setPhases(data);
       handleChangePhase(0, `listbox-fase-option`, true);
       setLoading(false);
@@ -296,9 +301,9 @@ const CalendarTwo = ({ data, logos }: any) => {
           )}
           <div
             className={`mt-10 grid grid-cols-1 ${
-              phases?.length === 2
+              phases[phaseSelected]?.grupos?.length === 2
                 ? "lg:grid-cols-2 2xl:grid-cols-2"
-                : phases?.length > 2
+                : phases[phaseSelected]?.grupos?.length > 2
                 ? "lg:grid-cols-2 2xl:grid-cols-3"
                 : ""
             }`}

@@ -109,7 +109,7 @@ const EventContent = ({ eventId, slug }: EventContentProps) => {
               )}
               {/* {category === "CALENDARIO" && <Calendar data={event?.jornadas}/>} */}
               {category === "CALENDARIO" && (
-                <CalendarTwo data={event?.fases} logos={teamLogos} />
+                <CalendarTwo data={event?.fases} logos={teamLogos} eventId={eventId}/>
               )}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
               {category === "RESOLUCIONES" && <Resolutions id={eventId} />}
