@@ -7,9 +7,14 @@ import SmallMenu from "./small-menu";
 import UseCustomCategoriesPage from "@/app/hooks/useCustomCategoriesPage";
 import { useEffect } from "react";
 
-const NavCategories = () => {
-  const { categoriesPage,  setCurrentCategoriesPage, currentCategoriesPage } = UseCustomCategoriesPage();
+interface NavCategoriesProps {
+  eventName: string;
+}
 
+const NavCategories = ({ eventName }: NavCategoriesProps) => {
+  const { categoriesPage, setCurrentCategoriesPage, currentCategoriesPage } =
+    UseCustomCategoriesPage();
+ 
   return (
     <Disclosure as="nav" className="bg-black">
       {({ open }: any) => (
@@ -28,11 +33,21 @@ const NavCategories = () => {
                 </DisclosureButton>
               </div>
               {/* Main menu */}
-              <Menu setCurrentCategoriesPage={setCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
+              <Menu
+                setCurrentCategoriesPage={setCurrentCategoriesPage}
+                categoriesPage={categoriesPage}
+                currentCategoriesPage={currentCategoriesPage}
+                eventName={eventName}
+              />
             </div>
           </div>
           {/* Small menu */}
-          <SmallMenu setCurrentCategoriesPage={setCurrentCategoriesPage} categoriesPage={categoriesPage} currentCategoriesPage={currentCategoriesPage}/>
+          <SmallMenu
+            setCurrentCategoriesPage={setCurrentCategoriesPage}
+            categoriesPage={categoriesPage}
+            currentCategoriesPage={currentCategoriesPage}
+            eventName={eventName}
+          />
         </>
       )}
     </Disclosure>

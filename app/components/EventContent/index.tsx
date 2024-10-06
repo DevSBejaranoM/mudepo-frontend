@@ -15,9 +15,10 @@ import Resolutions from "./Resolutions";
 
 interface EventContentProps {
   eventId: string;
+  slug: string;
 }
 
-const EventContent = ({ eventId }: EventContentProps) => {
+const EventContent = ({ eventId, slug }: EventContentProps) => {
   const category = useCategoryStore((state) => state.category);
   const [banner, setBanner] = useState<any>(null);
   const [event, setEvent] = useState<any>(null);
@@ -89,7 +90,7 @@ const EventContent = ({ eventId }: EventContentProps) => {
             title={event?.name ? event.name : "Evento"}
             // bgSize="auto"
           />
-          <NavCategories />
+          <NavCategories eventName={slug}  />
           <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
             <div className="flex-col">
               <div>
