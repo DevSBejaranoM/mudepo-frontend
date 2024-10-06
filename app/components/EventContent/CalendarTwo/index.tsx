@@ -51,25 +51,42 @@ const CalendarTwo = ({ data, logos }: any) => {
     if (index === -1) {
       let dataJorney: any = [];
       data?.tabTwo?.grupos.map((grupo: any) => {
-        if(!grupo?.tabTwo?.jornadas || grupo?.tabTwo?.jornadas.length === 0) return;
-        let newJourney = [...grupo?.tabTwo?.jornadas.map((jornada: any) => ({...jornada, grupo: grupo?.name}))];
+        if (!grupo?.tabTwo?.jornadas || grupo?.tabTwo?.jornadas.length === 0)
+          return;
+        let newJourney = [
+          ...grupo?.tabTwo?.jornadas.map((jornada: any) => ({
+            ...jornada,
+            grupo: grupo?.name,
+          })),
+        ];
         dataJorney = [...dataJorney, ...newJourney];
       });
       if (dataJorney?.length === 0) {
         setIsLoadingData(false);
-      } else if(dataJorney?.length > 0) {
+      } else if (dataJorney?.length > 0) {
         const response = await Promise.all(
-          dataJorney?.map(async (jornada: any) => {
+          dataJorney?.map(async (jornada: any, index1: number) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada.id}`
             );
-            let jorney = {...dataJorney, grupo: jornada?.grupo}
+            dataJorney.tabOne.partidos = dataJorney?.tabOne?.partidos.map(
+              (partido: any) => {
+                if (partido?.tabSeven?.grupo?.name === jornada?.grupo) {
+                  return partido;
+                }
+              }
+            );
+            dataJorney.tabOne.partidos = dataJorney.tabOne.partidos.filter(
+              (partido: any) => {
+                if (partido) return partido;
+              }
+            );
+            let jorney = { ...dataJorney, grupo: jornada?.grupo };
             return jorney;
           })
         );
         setIsLoadingData(false);
         setDataFiltered(response);
-        console.log("response 1", response);
         if (!firstLoad) openListAndClose(idSelect);
       }
     } else {
@@ -78,12 +95,28 @@ const CalendarTwo = ({ data, logos }: any) => {
       if (dataJorney?.length === 0) {
         setIsLoadingData(false);
         openListAndClose(idSelect);
-      } else if(dataJorney?.length > 0) {
-        const response = await Promise.all(
+      } else if (dataJorney?.length > 0) {
+        const response: any = await Promise.all(
           dataJorney?.map(async (jornada: any) => {
-            const dataJorney = await axiosAdapter.fetchData(
+            let dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada}`
             );
+            dataJorney.tabOne.partidos = dataJorney?.tabOne?.partidos.map(
+              (partido: any) => {
+                if (
+                  partido?.tabSeven?.grupo?.name ===
+                  phases[phaseSelected]?.grupos[index]?.name
+                ) {
+                  return partido;
+                }
+              }
+            );
+            dataJorney.tabOne.partidos = dataJorney.tabOne.partidos.filter(
+              (partido: any) => {
+                if (partido) return partido;
+              }
+            );
+
             return dataJorney;
           })
         );
@@ -191,9 +224,8 @@ const CalendarTwo = ({ data, logos }: any) => {
                     <span className="ml-3 block truncate">
                       {groupSelected === -1
                         ? "Todos los grupos"
-                        // : `Grupo ${numberToLetter(groupSelected)}`}
-                        : `Grupo ${groupSelected + 1}`}
-
+                        : // : `Grupo ${numberToLetter(groupSelected)}`}
+                          `Grupo ${groupSelected + 1}`}
                     </span>
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -246,7 +278,7 @@ const CalendarTwo = ({ data, logos }: any) => {
                           )
                         }
                       >
-                        Grupo {index +1 }
+                        Grupo {index + 1}
                       </li>
                     )
                   )}
