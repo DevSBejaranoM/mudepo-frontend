@@ -35,8 +35,8 @@ const EventCard = ({ event, index, eventName }: EventCardProps) => {
     <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
       <img
         src={
-          event?.tabOne?.poster?.url
-            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster?.url}`
+          event?.tabOne?.poster
+            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${event?.tabOne?.poster}`
             : "/images/placeholder-liga.png"
         }
         alt="category-image"
