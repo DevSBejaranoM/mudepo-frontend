@@ -32,7 +32,7 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
         }
         newDataRanking.push({
           ...rank,
-          logo: logos.find((logo: any) => logo?.name === rank?.teamName)?.logo,
+          logo: logos.find((logo: any) => logo?.id === rank?.teamId)?.logo || "",
         });
       });
 

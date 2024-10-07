@@ -11,9 +11,14 @@ const EventsContent = (slug: any) => {
 
   const fetchEvents = async () => {
     try {
-      const data = await axiosAdapter.fetchData(`/get-events?slug=${slug.slug}`);
+      const data = await axiosAdapter.fetchData(
+        `/get-events?slug=${slug.slug}`
+      );
+      if (data.data[0].tabOne.portada.url) {
+        data.data[0].tabOne.portada.url =
+          data.data[0].tabOne.portada.url.replaceAll(" ", "%20");
+      }
       setEvents(data.data[0]);
-
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving events:", error);
@@ -45,6 +50,7 @@ const EventsContent = (slug: any) => {
                 ? `${process.env.NEXT_PUBLIC_MAIN_URL}${events?.tabOne?.portada?.url}`
                 : "/images/header-background.jpg"
             }
+            bgSize="content"
           />
           <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
             {!loading && events?.tabTwo?.leagues && (

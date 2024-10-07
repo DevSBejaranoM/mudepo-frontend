@@ -213,7 +213,6 @@ const CustomTable = ({
                   return 0;
                 }
               );
-
               return (
                 <div key={groupIndex} className="mb-10 mt-5">
                   <h2 className="text-2xl font-bold mb-4">{groupName}</h2>
@@ -1180,8 +1179,8 @@ const CustomTable = ({
                                     ?.url ||
                                   logos.find(
                                     (logo: any) =>
-                                      logo.name ===
-                                      calendar?.tabTwo?.team1?.name
+                                      logo.id ===
+                                      calendar?.tabTwo?.team1?.id
                                   )?.logo
                                 }`}
                                 alt="local"
@@ -1202,8 +1201,8 @@ const CustomTable = ({
                                     ?.url ||
                                   logos.find(
                                     (logo: any) =>
-                                      logo.name ===
-                                      calendar?.tabTree?.team2?.name
+                                      logo.id ===
+                                      calendar?.tabTree?.team2?.id
                                   )?.logo
                                 }`}
                                 alt="visitante"
