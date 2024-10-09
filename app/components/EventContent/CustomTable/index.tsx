@@ -67,6 +67,8 @@ interface TableProps {
     | "statistics-6"
     | "statistics-7"
     | "statistics-8"
+    | "deportividad"
+    | "sancionados"
     | "resolutions";
   journey?: string;
   logos?: any;
@@ -1179,8 +1181,7 @@ const CustomTable = ({
                                     ?.url ||
                                   logos.find(
                                     (logo: any) =>
-                                      logo.id ===
-                                      calendar?.tabTwo?.team1?.id
+                                      logo.id === calendar?.tabTwo?.team1?.id
                                   )?.logo
                                 }`}
                                 alt="local"
@@ -1201,8 +1202,7 @@ const CustomTable = ({
                                     ?.url ||
                                   logos.find(
                                     (logo: any) =>
-                                      logo.id ===
-                                      calendar?.tabTree?.team2?.id
+                                      logo.id === calendar?.tabTree?.team2?.id
                                   )?.logo
                                 }`}
                                 alt="visitante"
@@ -1579,6 +1579,87 @@ const CustomTable = ({
                     <td className=" text-center py-2 px-5">{player.name}</td>
                     <td className="text-center py-2 px-5">{player.team}</td>
                     <td className="text-center py-2 pr-5">{player.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      case "deportividad":
+        data = data.sort((a: any, b: any) => {
+          if (a.puntos! > b.puntos!) return -1;
+          else if (a.puntos! < b.puntos!) return 1;
+          else return 0;
+        });
+        return (
+          <div className="overflow-x-auto">
+            <table className="min-w-[60%] bg-white border-b-2">
+              <thead className="bg-gray-300">
+                <tr>
+                  <th className="w-16 py-2 pl-5">ESC</th>
+                  <th className="w-80 py-2 px-5">EQUIPO</th>
+                  <th className="w-16 py-2 px-5">SANCIONES</th>
+                  <th className="w-16 py-2 pr-5">PUNTOS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((team: any, index: number) => (
+                  <tr key={index} className="border-t even:bg-gray-100">
+                    <td className="text-center py-2 pl-5">
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
+                        alt={team.equipo}
+                        className="w-8 h-8 mx-auto"
+                      />
+                    </td>
+                    <td className=" text-center py-2 px-5">{team.equipo}</td>
+                    <td className=" text-center py-2 px-5">{team.sanciones}</td>
+                    <td className="text-center py-2 pr-5">{team.puntos}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      case "sancionados":
+        data = data.sort((a: any, b: any) => {
+          if (a?.puntos > b?.puntos) return -1;
+          else if (a?.puntos < b?.puntos) return 1;
+          if (a?.sanciones > b?.sanciones) {
+            return -1;
+          } else if (a?.sanciones < b?.sanciones) {
+            return 1;
+          } else return 0;
+        });
+
+        return (
+          <div className="overflow-x-auto">
+            <table className="min-w-[60%] bg-white border-b-2">
+              <thead className="bg-gray-300">
+                <tr>
+                  <th className="w-16 py-2 pl-5">ESC</th>
+                  <th className="w-80 py-2 px-5">EQUIPO</th>
+                  <th className="w-80 py-2 px-5">JUGADOR</th>
+                  <th className="w-16 py-2 px-5">SANCIONES</th>
+                  <th className="w-16 py-2 pr-5">PUNTOS</th>
+                  <th className="w-16 py-2 px-5">PARTIDOS SUSPENDIDOS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((team: any, index: number) => (
+                  <tr key={index} className="border-t even:bg-gray-100">
+                    <td className="text-center py-2 pl-5">
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
+                        alt={team.equipo}
+                        className="w-8 h-8 mx-auto"
+                      />
+                    </td>
+                    <td className=" text-center py-2 px-5">{team.equipo}</td>
+                    <td className=" text-center py-2 px-5">{team.player}</td>
+                    <td className=" text-center py-2 px-5">{team.sanciones}</td>
+                    <td className="text-center py-2 pr-5">{team.puntos}</td>
+                    <td className="text-center py-2 px-5">{team.partidosSuspension}</td>
                   </tr>
                 ))}
               </tbody>

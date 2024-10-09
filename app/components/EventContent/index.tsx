@@ -12,6 +12,7 @@ import { axiosAdapter } from "@/app/config/axios.adapter";
 import Loader from "../Loader";
 import CalendarTwo from "./CalendarTwo";
 import Resolutions from "./Resolutions";
+import Sanciones from "./Sanciones";
 
 interface EventContentProps {
   eventId: string;
@@ -113,6 +114,7 @@ const EventContent = ({ eventId, slug }: EventContentProps) => {
               )}
               {category === "ESTADÍSTICAS" && <Statistics id={eventId} />}
               {category === "RESOLUCIONES" && <Resolutions id={eventId} />}
+              {category === "SANCIONES" && <Sanciones id={eventId} />}
               {banner && (
                 <div className="mt-56">
                   <BannerPartner sponsors={banner} />
