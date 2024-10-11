@@ -1625,8 +1625,8 @@ const CustomTable = ({
         );
       case "sancionados":
         data = data.sort((a: any, b: any) => {
-          if (a?.puntos > b?.puntos) return -1;
-          else if (a?.puntos < b?.puntos) return 1;
+          if (a?.total > b?.total) return -1;
+          else if (a?.total < b?.total) return 1;
         });
 
         return (
@@ -1646,14 +1646,14 @@ const CustomTable = ({
                     <td className="text-center py-2 pl-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.equipo}
+                        alt={team.team}
                         className="w-8 h-8 mx-auto"
                       />
                     </td>
-                    <td className=" text-center py-2 px-5">{team.equipo}</td>
-                    <td className=" text-center py-2 px-5">{team.player}</td>
+                    <td className=" text-center py-2 px-5">{team.team}</td>
+                    <td className=" text-center py-2 px-5">{team.name}</td>
                     <td className="text-center py-2 px-5">
-                      {team.partidosSuspension}
+                      {team.total}
                     </td>
                   </tr>
                 ))}
@@ -1663,8 +1663,8 @@ const CustomTable = ({
         );
       case "tarjetas-rojas":
         data = data.sort((a: any, b: any) => {
-          if (a?.sanciones > b?.sanciones) return -1;
-          else if (a?.sanciones < b?.sanciones) return 1;
+          if (a?.total > b?.total) return -1;
+          else if (a?.total < b?.total) return 1;
         });
 
         return (
@@ -1684,14 +1684,14 @@ const CustomTable = ({
                     <td className="text-center py-2 pl-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.equipo}
+                        alt={team.team}
                         className="w-8 h-8 mx-auto"
                       />
                     </td>
-                    <td className=" text-center py-2 px-5">{team.equipo}</td>
-                    <td className=" text-center py-2 px-5">{team.player}</td>
+                    <td className=" text-center py-2 px-5">{team.team}</td>
+                    <td className=" text-center py-2 px-5">{team.name}</td>
                     <td className="text-center py-2 px-5">
-                      {team.sanciones}
+                      {team.total}
                     </td>
                   </tr>
                 ))}
@@ -1701,8 +1701,8 @@ const CustomTable = ({
         );
       case "tarjetas-amarillas":
         data = data.sort((a: any, b: any) => {
-          if (a?.sanciones > b?.sanciones) return -1;
-          else if (a?.sanciones < b?.sanciones) return 1;
+          if (a?.total > b?.total) return -1;
+          else if (a?.total < b?.total) return 1;
         });
 
         return (
@@ -1722,14 +1722,14 @@ const CustomTable = ({
                     <td className="text-center py-2 pl-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.equipo}
+                        alt={team.team}
                         className="w-8 h-8 mx-auto"
                       />
                     </td>
-                    <td className=" text-center py-2 px-5">{team.equipo}</td>
-                    <td className=" text-center py-2 px-5">{team.player}</td>
+                    <td className=" text-center py-2 px-5">{team.team}</td>
+                    <td className=" text-center py-2 px-5">{team.name}</td>
                     <td className="text-center py-2 px-5">
-                      {team.sanciones}
+                      {team.total}
                     </td>
                   </tr>
                 ))}

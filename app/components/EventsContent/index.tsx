@@ -14,12 +14,19 @@ const EventsContent = (slug: any) => {
       const data = await axiosAdapter.fetchData(
         `/get-events?slug=${slug.slug}`
       );
-      if (data.data[0].tabOne.portada.url) {
-        data.data[0].tabOne.portada.url =
-          data.data[0].tabOne.portada.url.replaceAll(" ", "%20");
+      if (data?.data[0].length === 0) {
+        setEvents(null);
+        setLoading(false);
+        return;
       }
-      setEvents(data.data[0]);
-      setLoading(false);
+      {
+        if (data.data[0].tabOne.portada.url) {
+          data.data[0].tabOne.portada.url =
+            data.data[0].tabOne.portada.url.replaceAll(" ", "%20");
+        }
+        setEvents(data.data[0]);
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Error retrieving events:", error);
       setLoading(false);
