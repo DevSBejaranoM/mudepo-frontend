@@ -74,6 +74,10 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada.id}`
             );
+            if(!dataJorney?.tabOne?.partidos || dataJorney?.tabOne?.partidos?.length === 0) {
+              let jorney = { ...dataJorney, grupo: jornada?.grupo };
+              return jorney;
+            }
             dataJorney.tabOne.partidos = dataJorney?.tabOne?.partidos.map(
               (partido: any) => {
                 if (partido?.tabSeven?.grupo?.name === jornada?.grupo) {
@@ -106,6 +110,9 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
             let dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada}`
             );
+            if(!dataJorney?.tabOne?.partidos || dataJorney?.tabOne?.partidos?.length === 0) {
+              return dataJorney;
+            }
             dataJorney.tabOne.partidos = dataJorney?.tabOne?.partidos.map(
               (partido: any) => {
                 if (
