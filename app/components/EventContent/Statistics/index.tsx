@@ -65,7 +65,7 @@ const Statistics = ({ id }: StatisticsProps) => {
         />
       )}
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        EQUIPOS MENOS GOLEADORES
+        EQUIPOS MENOS GOLEADOS
       </h3>
       {loading && (
         <div className="flex justify-center">

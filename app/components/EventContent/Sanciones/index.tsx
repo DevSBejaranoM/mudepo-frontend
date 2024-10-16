@@ -18,7 +18,6 @@ const Sanciones = ({ id }: SancionesProps) => {
       const response = await axiosAdapter.fetchData(
         `/get-sanciones-estadisticas?id=${id}`
       );
-      console.log("sanciones", response.data);
       setDataSancionados(response?.data?.partidosSuspendidos || []);
       setAmarillas(response?.data?.tarjetaAmarilla || []);
       setRojas(response?.data?.tarjetaRoja || []);

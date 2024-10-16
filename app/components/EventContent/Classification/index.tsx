@@ -87,7 +87,14 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
         }
       });
       setGroupsInPhase(newGroupsInPhase);
-      setDataFiltered(dataGroup);
+      let newGroups = dataGroup = dataGroup.sort((a: any, b: any) => {
+        if (a?.groupName > b?.groupName) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      setDataFiltered(newGroups);
       if (!firstLoad) openListAndClose(idSelect);
     } else {
       let dataGroup: any = [];
@@ -95,7 +102,14 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
         (rank: any) =>
           rank?.faseName === phase.label && rank?.groupName === group
       );
-      setDataFiltered(dataGroup);
+      let newGroups = dataGroup.sort((a: any, b: any) => {
+        if (a?.groupName > b?.groupName) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      setDataFiltered(newGroups);
       openListAndClose(idSelect);
     }
   };

@@ -240,7 +240,7 @@ const CustomTable = ({
                         {sortedTeams.map((team: any, index: number) => (
                           <tr key={index} className="border-t even:bg-gray-100">
                             <td className="text-center py-2 pl-5">
-                              {team.points === 0 ? "-" : index + 1}
+                              {index + 1}
                             </td>
                             <td className="text-center py-2 px-5">
                               <img
