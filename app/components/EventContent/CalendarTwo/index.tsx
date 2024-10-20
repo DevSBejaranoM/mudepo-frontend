@@ -16,11 +16,13 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
 
   useEffect(() => {
     if (data) {
-      data = data.map((phase: any) => {
-       if(phase?.grupos?.[0].tabTree?.leagues === eventId) return phase;
-      }).filter((phase: any) => {
-        if(phase) return phase;
-      });
+      data = data
+        .map((phase: any) => {
+          if (phase?.grupos?.[0].tabTree?.leagues === eventId) return phase;
+        })
+        .filter((phase: any) => {
+          if (phase) return phase;
+        });
       setPhases(data);
       handleChangePhase(0, `listbox-fase-option`, true);
       setLoading(false);
@@ -74,7 +76,10 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
             const dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada.id}`
             );
-            if(!dataJorney?.tabOne?.partidos || dataJorney?.tabOne?.partidos?.length === 0) {
+            if (
+              !dataJorney?.tabOne?.partidos ||
+              dataJorney?.tabOne?.partidos?.length === 0
+            ) {
               let jorney = { ...dataJorney, grupo: jornada?.grupo };
               return jorney;
             }
@@ -95,7 +100,12 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
           })
         );
         setIsLoadingData(false);
-        setDataFiltered(response);
+        console.log("res", response);
+        let responseFiltered = response.filter((jornada: any) => {
+          if (jornada?.tabOne?.partidos?.length > 0) return jornada;
+        });
+        console.log("filter res",responseFiltered);
+        setDataFiltered(responseFiltered);
         if (!firstLoad) openListAndClose(idSelect);
       }
     } else {
@@ -110,7 +120,10 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
             let dataJorney = await axiosAdapter.fetchData(
               `/jornadas/${jornada}`
             );
-            if(!dataJorney?.tabOne?.partidos || dataJorney?.tabOne?.partidos?.length === 0) {
+            if (
+              !dataJorney?.tabOne?.partidos ||
+              dataJorney?.tabOne?.partidos?.length === 0
+            ) {
               return dataJorney;
             }
             dataJorney.tabOne.partidos = dataJorney?.tabOne?.partidos.map(
@@ -133,7 +146,12 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
           })
         );
         setIsLoadingData(false);
-        setDataFiltered(response);
+        console.log("res", response);
+        let responseFiltered = response.filter((jornada: any) => {
+          if (jornada?.tabOne?.partidos?.length > 0) return jornada;
+        });
+        console.log("filter res",responseFiltered);
+        setDataFiltered(responseFiltered);
         openListAndClose(idSelect);
       }
     }
