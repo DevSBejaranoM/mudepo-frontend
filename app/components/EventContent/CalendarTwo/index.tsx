@@ -100,11 +100,9 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
           })
         );
         setIsLoadingData(false);
-        console.log("res", response);
         let responseFiltered = response.filter((jornada: any) => {
           if (jornada?.tabOne?.partidos?.length > 0) return jornada;
         });
-        console.log("filter res",responseFiltered);
         setDataFiltered(responseFiltered);
         if (!firstLoad) openListAndClose(idSelect);
       }
@@ -146,11 +144,9 @@ const CalendarTwo = ({ data, logos, eventId }: any) => {
           })
         );
         setIsLoadingData(false);
-        console.log("res", response);
         let responseFiltered = response.filter((jornada: any) => {
           if (jornada?.tabOne?.partidos?.length > 0) return jornada;
         });
-        console.log("filter res",responseFiltered);
         setDataFiltered(responseFiltered);
         openListAndClose(idSelect);
       }
