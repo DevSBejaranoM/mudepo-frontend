@@ -66,7 +66,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
              * - goalsAgainst
              * - phaseName
              * - groupName
-             * 
+             *
              * Parámetros necesarios por partners:
              * - url
              * - logo
@@ -74,7 +74,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
              * - description
              */
           }
-        
+
           const ranking = await axiosAdapter.fetchData(
             `/get-ranking?leagueId=${data.id}`
           );
@@ -120,16 +120,23 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
               </div>
               {category === "EQUIPOS" && <Teams data={leagueData?.teams} />}
               {category === "CLASIFICACIÓN" && (
-                <Classification
-                  ranking={ranking}
-                />
+                <Classification ranking={ranking} />
               )}
-              {/* {category === "CALENDARIO" && (
-                <CalendarTwo data={event?.fases} logos={teamLogos} eventId={leagueData.id}/>
-              )} */}
-              {category === "ESTADÍSTICAS" && <Statistics leagueId={leagueData.id} />}
-              {category === "RESOLUCIONES" && <Resolutions leagueId={leagueData.id} />}
-              {category === "SANCIONES" && <Sanciones leagueId={leagueData.id} />}
+              {category === "CALENDARIO" && (
+                // <CalendarTwo
+                //   leagueId={leagueData.id}
+                // />
+                <Calendar leagueId={leagueData.id} />
+              )}
+              {category === "ESTADÍSTICAS" && (
+                <Statistics leagueId={leagueData.id} />
+              )}
+              {category === "RESOLUCIONES" && (
+                <Resolutions leagueId={leagueData.id} />
+              )}
+              {category === "SANCIONES" && (
+                <Sanciones leagueId={leagueData.id} />
+              )}
               {leagueData?.Partners && (
                 <div className="mt-56">
                   <BannerPartner partners={leagueData?.Partners} />
