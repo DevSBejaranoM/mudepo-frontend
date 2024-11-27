@@ -91,17 +91,11 @@ const CustomTable = ({
   const renderTable = () => {
     switch (type) {
       case "teams":
-        data = data.sort((a: Team, b: Team) => {
-          if (a.position! > b.position!) return 1;
-          else if (a.position! < b.position!) return -1;
-          else return 0;
-        });
         return (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-300">
                 <tr>
-                  {/* <th className="w-16 py-2 pl-5">POS</th> */}
                   <th className="w-16 py-2 px-5">ESC</th>
                   <th className="w-80 py-2 pr-5">EQUIPO</th>
                 </tr>
@@ -113,7 +107,6 @@ const CustomTable = ({
                     className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
                     onClick={() => router.push(`/team/${team.id}`)}
                   >
-                    {/* <td className="text-center py-2 pl-5">{team.position}</td> */}
                     <td className="text-center py-2 px-5">
                       <img
                         src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
@@ -153,9 +146,9 @@ const CustomTable = ({
             const goalDifferenceB = b.goalsFor - b.goalsAgainst;
 
             if (goalDifferenceA > goalDifferenceB) {
-              return -1;
-            } else if (goalDifferenceA < goalDifferenceB) {
               return 1;
+            } else if (goalDifferenceA < goalDifferenceB) {
+              return -1;
             }
 
             // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
@@ -1652,9 +1645,7 @@ const CustomTable = ({
                     </td>
                     <td className=" text-center py-2 px-5">{team.team}</td>
                     <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.total}
-                    </td>
+                    <td className="text-center py-2 px-5">{team.total}</td>
                   </tr>
                 ))}
               </tbody>
@@ -1690,9 +1681,7 @@ const CustomTable = ({
                     </td>
                     <td className=" text-center py-2 px-5">{team.team}</td>
                     <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.total}
-                    </td>
+                    <td className="text-center py-2 px-5">{team.total}</td>
                   </tr>
                 ))}
               </tbody>
@@ -1728,9 +1717,7 @@ const CustomTable = ({
                     </td>
                     <td className=" text-center py-2 px-5">{team.team}</td>
                     <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.total}
-                    </td>
+                    <td className="text-center py-2 px-5">{team.total}</td>
                   </tr>
                 ))}
               </tbody>

@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
-import { axiosAdapter } from "@/app/config/axios.adapter";
 import Loader from "../../Loader";
 
 interface ClassificationProps {
   ranking: any;
-  loading: boolean;
-  logos: any;
 }
 
-const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
+const Classification = ({ ranking}: ClassificationProps) => {
   const [phases, setPhases] = useState<any>(null);
   const [dataRanking, setDataRanking] = useState<any>(
-    ranking ? ranking : [null]
+    ranking ? ranking : null
   );
   const [phaseSelected, setPhaseSelected] = useState<any>(null);
   const [groupsInPhase, setGroupsInPhase] = useState<any>(null);
@@ -21,22 +18,16 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
 
   useEffect(() => {
     if (!phases && ranking) {
-      let newDataRanking: any = [];
       let newPhases: any = [];
       ranking.map((rank: any, index: number) => {
-        if (!newPhases.some((phase: any) => phase.label === rank?.faseName)) {
+        if (!newPhases.some((phase: any) => phase.label === rank?.phaseName)) {
           newPhases.push({
             value: index,
-            label: rank?.faseName,
+            label: rank?.phaseName,
           });
         }
-        newDataRanking.push({
-          ...rank,
-          logo: logos.find((logo: any) => logo?.id === rank?.teamId)?.logo || "",
-        });
       });
 
-      setDataRanking(newDataRanking);
       setPhases(newPhases);
       setPhaseSelected(newPhases[0] ? newPhases[0] : []);
       handleChangeGroup(
@@ -44,8 +35,10 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
         `listbox-grupo-option`,
         true,
         newPhases[0],
-        newDataRanking
+        ranking
       );
+    } else if(!ranking) {
+      setDataRanking([]);
     }
   }, []);
 
@@ -71,7 +64,7 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
     if (group === -1) {
       let dataGroup: any = [];
       dataGroup = rankingData.filter(
-        (rank: any) => rank?.faseName === phase.label
+        (rank: any) => rank?.phaseName === phase.label
       );
       let newGroupsInPhase: any = [];
       dataGroup.map((rank: any) => {
@@ -100,7 +93,7 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
       let dataGroup: any = [];
       dataGroup = rankingData.filter(
         (rank: any) =>
-          rank?.faseName === phase.label && rank?.groupName === group
+          rank?.phaseName === phase.label && rank?.groupName === group
       );
       let newGroups = dataGroup.sort((a: any, b: any) => {
         if (a?.groupName > b?.groupName) {
@@ -131,13 +124,12 @@ const Classification = ({ ranking, loading, logos }: ClassificationProps) => {
 
   return (
     <div className="mt-10">
-      {loading && <Loader />}
-      {!loading && dataRanking && dataRanking.length === 0 && (
+      {dataRanking && dataRanking.length === 0 && (
         <h2 className="text-2xl text-center font-semibold">
           Aún no hay clasificación disponible
         </h2>
       )}
-      {!loading && dataRanking && dataRanking.length > 0 && (
+      {dataRanking && dataRanking.length > 0 && (
         <>
           <div className="flex space-x-2 md:mx-96 justify-center">
             <div className="w-full">

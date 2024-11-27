@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
 
 interface TeamsProps {
