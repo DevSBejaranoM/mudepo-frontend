@@ -5,18 +5,27 @@ import { useEffect, useState } from "react";
 import CustomTable from "../CustomTable";
 
 interface ResolutionProps {
-  id: string;
+  leagueId: string;
 }
 
-const Resolutions = ({ id }: ResolutionProps) => {
+const Resolutions = ({ leagueId }: ResolutionProps) => {
   const [resolutions, setResolutions] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [selectedResolution, setSelectedResolution] = useState<any>(null);
 
   useEffect(() => {
+    {
+      /**
+       * Obtener resoluciones de la liga por id de liga
+       * Parámetros necesarios:
+       * - Fecha
+       * - Nombre
+       * - Descripción
+       */
+    }
     const getResolutions = async () => {
       const response = await axiosAdapter.fetchData(
-        `/get-aresoluciones?id=${id}`
+        `/get-resolutions-league?leagueId=${leagueId}`
       );
       if (response?.data === null) {
         setLoading(false);
@@ -42,7 +51,11 @@ const Resolutions = ({ id }: ResolutionProps) => {
         </div>
       )}
       {!loading && resolutions && resolutions.length > 0 && (
-        <CustomTable data={resolutions} type="resolutions" setSelectedInfo={setSelectedResolution}/>
+        <CustomTable
+          data={resolutions}
+          type="resolutions"
+          setSelectedInfo={setSelectedResolution}
+        />
       )}
       {selectedResolution && (
         <div
@@ -54,7 +67,9 @@ const Resolutions = ({ id }: ResolutionProps) => {
           }}
         >
           <div className="bg-white p-6 rounded-md min-w-[20%] max-w-[80%]">
-            <h3 className="text-xl font-bold mb-4 text-center">DETALLE: {selectedResolution.name}</h3>
+            <h3 className="text-xl font-bold mb-4 text-center">
+              DETALLE: {selectedResolution.name}
+            </h3>
             <div className="border-t border-gray-300 my-1" />
             <div className="my-5 mx-10">
               <p>{selectedResolution.description}</p>

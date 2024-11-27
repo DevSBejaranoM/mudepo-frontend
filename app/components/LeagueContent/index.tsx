@@ -21,9 +21,7 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  const [banner, setBanner] = useState<any>(null);
   const [leagueData, setLeagueData] = useState<any>(null);
-  const [teamLogos, setTeamLogos] = useState<any>([]);
   const [ranking, setRanking] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -50,9 +48,6 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
       const data = await axiosAdapter.fetchData(`/get-league?name=${league}`);
       if (data) {
         setLeagueData(data);
-        if (data.Partners) {
-          setBanner(data.Partners);
-        }
         if (ranking === null) {
           {
             /**
@@ -71,6 +66,12 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
              * - goalsAgainst
              * - phaseName
              * - groupName
+             * 
+             * Parámetros necesarios por partners:
+             * - url
+             * - logo
+             * - name
+             * - description
              */
           }
         
@@ -124,16 +125,16 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
                 />
               )}
               {/* {category === "CALENDARIO" && (
-                <CalendarTwo data={event?.fases} logos={teamLogos} eventId={leagueId}/>
+                <CalendarTwo data={event?.fases} logos={teamLogos} eventId={leagueData.id}/>
               )} */}
-              {/* {category === "ESTADÍSTICAS" && <Statistics id={leagueId} />}
-              {category === "RESOLUCIONES" && <Resolutions id={leagueId} />}
-              {category === "SANCIONES" && <Sanciones id={leagueId} />}
-              {banner && (
+              {category === "ESTADÍSTICAS" && <Statistics leagueId={leagueData.id} />}
+              {category === "RESOLUCIONES" && <Resolutions leagueId={leagueData.id} />}
+              {category === "SANCIONES" && <Sanciones leagueId={leagueData.id} />}
+              {leagueData?.Partners && (
                 <div className="mt-56">
-                  <BannerPartner sponsors={banner} />
+                  <BannerPartner partners={leagueData?.Partners} />
                 </div>
-              )} */}
+              )}
             </div>
           </section>
         </>

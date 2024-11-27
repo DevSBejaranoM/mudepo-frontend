@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import CustomTable from "../CustomTable";
 
 interface SancionesProps {
-  id: string;
+  leagueId: string;
 }
 
-const Sanciones = ({ id }: SancionesProps) => {
+const Sanciones = ({ leagueId }: SancionesProps) => {
   const [dataSancionados, setDataSancionados] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [amarillas, setAmarillas] = useState<any>(null);
@@ -14,9 +14,30 @@ const Sanciones = ({ id }: SancionesProps) => {
   const [doblesAmarillas, setDoblesAmarillas] = useState<any>(null);
 
   useEffect(() => {
+    {
+      /**
+       * Acualmente se obtienen las sanciones en objetos separados, se puede mejorar la estructura de los datos
+       * Obtener sanciones de la liga por id de liga
+       * Parámetros necesarios:
+       * - Escudo
+       * - Nombre jugador
+       * - Nombre equipo
+       * - Número de sanciones
+       * - Partidos suspendidos
+       *
+       * Obtener tarjetas rojas, amarillas y doble amarilla de la liga por id de liga
+       * Parámetros necesarios:
+       * - Escudo
+       * - Nombre jugador
+       * - Nombre equipo
+       * - Número de tarjetas rojas
+       * - Número de tarjetas amarillas
+       * - Número de doble amarilla
+       */
+    }
     const getSanciones = async () => {
       const response = await axiosAdapter.fetchData(
-        `/get-sanciones-estadisticas?id=${id}`
+        `/get-sanciones-estadisticas?leagueId=${leagueId}`
       );
       setDataSancionados(response?.data?.partidosSuspendidos || []);
       setAmarillas(response?.data?.tarjetaAmarilla || []);
@@ -64,7 +85,14 @@ const Sanciones = ({ id }: SancionesProps) => {
           <p>Cargando...</p>
         </div>
       )}
-      {!loading && <CustomTable data={doblesAmarillas} type="tarjetas-amarillas" />}
+      {!loading && (
+        <CustomTable data={doblesAmarillas} type="tarjetas-amarillas" />
+      )}
+      {loading && (
+        <div className="flex justify-center">
+          <p>Cargando...</p>
+        </div>
+      )}
     </div>
   );
 };
