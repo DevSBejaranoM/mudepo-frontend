@@ -1,44 +1,58 @@
-interface Player {
-  number: number;
-  name: string;
-  position: string;
-  age: number;
-  sancion: boolean;
-  yellowCards: number;
-  redCards: number;
-}
-
 interface TeamRosterProps {
-  players: Player[];
-  team: string;
+  players: any;
 }
 
-const TeamRoster = ({players, team}: TeamRosterProps) => {
+const TeamRoster = ({ players }: TeamRosterProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-bold mb-4">{team} - Plantilla</h3>
+      <h3 className="text-lg font-bold mb-4">Plantilla</h3>
       <table className="w-full text-left">
         <thead>
           <tr>
-            <th className="border-b p-2">Dorsal</th>
-            <th className="border-b p-2">Jugador</th>
-            <th className="border-b p-2">Posición</th>
-            <th className="border-b p-2 text-center">Tarjetas amarillas</th>
-            <th className="border-b p-2 text-center">Tarjetas rojas</th>
-            <th className="border-b p-2 text-center">Estado</th>
+            <th className="border-b uppercase text-xs p-2">Dorsal</th>
+            <th className="border-b uppercase text-xs p-2">Jugador</th>
+            <th className="border-b uppercase text-xs p-2">Posición</th>
+            <th className="border-b uppercase text-xs p-2 text-center">
+              Tarjetas amarillas
+            </th>
+            <th className="border-b uppercase text-xs p-2 text-center">
+              Tarjetas rojas
+            </th>
+            <th className="border-b uppercase text-xs p-2 text-center">
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>
-          {players?.map((player, index) => (
-            <tr key={index}>
-              <td className="border-b p-2 pl-7">{player.number}</td>
-              <td className="border-b p-2">{player.name}</td>
-              <td className="border-b p-2">{player.position}</td>
-              <td className="border-b p-2 text-center">{player.yellowCards}</td>
-              <td className="border-b p-2 text-center">{player.redCards}</td>
-              <td className="border-b p-2 text-center">{player.sancion ? "Sancionado" : "-"}</td>
+          {players.length > 0 ? (
+            players?.map((player: any, index: number) => (
+              <tr key={index}>
+                <td className="border-b p-2 pl-7">
+                  {player.playerData.dorsal}
+                </td>
+                <td className="border-b p-2">{player.name}</td>
+                <td className="border-b p-2">{player.playerData.position}</td>
+                <td className="border-b p-2 text-center">
+                  {player?.yellowCards || "0"}
+                </td>
+                <td className="border-b p-2 text-center">
+                  {player?.redCards || "0"}
+                </td>
+                <td className="border-b p-2 text-center">
+                  {player.sancion ? "Suspendido" : "-"}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={7}
+                className="px-6 py-4 whitespace-nowrap text-sm text-center"
+              >
+                No hay plantilla
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

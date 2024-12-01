@@ -2,10 +2,9 @@
 import { useTeamStore } from "@/app/store/useTeamStore";
 import FormationContent from "./FormationContent";
 import InformationContent from "./InformationContent";
-import BannerPartner from "../BannerPartner";
-import { useEffect, useState } from "react";
-import { axiosAdapter } from "@/app/config/axios.adapter";
+import { useMemo } from "react";
 import Loader from "../Loader";
+import useTeamData from "@/app/hooks/useTeamData";
 
 interface TeamContentProps {
   teamId: string;
@@ -13,41 +12,31 @@ interface TeamContentProps {
 
 const TeamContent = ({ teamId }: TeamContentProps) => {
   const { team } = useTeamStore();
-  const [dataTeam, setDataTeam] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const { dataTeam, loading, error } = useTeamData(teamId);
 
-  const fetchEvents = async () => {
-    try {
-      const data = await axiosAdapter.fetchData(`/teams/${teamId}`);
-      setDataTeam(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error retrieving events:", error);
-      setLoading(false);
-    }
-  };
+  const memoizedDataTeam = useMemo(() => dataTeam, [dataTeam]);
 
-  useEffect(() => {
-    if (dataTeam === null) {
-      fetchEvents();
-    }
-  }, []);
+  if (loading) return <Loader />;
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl text-gray-900">{error}</h1>
+      </div>
+    );
+  if (!memoizedDataTeam)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl text-gray-900">
+          No se encontraron datos del equipo
+        </h1>
+      </div>
+    );
 
   return (
     <div>
-      {team === "Inicio" && (
-        <>
-          {loading && <Loader />}
-          {!loading && <InformationContent dataTeam={dataTeam} />}
-        </>
-      )}
+      {team === "Inicio" && <InformationContent dataTeam={memoizedDataTeam} />}
       {team === "Formación" && (
-        <>
-          {loading && <Loader />}
-          {!loading && (
-            <FormationContent dataPlayers={dataTeam?.tabTwo?.players} />
-          )}
-        </>
+        <FormationContent dataPlayers={memoizedDataTeam?.Players || []} />
       )}
     </div>
   );

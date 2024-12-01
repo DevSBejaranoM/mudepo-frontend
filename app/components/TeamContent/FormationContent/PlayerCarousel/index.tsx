@@ -1,6 +1,15 @@
 import Slider from "react-slick";
 import PlayerCard from "./PlayerCard";
-import { Player } from "@/app/types/teamContent";
+
+interface Player {
+  playerData: {
+    dorsal: number;
+    position: string;
+  };
+  name: string;
+  lastname: string;
+  avatar: string;
+}
 
 interface PlayerCarouselProps {
   title: string;
@@ -39,12 +48,16 @@ const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
     ],
   };
 
+  if(players.length === 0) {
+    return null;
+  }
+  
   return (
     <div className="my-8">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <Slider {...settings}>
-        {players.map((player) => (
-          <PlayerCard key={player.id} {...player} />
+        {players.map((player, index) => (
+          <PlayerCard key={`${player.name} ${index}`} {...player} />
         ))}
       </Slider>
     </div>

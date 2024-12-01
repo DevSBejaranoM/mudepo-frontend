@@ -1,47 +1,42 @@
 interface TeamInfoProps {
   name: string;
-  logo: string;
-  foundation: string;
+  poster: string;
   president: string;
-  stadium: string;
-  league: string;
-  location: string;
+  Playingfield: any;
+  League: any;
 }
 
 const TeamInfo = ({
   name,
-  logo,
-  foundation,
+  poster,
   president,
-  stadium,
-  league,
-  location,
+  Playingfield,
+  League,
 }: TeamInfoProps) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md mb-4">
       <div className="flex items-center mb-4">
         <img
-          src={`${process.env.NEXT_PUBLIC_MAIN_URL}${logo}`}
+          src={`${process.env.NEXT_PUBLIC_MAIN_URL}${poster}`}
           alt="Team Logo"
           className="w-16 h-16 mr-4"
           style={{ objectFit: "contain" }}
         />
         <div>
           <h2 className="text-xl font-bold">{name}</h2>
-          {/* <p className="text-gray-600">Fundado en {foundation}</p> */}
         </div>
       </div>
       <p>
-        <strong className="mr-2">Presidente:</strong> {president}
+        <strong className="mr-2">Presidente:</strong> {president || "Sin presidente asignado"}
       </p>
       <p>
-        <strong className="mr-2">Estadio:</strong> {stadium}
+        <strong className="mr-2">Estadio:</strong> {Playingfield?.name || "Sin estadio asignado"}
       </p>
       <p>
-        <strong className="mr-2">Ligas:</strong> {league}
+        <strong className="mr-2">Ligas:</strong> {League?.name || "Sin liga asignada"}
       </p>
       <p>
-        <strong className="mr-2">Ubicación:</strong> {location}
+        <strong className="mr-2">Ubicación:</strong> {Playingfield?.location || "Sin estadio asignado"}
       </p>
     </div>
   );

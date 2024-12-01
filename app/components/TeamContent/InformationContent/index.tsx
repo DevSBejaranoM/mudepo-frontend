@@ -1,47 +1,18 @@
-import { use, useEffect } from "react";
-import TitleDescription from "../../HomeContent/TitleDescription";
+import { useMemo } from "react";
 import MatchList from "./MatchList";
-import NextMatchList from "./NextMatchList";
-import TeamHistory from "./TeamHistory";
 import TeamInfo from "./TeamInfo";
 import TeamRoster from "./TeamRoster";
 
 const InformationContent = ({ dataTeam }: any) => {
 
-  const getEdad = (date: string) => {
-    const today = new Date();
-    const birthDate = new Date(date);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const month = today.getMonth() - birthDate.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
+  const sortedMatches = useMemo(() => {
+    const allMatches = [
+      ...(dataTeam?.HomeMatches ?? []),
+      ...(dataTeam?.VisitingMatches ?? [])
+    ];
 
-  // TeamInfo
-  const team = {
-    name: dataTeam?.name,
-    logo: dataTeam?.tabOne?.poster?.url,
-    foundation: "1902",
-    president: dataTeam?.tabOne?.presidente?.name,
-    stadium: dataTeam?.tabFive?.terrenodejuego?.name,
-    league: dataTeam?.tabOne?.leagues
-      .map((league: any) => league.name)
-      .join(", "),
-    location: dataTeam?.tabFive?.terrenodejuego?.location,
-  };
-
-  // TeamRoster
-  const playersTeam = dataTeam?.tabTwo?.players?.map((player: any) => ({
-    number: player.dorsal,
-    name: `${player.name} ${player.lastname || ""}`,
-    position: player.position ? player.position : "Sin posición asignada",
-    age: getEdad(player.birthdate) || "",
-    sancion: player?.sancionadoCard,
-    yellowCards: player?.yellowCards?.count ? player?.yellowCards?.count : 0,
-    redCards: player?.redCards?.count ? player?.redCards?.count : 0,
-  }));
+    return allMatches.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [dataTeam?.HomeMatches, dataTeam?.VisitingMatches]);
 
   return (
     <div>
@@ -54,15 +25,15 @@ const InformationContent = ({ dataTeam }: any) => {
       {/* <div className="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-4"> */}
         {/* <div className="lg:col-span-2"> */}
         <div>
-          <TeamInfo {...team} />
-          <TeamRoster players={playersTeam} team={dataTeam?.name} />
+          <TeamInfo {...dataTeam} />
+          <TeamRoster players={dataTeam.Players} />
         </div>
         {/* <div>
           <TeamHistory history={historyTeam} team={dataTeam?.name} />
           <NextMatchList matches={nextMatches} />
         </div> */}
         <div className="lg:col-span-2">
-          <MatchList id={dataTeam?.id} teamName={dataTeam?.name} />
+          <MatchList matchList={sortedMatches} />
         </div>
       </div>
     </div>

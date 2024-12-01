@@ -7,12 +7,11 @@ import Calendar from "./Calendar";
 import BannerPartner from "../BannerPartner";
 import MainSection from "../MainSection";
 import NavCategories from "../NavCategories";
-import { useEffect, useState } from "react";
-import { axiosAdapter } from "@/app/config/axios.adapter";
+import { useMemo } from "react";
 import Loader from "../Loader";
-import CalendarTwo from "./CalendarTwo";
 import Resolutions from "./Resolutions";
 import Sanciones from "./Sanciones";
+import useLeagueData from "@/app/hooks/useLeagueData";
 
 interface LeagueContentProps {
   league: string;
@@ -21,131 +20,66 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  const [leagueData, setLeagueData] = useState<any>(null);
-  const [ranking, setRanking] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const { leagueData, ranking, loading, error } = useLeagueData(league);
 
-  {
-    /**
-     * Obtener información de la liga por nombre de liga sin acentos, minúsculas y sustituyendo espacios por guiones
-     * Parámetros necesarios:
-     * - id
-     * - name
-     * - portada
-     * - teams:
-     *  - id
-     *  - logo
-     *  - name
-     * - partners:
-     *  - url
-     *  - logo
-     *  - name
-     *  - description
-     */
-  }
-  const fetchLeague = async () => {
-    try {
-      const data = await axiosAdapter.fetchData(`/get-league?name=${league}`);
-      if (data) {
-        setLeagueData(data);
-        if (ranking === null) {
-          {
-            /**
-             * Obtener el ranking de la liga por nombre de liga sin acentos, minúsculas y sustituyendo espacios por guiones
-             * Parámetros necesarios por equipo:
-             * - id
-             * - position
-             * - name
-             * - logo
-             * - points
-             * - played
-             * - won
-             * - drawn
-             * - lost
-             * - goalsFor
-             * - goalsAgainst
-             * - phaseName
-             * - groupName
-             *
-             * Parámetros necesarios por partners:
-             * - url
-             * - logo
-             * - name
-             * - description
-             */
-          }
+  const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
 
-          const ranking = await axiosAdapter.fetchData(
-            `/get-ranking?leagueId=${data.id}`
-          );
-          setRanking(ranking);
-        }
-      }
-      setLoading(false);
-    } catch (error) {
-      console.error("Error retrieving events:", error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (leagueData === null && !loading) {
-      setLoading(true);
-      fetchLeague();
-    }
-  }, []);
+  if (loading) return <Loader />;
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl text-gray-900">{error}</h1>
+      </div>
+    );
+  if (!memoizedLeagueData)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl text-gray-900">
+          No se encontraron datos de la liga
+        </h1>
+      </div>
+    );
 
   return (
     <>
-      {loading && <Loader />}
-      {!loading && (
-        <>
-          <MainSection
-            image={
-              leagueData?.poster
-                ? `${process.env.NEXT_PUBLIC_MAIN_URL}${leagueData?.poster}`
-                : "/images/header-background.jpg"
-            }
-            title={leagueData?.name ? leagueData.name : "Evento"}
-            // bgSize="auto"
-          />
-          <NavCategories eventName={slug} />
-          <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
-            <div className="flex-col">
-              <div>
-                <h1 className="text-5xl font-bold text-center">{category}</h1>
-                <h2 className="text-2xl md:text-3xl text-center mt-4 text-gray-400 font-semibold">
-                  {leagueData?.name ? leagueData.name : "Liga"}
-                </h2>
-              </div>
-              {category === "EQUIPOS" && <Teams data={leagueData?.teams} />}
-              {category === "CLASIFICACIÓN" && (
-                <Classification ranking={ranking} />
-              )}
-              {category === "CALENDARIO" && (
-                // <CalendarTwo
-                //   leagueId={leagueData.id}
-                // />
-                <Calendar leagueId={leagueData.id} />
-              )}
-              {category === "ESTADÍSTICAS" && (
-                <Statistics leagueId={leagueData.id} />
-              )}
-              {category === "RESOLUCIONES" && (
-                <Resolutions leagueId={leagueData.id} />
-              )}
-              {category === "SANCIONES" && (
-                <Sanciones leagueId={leagueData.id} />
-              )}
-              {leagueData?.Partners && (
-                <div className="mt-56">
-                  <BannerPartner partners={leagueData?.Partners} />
-                </div>
-              )}
+      <MainSection
+        image={
+          memoizedLeagueData.poster
+            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${memoizedLeagueData.poster}`
+            : "/images/header-background.jpg"
+        }
+        title={memoizedLeagueData.name || "Evento"}
+      />
+      <NavCategories eventName={slug} />
+      <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
+        <div className="flex-col">
+          <div>
+            <h1 className="text-5xl font-bold text-center">{category}</h1>
+            <h2 className="text-2xl md:text-3xl text-center mt-4 text-gray-400 font-semibold">
+              {memoizedLeagueData.name || "Liga"}
+            </h2>
+          </div>
+          {category === "EQUIPOS" && <Teams data={memoizedLeagueData.Teams} />}
+          {/* {category === "CLASIFICACIÓN" && <Classification ranking={ranking} />} */}
+          {/* {category === "CALENDARIO" && (
+            <Calendar leagueId={memoizedLeagueData.id} />
+          )} */}
+          {/* {category === "ESTADÍSTICAS" && (
+            <Statistics leagueId={memoizedLeagueData.id} />
+          )} */}
+          {/* {category === "RESOLUCIONES" && (
+            <Resolutions leagueId={memoizedLeagueData.id} />
+          )} */}
+          {/* {category === "SANCIONES" && (
+            <Sanciones leagueId={memoizedLeagueData.id} />
+          )} */}
+          {memoizedLeagueData.Partners && (
+            <div className="mt-56">
+              <BannerPartner partners={memoizedLeagueData.Partners} />
             </div>
-          </section>
-        </>
-      )}
+          )}
+        </div>
+      </section>
     </>
   );
 };

@@ -3,57 +3,8 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../Loader";
 import MatchResult from "./MatchResult";
 
-interface Team {
-  id?: number;
-  position?: number;
-  logo?: string;
-  name?: string;
-  points?: number;
-  played?: number;
-  won?: number;
-  draw?: number;
-  lost?: number;
-  goalsFor?: number;
-  image?: any;
-  goalsAgainst?: number;
-  modifier?: number;
-  ta?: number;
-  tr?: number;
-  np?: number;
-  ps?: number;
-  hj7?: number;
-  hj8?: number;
-  hj9?: number;
-  hj10?: number;
-  me?: number;
-  eb?: number;
-  mf?: number;
-  nr?: number;
-  om?: number;
-  total?: number;
-}
-
-interface Player {
-  code?: number;
-  position?: number;
-  name?: string;
-  team?: string;
-  goals?: number;
-  assists?: number;
-  ta?: number;
-  dorsal?: number;
-  tr?: number;
-  total?: number;
-}
-
-interface CalendarInfo {
-  lugar: string;
-  fecha: string;
-  hora: string;
-}
-
 interface TableProps {
-  data: Team[] | Player[] | any;
+  data: any;
   type:
     | "teams"
     | "classification"
@@ -101,7 +52,7 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: Team, index: number) => (
+                {data.map((team: any, index: number) => (
                   <tr
                     key={index}
                     className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
@@ -109,7 +60,7 @@ const CustomTable = ({
                   >
                     <td className="text-center py-2 px-5">
                       <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
+                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.poster}`}
                         alt={team.name}
                         className="w-8 h-8 mx-auto"
                         style={{ objectFit: "contain" }}
@@ -1215,7 +1166,7 @@ const CustomTable = ({
           </>
         );
       case "statistics-1":
-        data = data.sort((a: Team, b: Team) => {
+        data = data.sort((a: any, b: any) => {
           if (a.total! > b.total!) return 1;
           else if (a.total! < b.total!) return -1;
           else return 0;
@@ -1243,7 +1194,7 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: Team, index: number) => (
+                {data.map((team: any, index: number) => (
                   <tr key={index} className="border-t even:bg-gray-100">
                     <td className=" text-center py-2 pl-5">{team.name}</td>
                     <td className="text-center py-2 px-5">{team.ta}</td>
@@ -1267,7 +1218,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-2":
-        data = data?.sort((a: Team, b: Team) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.total! > b.total!) return -1;
           else if (a.total! < b.total!) return 1;
           else return 0;
@@ -1293,7 +1244,7 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map(
-                    (team: Team, index: number) =>
+                    (team: any, index: number) =>
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -1317,7 +1268,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-3":
-        data = data?.sort((a: Team, b: Team) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.total! > b.total!) return 1;
           else if (a.total! < b.total!) return -1;
           else return 0;
@@ -1343,7 +1294,7 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map(
-                    (team: Team, index: number) =>
+                    (team: any, index: number) =>
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -1367,7 +1318,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-4":
-        data = data?.sort((a: Player, b: Player) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.total! > b.total!) return -1;
           else if (a.total! < b.total!) return 1;
           else return 0;
@@ -1394,7 +1345,7 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map(
-                    (player: Player, index: number) =>
+                    (player: any, index: number) =>
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -1417,7 +1368,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-5":
-        data = data?.sort((a: Player, b: Player) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.total! > b.total!) return -1;
           else if (a.total! < b.total!) return 1;
           else return 0;
@@ -1444,7 +1395,7 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map(
-                    (player: Player, index: number) =>
+                    (player: any, index: number) =>
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -1467,7 +1418,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-6":
-        data = data?.sort((a: Player, b: Player) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.total! > b.total!) return -1;
           else if (a.total! < b.total!) return 1;
           else return 0;
@@ -1494,7 +1445,7 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map(
-                    (player: Player, index: number) =>
+                    (player: any, index: number) =>
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -1517,7 +1468,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-7":
-        data = data?.sort((a: Player, b: Player) => {
+        data = data?.sort((a: any, b: any) => {
           if (a.assists! > b.assists!) return -1;
           else if (a.assists! < b.assists!) return 1;
           else return 0;
@@ -1536,7 +1487,7 @@ const CustomTable = ({
               <tbody>
                 {data &&
                   data.length > 0 &&
-                  data.map((player: Player, index: number) => (
+                  data.map((player: any, index: number) => (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">{player.code}</td>
                       <td className=" text-center py-2 px-5">{player.name}</td>
@@ -1551,7 +1502,7 @@ const CustomTable = ({
           </div>
         );
       case "statistics-8":
-        data = data.sort((a: Player, b: Player) => {
+        data = data.sort((a: any, b: any) => {
           if (a.total! > b.total!) return -1;
           else if (a.total! < b.total!) return 1;
           else return 0;
@@ -1568,7 +1519,7 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((player: Player, index: number) => (
+                {data.map((player: any, index: number) => (
                   <tr key={index} className="border-t even:bg-gray-100">
                     <td className="text-center py-2 pl-5">{player.code}</td>
                     <td className=" text-center py-2 px-5">{player.name}</td>
