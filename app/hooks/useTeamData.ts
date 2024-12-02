@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import useCachedSWR from './useCachedSWR';
 import { axiosAdapter } from "../config/axios.adapter";
 
 const useTeamData = (teamId: string) => {
-  const [dataTeam, setDataTeam] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const fetchTeam = async () => {
+    return await axiosAdapter.fetchData(`/team/${teamId}`);
+  };
 
-  useEffect(() => {
-    const fetchTeamData = async () => {
-      try {
-        const data = await axiosAdapter.fetchData(`/team/${teamId}`);
-        setDataTeam(data);
-      } catch (error) {
-        console.error("Error retrieving team data:", error);
-        setError("Error al cargar los datos del equipo");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: dataTeam, error } = useCachedSWR(
+    `team-${teamId}`,
+    fetchTeam,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
-    fetchTeamData();
-  }, [teamId]);
+  const loading = !dataTeam && !error;
+  const errorMessage = error ? "Error al cargar los datos del equipo" : null;
 
-  return { dataTeam, loading, error };
+  return { dataTeam, loading, error: errorMessage };
 };
 
 export default useTeamData;
