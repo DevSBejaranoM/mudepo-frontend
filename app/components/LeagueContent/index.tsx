@@ -59,7 +59,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
               {memoizedLeagueData.name || "Liga"}
             </h2>
           </div>
-          {category === "EQUIPOS" && <Teams data={memoizedLeagueData.Teams} />}
+          {category === "EQUIPOS" && <Teams data={memoizedLeagueData.Teams} slug={slug} league={league} />}
           {/* {category === "CLASIFICACIÓN" && <Classification ranking={ranking} />} */}
           {/* {category === "CALENDARIO" && (
             <Calendar leagueId={memoizedLeagueData.id} />

@@ -23,6 +23,8 @@ interface TableProps {
     | "tarjetas-rojas"
     | "tarjetas-amarillas"
     | "resolutions";
+  slug?: string;
+  league?: string;
   journey?: string;
   logos?: any;
   allRanking?: boolean;
@@ -35,6 +37,8 @@ const CustomTable = ({
   journey,
   setSelectedInfo = () => {},
   logos,
+  slug,
+  league,
   allRanking = false,
 }: TableProps) => {
   const router = useRouter();
@@ -56,7 +60,7 @@ const CustomTable = ({
                   <tr
                     key={index}
                     className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
-                    onClick={() => router.push(`/team/${team.id}`)}
+                    onClick={() => router.push(`/evento/${slug}/${league}/team/${team.id}`)}
                   >
                     <td className="text-center py-2 px-5">
                       <img

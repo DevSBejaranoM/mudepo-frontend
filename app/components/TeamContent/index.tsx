@@ -5,6 +5,9 @@ import InformationContent from "./InformationContent";
 import { useMemo } from "react";
 import Loader from "../Loader";
 import useTeamData from "@/app/hooks/useTeamData";
+import CustomTab from "../CustomTab";
+import { Button } from "@headlessui/react";
+import { useRouter } from "next/navigation";
 
 interface TeamContentProps {
   teamId: string;
@@ -13,6 +16,7 @@ interface TeamContentProps {
 const TeamContent = ({ teamId }: TeamContentProps) => {
   const { team } = useTeamStore();
   const { dataTeam, loading, error } = useTeamData(teamId);
+  const router = useRouter();
 
   const memoizedDataTeam = useMemo(() => dataTeam, [dataTeam]);
 
@@ -33,12 +37,27 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
     );
 
   return (
-    <div>
-      {team === "Inicio" && <InformationContent dataTeam={memoizedDataTeam} />}
-      {team === "Formación" && (
-        <FormationContent dataPlayers={memoizedDataTeam?.Players || []} />
-      )}
-    </div>
+    <>
+      <div className="mx-32 mt-10 flex items-center justify-between">
+        <CustomTab options={["Inicio", "Formación"]} />
+        <Button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md"
+        >
+          Volver a la liga
+        </Button>
+      </div>
+      <section className="mx-auto mb-20 p-4 lg:h-auto items-center justify-center">
+        <div>
+          {team === "Inicio" && (
+            <InformationContent dataTeam={memoizedDataTeam} />
+          )}
+          {team === "Formación" && (
+            <FormationContent dataPlayers={memoizedDataTeam?.Players || []} />
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 
