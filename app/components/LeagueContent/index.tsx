@@ -12,6 +12,7 @@ import Loader from "../Loader";
 import Resolutions from "./Resolutions";
 import Sanciones from "./Sanciones";
 import useLeagueData from "@/app/hooks/useLeagueData";
+import { useFetchFile } from "@/app/hooks/useFetchFile";
 
 interface LeagueContentProps {
   league: string;
@@ -20,8 +21,8 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  const { leagueData, ranking, loading, error } = useLeagueData(league);
-
+  // ranking
+  const { leagueData, loading, error } = useLeagueData(league);
   const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
 
   if (loading) return <Loader />;
@@ -43,11 +44,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   return (
     <>
       <MainSection
-        image={
-          memoizedLeagueData.poster
-            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${memoizedLeagueData.poster}`
-            : "/images/header-background.jpg"
-        }
+        image={memoizedLeagueData.poster.key ? memoizedLeagueData.poster.key : "/images/header-background.jpg"}
         title={memoizedLeagueData.name || "Evento"}
       />
       <NavCategories eventName={slug} />
@@ -59,7 +56,13 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
               {memoizedLeagueData.name || "Liga"}
             </h2>
           </div>
-          {category === "EQUIPOS" && <Teams data={memoizedLeagueData.Teams} slug={slug} league={league} />}
+          {category === "EQUIPOS" && (
+            <Teams
+              data={memoizedLeagueData.Teams}
+              slug={slug}
+              league={league}
+            />
+          )}
           {/* {category === "CLASIFICACIÓN" && <Classification ranking={ranking} />} */}
           {/* {category === "CALENDARIO" && (
             <Calendar leagueId={memoizedLeagueData.id} />

@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Loader from "../../Loader";
 import MatchResult from "./MatchResult";
+import { useFetchFile } from "@/app/hooks/useFetchFile";
 
 interface TableProps {
   data: any;
@@ -56,23 +57,29 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => (
-                  <tr
-                    key={index}
-                    className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
-                    onClick={() => router.push(`/evento/${slug}/${league}/team/${team.id}`)}
-                  >
-                    <td className="text-center py-2 px-5">
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.poster}`}
-                        alt={team.name}
-                        className="w-8 h-8 mx-auto"
-                        style={{ objectFit: "contain" }}
-                      />
-                    </td>
-                    <td className=" text-center py-2 pr-5">{team.name}</td>
-                  </tr>
-                ))}
+                {data.map((team: any, index: number) => {
+                  const {data: image} = useFetchFile(team?.poster?.key);
+
+                  return (
+                    <tr
+                      key={index}
+                      className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
+                      onClick={() =>
+                        router.push(`/evento/${slug}/${league}/team/${team.id}`)
+                      }
+                    >
+                      <td className="text-center py-2 px-5">
+                        <img
+                          src={image ? image : ""}
+                          alt={team.name}
+                          className="w-8 h-8 mx-auto"
+                          style={{ objectFit: "contain" }}
+                        />
+                      </td>
+                      <td className=" text-center py-2 pr-5">{team.name}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

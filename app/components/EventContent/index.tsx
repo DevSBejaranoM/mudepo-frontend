@@ -30,7 +30,7 @@ const EventsContent = ({ slug }: { slug: string }) => {
         title={memoizedEvent.name || "Eventos"}
         image={
           memoizedEvent.coverPhoto
-            ? `${process.env.NEXT_PUBLIC_MAIN_URL}${memoizedEvent.coverPhoto}`
+            ? memoizedEvent.coverPhoto.key
             : "/images/header-background.jpg"
         }
         bgSize="content"

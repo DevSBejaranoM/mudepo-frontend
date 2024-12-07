@@ -4,9 +4,6 @@ import { axiosAdapter } from "../config/axios.adapter";
 const useEventData = (slug: string) => {
   const fetcher = async () => {
     const data = await axiosAdapter.fetchData(`/event/${slug}`);
-    if (data?.coverPhoto) {
-      data.coverPhoto = data.coverPhoto.replaceAll(" ", "%20");
-    }
     return data;
   };
 
@@ -16,7 +13,7 @@ const useEventData = (slug: string) => {
   });
 
   return {
-    event,
+    event ,
     loading: !error && !event,
     error: error ? "Error al cargar los eventos" : null,
   };
