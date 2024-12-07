@@ -29,8 +29,8 @@ const EventsContent = ({ slug }: { slug: string }) => {
       <MainSection
         title={memoizedEvent.name || "Eventos"}
         image={
-          memoizedEvent.coverPhoto
-            ? memoizedEvent.coverPhoto.key
+          memoizedEvent?.coverPhoto
+            ? memoizedEvent?.coverPhoto?.key
             : "/images/header-background.jpg"
         }
         bgSize="content"

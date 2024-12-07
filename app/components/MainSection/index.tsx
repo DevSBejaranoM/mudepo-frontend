@@ -7,7 +7,7 @@ interface MainSectionProps {
 }
 
 const MainSection = ({ title, image, bgSize = "cover" }: MainSectionProps) => {
-  const { data } = useFetchFile(image);
+  const { data } = useFetchFile(image || "");
 
   return (
     <section

@@ -21,7 +21,6 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  // ranking
   const { leagueData, loading, error } = useLeagueData(league);
   const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
 
@@ -44,7 +43,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   return (
     <>
       <MainSection
-        image={memoizedLeagueData.poster.key ? memoizedLeagueData.poster.key : "/images/header-background.jpg"}
+        image={memoizedLeagueData?.poster?.key ? memoizedLeagueData.poster.key : "/images/header-background.jpg"}
         title={memoizedLeagueData.name || "Evento"}
       />
       <NavCategories eventName={slug} />
