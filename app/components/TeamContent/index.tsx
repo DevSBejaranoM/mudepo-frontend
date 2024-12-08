@@ -8,6 +8,7 @@ import useTeamData from "@/app/hooks/useTeamData";
 import CustomTab from "../CustomTab";
 import { Button } from "@headlessui/react";
 import { useRouter } from "next/navigation";
+import BannerPartner from "../BannerPartner";
 
 interface TeamContentProps {
   teamId: string;
@@ -48,12 +49,17 @@ const TeamContent = ({ teamId }: TeamContentProps) => {
         </Button>
       </div>
       <section className="mx-auto mb-20 p-4 lg:h-auto items-center justify-center">
-        <div>
+        <div className="flex-col">
           {team === "Inicio" && (
             <InformationContent dataTeam={memoizedDataTeam} />
           )}
           {team === "Formación" && (
             <FormationContent dataPlayers={memoizedDataTeam?.Players || []} />
+          )}
+          {memoizedDataTeam.PartnerTeam && (
+            <div className="mt-56">
+              <BannerPartner partners={memoizedDataTeam.PartnerTeam} />
+            </div>
           )}
         </div>
       </section>
