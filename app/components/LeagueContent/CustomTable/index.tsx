@@ -27,6 +27,7 @@ interface TableProps {
   slug?: string;
   league?: string;
   journey?: string;
+  round?: string;
   logos?: any;
   allRanking?: boolean;
   setSelectedInfo?: (info: any) => void;
@@ -39,6 +40,7 @@ const CustomTable = ({
   setSelectedInfo = () => {},
   logos,
   slug,
+  round,
   league,
   allRanking = false,
 }: TableProps) => {
@@ -708,6 +710,11 @@ const CustomTable = ({
             {data && data?.length > 0 && (
               <div className="relative">
                 <div className="overflow-x-auto">
+                  <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
+                      {round}
+                    </h1>
+                  </div>
                   <table className="min-w-full bg-gray-300">
                     <thead>
                       <tr>

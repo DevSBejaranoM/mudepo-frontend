@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomTable from "../CustomTable";
 import Loader from "../../Loader";
 import useCalendarData from "@/app/hooks/useCalendarData";
@@ -27,28 +27,51 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     error,
   } = useCalendarData(Phases);
 
-  const [selectedDay, setSelectedDay] = useState<string>("");
+  const [selectedDay, setSelectedDay] = useState<string>("all");
   const [selectedInfo, setSelectedInfo] = useState<any | null>(null);
 
-  const currentPhase = phases.find((p) => p.id === selectedPhase);
+  const filteredPhases = phases.filter((phase) => phase.Groups.length > 0);
+  const currentPhase = filteredPhases.find((p) => p.id === selectedPhase);
   const currentDay = groupData?.days?.find((d: any) => d.id === selectedDay);
+
+  useEffect(() => {
+    if (filteredPhases.length > 0 && (!selectedPhase || !currentPhase)) {
+      setSelectedPhase(filteredPhases[0].id);
+    }
+  }, [filteredPhases, selectedPhase, currentPhase]);
+
+  useEffect(() => {
+    if (
+      currentPhase &&
+      currentPhase.Groups.length > 0 &&
+      (!selectedGroup ||
+        !currentPhase.Groups.find((g) => g.id === selectedGroup))
+    ) {
+      setSelectedGroup(currentPhase.Groups[0].id);
+    }
+  }, [currentPhase, selectedGroup]);
 
   const handlePhaseChange = (phaseId: string) => {
     setSelectedPhase(phaseId);
-    const phase = phases.find((p) => p.id === phaseId);
+    const phase = filteredPhases.find((p) => p.id === phaseId);
     if (phase && phase.Groups.length > 0) {
       setSelectedGroup(phase.Groups[0].id);
     } else {
       setSelectedGroup("");
     }
+    setSelectedDay("all");
+    closeSelector("listbox-phase-option");
   };
 
   const handleGroupChange = (groupId: string) => {
     setSelectedGroup(groupId);
+    setSelectedDay("all");
+    closeSelector("listbox-group-option");
   };
 
   const handleDayChange = (dayId: string) => {
     setSelectedDay(dayId);
+    closeSelector("listbox-day-option");
   };
 
   const openListAndClose = (id: string) => {
@@ -66,6 +89,13 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     }
   };
 
+  const closeSelector = (id: string) => {
+    const list = document.getElementById(id);
+    if (list) {
+      list.classList.replace("block", "hidden");
+    }
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -74,27 +104,36 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     return <div>Error: {error}</div>;
   }
 
-  console.log("currentDay", currentDay?.matches);
+  const matchesByRound =
+    groupData?.days?.reduce((acc: any, day: any) => {
+      acc[day.name] = day.matches;
+      return acc;
+    }, {}) || {};
+
+  const matchesToDisplay =
+    selectedDay === "all"
+      ? matchesByRound
+      : { [currentDay?.name]: currentDay?.matches } || {};
 
   return (
     <>
-      <div className="flex space-x-2 md:mx-96 justify-center">
-        <div className="w-full">
+      <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 md:mx-4 lg:mx-96 justify-center mt-5">
+        <div className="w-full sm:w-1/3">
           <div className="relative mt-2">
             <button
               type="button"
-              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
+              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 text-sm leading-6 border-primary hover:border-primary-dark px-4 text-center"
               aria-haspopup="listbox"
               aria-expanded="true"
               aria-labelledby="listbox-phase-label"
               onClick={() => openListAndClose(`listbox-phase-option`)}
             >
               <span className="flex items-center justify-center">
-                <span className="ml-3 block truncate">
+                <span className="block truncate">
                   {currentPhase ? currentPhase.name : "Selecciona una fase"}
                 </span>
               </span>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   viewBox="0 0 20 20"
@@ -115,7 +154,7 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
               id={`listbox-phase-option`}
               aria-labelledby="listbox-phase-label"
             >
-              {phases.map((phase) => (
+              {filteredPhases.map((phase) => (
                 <li
                   key={phase.id}
                   className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
@@ -128,23 +167,23 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
             </ul>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full sm:w-1/3">
           <div className="relative mt-2">
             <button
               type="button"
-              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
+              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 text-sm leading-6 border-primary hover:border-primary-dark px-4 text-center"
               aria-haspopup="listbox"
               aria-expanded="true"
               aria-labelledby="listbox-group-label"
               onClick={() => openListAndClose(`listbox-group-option`)}
             >
               <span className="flex items-center justify-center">
-                <span className="ml-3 block truncate">
+                <span className="block truncate">
                   {currentPhase?.Groups.find((g) => g.id === selectedGroup)
                     ?.name || "Selecciona un grupo"}
                 </span>
               </span>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   viewBox="0 0 20 20"
@@ -178,22 +217,24 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
             </ul>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full sm:w-1/3">
           <div className="relative mt-2">
             <button
               type="button"
-              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
+              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 text-sm leading-6 border-primary hover:border-primary-dark px-4 text-center"
               aria-haspopup="listbox"
               aria-expanded="true"
               aria-labelledby="listbox-day-label"
               onClick={() => openListAndClose(`listbox-day-option`)}
             >
               <span className="flex items-center justify-center">
-                <span className="ml-3 block truncate">
-                  {currentDay ? currentDay.name : "Selecciona una jornada"}
+                <span className="block truncate">
+                  {selectedDay === "all"
+                    ? "Todas las jornadas"
+                    : currentDay?.name || "Selecciona una jornada"}
                 </span>
               </span>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   viewBox="0 0 20 20"
@@ -214,6 +255,14 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
               id={`listbox-day-option`}
               aria-labelledby="listbox-day-label"
             >
+              <li
+                key="all"
+                className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                role="option"
+                onClick={() => handleDayChange("all")}
+              >
+                Todas las jornadas
+              </li>
               {groupData?.days?.map((day: any) => (
                 <li
                   key={day.id}
@@ -228,25 +277,33 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
           </div>
         </div>
       </div>
-      <div className={`mt-10 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-`}>
-          <CustomTable
-            data={currentDay?.matches.map((match: any, index: number) => ({
-              escudoLocal: match.homeTeamPoster,
-              nombreLocal: match.homeTeam,
-              golesLocal: match.localGoals,
-              golesVisitante: match.visitingGoals,
-              nombreVisitante: match.visitingTeam,
-              escudoVisitante: match.visitingTeamPoster,
-              lugar: match.playingfieldName,
-              fecha: match.date,
-              status: match.status
-            })) || []}
-            type="calendar-2"
-            setSelectedInfo={(info) => {
-              setSelectedInfo(info);
-            }}
-          />
+      <div
+        className={`mt-10 grid grid-cols-1 ${
+          Object.entries(matchesToDisplay).length > 1 ? "lg:grid-cols-2" : ""
+        } ${Object.entries(matchesToDisplay).length > 2 ? "2xl:grid-cols-3": ""} gap-4`}
+      >
+        {Object.entries(matchesToDisplay).map(([round, matches]: any) => (
+          <div key={round} className="mb-8">
+            <CustomTable
+              data={matches.map((match: any) => ({
+                escudoLocal: match.homeTeamPoster,
+                nombreLocal: match.homeTeam,
+                golesLocal: match.localGoals,
+                golesVisitante: match.visitingGoals,
+                nombreVisitante: match.visitingTeam,
+                escudoVisitante: match.visitingTeamPoster,
+                lugar: match.playingfieldName,
+                fecha: match.date,
+                status: match.status,
+              }))}
+              round={round}
+              type="calendar-2"
+              setSelectedInfo={setSelectedInfo}
+            />
+          </div>
+        ))}
       </div>
+
       {selectedInfo && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10"
