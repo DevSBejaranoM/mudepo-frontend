@@ -9,7 +9,7 @@ const UseCustomCategoriesPage = () => {
     "CLASIFICACIÓN",
     "CALENDARIO",
     "ESTADÍSTICAS",
-    "RESOLUCIONES",
+    // "RESOLUCIONES",
     "SANCIONES"
   ];
 

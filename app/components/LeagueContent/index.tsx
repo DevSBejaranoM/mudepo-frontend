@@ -67,9 +67,9 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
           {/* {category === "CALENDARIO" && (
             <Calendar leagueId={memoizedLeagueData.id} />
           )} */}
-          {/* {category === "ESTADÍSTICAS" && (
+          {category === "ESTADÍSTICAS" && (
             <Statistics leagueId={memoizedLeagueData.id} />
-          )} */}
+          )}
           {/* {category === "RESOLUCIONES" && (
             <Resolutions leagueId={memoizedLeagueData.id} />
           )} */}
