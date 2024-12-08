@@ -14,7 +14,7 @@ const useSanctionsData = (leagueId: string) => {
       revalidateOnReconnect: false,
     }
   );
-  console.log("sanctionsData", sanctionsData);
+
   const loading = !sanctionsData && !error;
   const errorMessage = error ? "Error al cargar los datos de las sanciones" : null;
 

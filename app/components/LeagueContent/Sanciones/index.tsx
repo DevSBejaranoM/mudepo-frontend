@@ -13,25 +13,30 @@ const Sanciones = ({ leagueId }: SancionesProps) => {
     error,
   } = useSanctionsData(leagueId);
   //* Obtener jugadores suspendidos
-  if(error) {
+  if (error) {
     return (
       <div className="flex justify-center items-center h-screen">
         <h1 className="text-2xl text-gray-900">{error}</h1>
       </div>
     );
   }
-  
+
   return (
     <div>
-      {/* <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
+      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         JUGADORES SUSPENDIDOS
-      </h3> */}
-      {/* {sanctionsLoading && (
+      </h3>
+      {sanctionsLoading && (
         <div className="flex justify-center">
           <p>Cargando...</p>
         </div>
-      )} */}
-      {/* {!sanctionsLoading && <CustomTable data={sanctionsData?.yellowCards || []} type="sancionados" />} */}
+      )}
+      {!sanctionsLoading && (
+        <CustomTable
+          data={sanctionsData?.matchSuspensions || []}
+          type="sancionados"
+        />
+      )}
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         TARJETAS ROJAS
       </h3>

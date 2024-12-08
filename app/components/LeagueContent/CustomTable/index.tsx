@@ -1135,7 +1135,7 @@ const CustomTable = ({
               <tbody>
                 {data && data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={3} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1183,7 +1183,7 @@ const CustomTable = ({
               <tbody>
                 {data && data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={3} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1237,7 +1237,7 @@ const CustomTable = ({
               <tbody>
                 {data && data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={5} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1299,7 +1299,7 @@ const CustomTable = ({
               <tbody>
                 {data && data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={5} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1362,7 +1362,7 @@ const CustomTable = ({
               <tbody>
                 {data && data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={5} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1469,7 +1469,6 @@ const CustomTable = ({
           </div>
         );
       case "deportividad":
-
         return (
           <div className="overflow-x-auto">
             <table className="min-w-[60%] bg-white border-b-2">
@@ -1521,8 +1520,8 @@ const CustomTable = ({
         );
       case "sancionados":
         data = data.sort((a: any, b: any) => {
-          if (a?.total > b?.total) return -1;
-          else if (a?.total < b?.total) return 1;
+          if (a?.matchesSuspension > b?.matchesSuspension) return -1;
+          else if (a?.matchesSuspension < b?.matchesSuspension) return 1;
         });
 
         return (
@@ -1531,43 +1530,48 @@ const CustomTable = ({
               <thead className="bg-gray-300">
                 <tr>
                   <th className="w-16 py-2 pl-5">ESC</th>
+                  <th className="w-80 py-2 px-5">DORSAL</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
                   <th className="w-80 py-2 px-5">SANCIONES</th>
-                  <th className="w-16 py-2 px-5">PARTIDOS SUSPENDIDOS</th>
+                  <th className="w-16 py-2 px-5">PARTIDOS</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => {
-                  const { data: image } = useFetchFile(team?.teamPoster?.key);
-                  {
-                    data.length === 0 && (
-                      <tr className="border-t even:bg-gray-100">
-                        <td colSpan={4} className="text-center py-2">
-                          No hay datos
-                        </td>
-                      </tr>
-                    );
-                  }
+                {data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={6} className="text-center py-2">
+                      No hay datos
+                    </td>
+                  </tr>
+                )}
+                {data.map((player: any, index: number) => {
+                  const { data: image } = useFetchFile(player?.teamPoster?.key);
+
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
                         <img
                           src={image || ""}
-                          alt={team.team}
+                          alt={player.name}
                           className="w-8 h-8 mx-auto"
                         />
                       </td>
                       <td className=" text-center py-2 px-5">
-                        {team.teamName}
+                        {player.dorsal}
                       </td>
                       <td className=" text-center py-2 px-5">
-                        {team.playerName}
+                        {player.teamName}
                       </td>
                       <td className=" text-center py-2 px-5">
-                        {team.sanciones}
+                        {player.playerName}
                       </td>
-                      <td className="text-center py-2 px-5">{team.total}</td>
+                      <td className=" text-center py-2 px-5">
+                        {player.numberOfCards}
+                      </td>
+                      <td className="text-center py-2 px-5">
+                        {player.matchesSuspension}
+                      </td>
                     </tr>
                   );
                 })}
@@ -1587,6 +1591,7 @@ const CustomTable = ({
               <thead className="bg-gray-300">
                 <tr>
                   <th className="w-16 py-2 pl-5">ESC</th>
+                  <th className="w-80 py-2 px-5">DORSAL</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
                   <th className="w-16 py-2 px-5">TARJETAS</th>
@@ -1595,7 +1600,7 @@ const CustomTable = ({
               <tbody>
                 {data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={5} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1612,6 +1617,9 @@ const CustomTable = ({
                           alt={team.team}
                           className="w-8 h-8 mx-auto"
                         />
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.dorsal}
                       </td>
                       <td className=" text-center py-2 px-5">
                         {team.teamName}
@@ -1641,6 +1649,7 @@ const CustomTable = ({
               <thead className="bg-gray-300">
                 <tr>
                   <th className="w-16 py-2 pl-5">ESC</th>
+                  <th className="w-80 py-2 px-5">DORSAL</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
                   <th className="w-16 py-2 px-5">TARJETAS</th>
@@ -1649,7 +1658,7 @@ const CustomTable = ({
               <tbody>
                 {data.length === 0 && (
                   <tr className="border-t even:bg-gray-100">
-                    <td colSpan={4} className="text-center py-2">
+                    <td colSpan={5} className="text-center py-2">
                       No hay datos
                     </td>
                   </tr>
@@ -1666,6 +1675,9 @@ const CustomTable = ({
                           alt={team.team}
                           className="w-8 h-8 mx-auto"
                         />
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.dorsal}
                       </td>
                       <td className=" text-center py-2 px-5">
                         {team.teamName}
