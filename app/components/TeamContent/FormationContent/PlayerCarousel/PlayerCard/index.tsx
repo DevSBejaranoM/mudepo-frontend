@@ -1,16 +1,16 @@
+import { useFetchFile } from "@/app/hooks/useFetchFile";
 import Image from "next/image";
 
 interface Player {
-  playerData: {
-    dorsal: number;
-    position: string;
-  };
+  dorsal: number;
+  position: string;
   name: string;
   lastname: string;
-  avatar: string;
+  avatar: any;
 }
 
-const PlayerCard = ({ playerData, name, lastname, avatar }: Player) => {
+const PlayerCard = ({ dorsal, position, name, lastname, avatar }: Player) => {
+  const { data } = useFetchFile(avatar?.key);
   return (
     <div className="text-center p-4 bg-gradient-to-t from-[#4C7D2F] to-[#75AB4D] mx-4 rounded-xl shadow-xl max-w-96">
       <div className="flex justify-center">
@@ -24,7 +24,7 @@ const PlayerCard = ({ playerData, name, lastname, avatar }: Player) => {
           />
         ) : (
           <img
-            src={`${process.env.NEXT_PUBLIC_MAIN_URL}${avatar}`}
+            src={data || ""}
             alt={name}
             className="rounded-xl mb-4 h-52 object-cover"
           />
@@ -32,12 +32,12 @@ const PlayerCard = ({ playerData, name, lastname, avatar }: Player) => {
       </div>
       <div className="flex justify-center">
         <div className="flex items-center ">
-          <h3 className="font-bold text-5xl">{playerData.dorsal}</h3>
+          <h3 className="font-bold text-5xl">{dorsal}</h3>
         </div>
         <div className="mx-4">
           <p className={`mt-2 font-semibold`}>{name}</p>
           <p className={`font-semibold`}>{lastname}</p>
-          <p className="text-white">{playerData.position}</p>
+          <p className="text-white">{position}</p>
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@ import Resolutions from "./Resolutions";
 import Sanciones from "./Sanciones";
 import useLeagueData from "@/app/hooks/useLeagueData";
 import { useFetchFile } from "@/app/hooks/useFetchFile";
+import useRankingData from "@/app/hooks/useRangkingData";
 
 interface LeagueContentProps {
   league: string;
@@ -21,8 +22,9 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  const { leagueData, loading, error } = useLeagueData(league);
+  const { leagueData, loading, error } = useLeagueData(league);  
   const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
+  //* NECESITO LAS FASES DE LA LIGA PARA OBTENER EL ID DE LA FASE ACTUAL
 
   if (loading) return <Loader />;
   if (error)
@@ -72,9 +74,9 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
           {/* {category === "RESOLUCIONES" && (
             <Resolutions leagueId={memoizedLeagueData.id} />
           )} */}
-          {/* {category === "SANCIONES" && (
+          {category === "SANCIONES" && (
             <Sanciones leagueId={memoizedLeagueData.id} />
-          )} */}
+          )}
           {memoizedLeagueData.Partners && (
             <div className="mt-56">
               <BannerPartner partners={memoizedLeagueData.Partners} />

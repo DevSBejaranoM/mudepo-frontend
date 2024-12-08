@@ -3,6 +3,7 @@ interface TeamRosterProps {
 }
 
 const TeamRoster = ({ players }: TeamRosterProps) => {
+  //* Campo para partidos suspendidos cambiar por player.sancion
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Plantilla</h3>
@@ -27,16 +28,20 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
           {players.length > 0 ? (
             players?.map((player: any, index: number) => (
               <tr key={index}>
-                <td className="border-b p-2 pl-7">
-                  {player.playerData.dorsal}
+                <td className="border-b p-2 pl-7">{player.dorsal}</td>
+                <td className="border-b p-2">
+                  {player.name} {player.lastname}
                 </td>
-                <td className="border-b p-2">{player.name}</td>
-                <td className="border-b p-2">{player.playerData.position}</td>
+                <td className="border-b p-2">{player.position}</td>
                 <td className="border-b p-2 text-center">
-                  {player?.yellowCards || "0"}
+                  {player?.Sanctions?.filter(
+                    (sanction: any) => sanction?.type === "YELLOW_CARD"
+                  ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
-                  {player?.redCards || "0"}
+                  {player?.Sanctions?.filter(
+                    (sanction: any) => sanction?.type === "RED_CARD"
+                  ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
                   {player.sancion ? "Suspendido" : "-"}

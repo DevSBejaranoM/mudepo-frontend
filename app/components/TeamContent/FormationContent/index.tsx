@@ -3,10 +3,13 @@ import { useMemo } from "react";
 import PlayerCarousel from "./PlayerCarousel";
 
 interface Player {
-  playerData: {
-    dorsal: number;
-    position: string;
-  };
+  dorsal: number;
+  position:
+    | "GOALKEEPER"
+    | "DEFENDER"
+    | "MIDFIELD"
+    | "FORWARD"
+    | "Sin posición asignada";
   name: string;
   lastname: string;
   avatar: string;
@@ -21,69 +24,17 @@ interface FormationContentProps {
 }
 
 const FormationContent = ({ dataPlayers }: FormationContentProps) => {
-  // const mockPlayers = [
-  //   // Porteros
-  //   ...Array(8).fill(null).map((_, i) => ({
-  //     playerData: { dorsal: i + 1, position: "Portero" },
-  //     name: `Nombre${i + 1}`,
-  //     lastname: `ApellidoPortero${i + 1}`,
-  //     avatar: `/placeholder.svg?height=100&width=100&text=P${i + 1}`
-  //   })),
-  //   // Defensas
-  //   ...Array(8).fill(null).map((_, i) => ({
-  //     playerData: { dorsal: i + 11, position: "Defensa" },
-  //     name: `Nombre${i + 11}`,
-  //     lastname: `ApellidoDefensa${i + 1}`,
-  //     avatar: `/placeholder.svg?height=100&width=100&text=D${i + 1}`
-  //   })),
-  //   // Centrocampistas
-  //   ...Array(8).fill(null).map((_, i) => ({
-  //     playerData: { dorsal: i + 21, position: "Centrocampista" },
-  //     name: `Nombre${i + 21}`,
-  //     lastname: `ApellidoCentro${i + 1}`,
-  //     avatar: `/placeholder.svg?height=100&width=100&text=C${i + 1}`
-  //   })),
-  //   // Delanteros
-  //   ...Array(8).fill(null).map((_, i) => ({
-  //     playerData: { dorsal: i + 31, position: "Delantero" },
-  //     name: `Nombre${i + 31}`,
-  //     lastname: `ApellidoDelantero${i + 1}`,
-  //     avatar: `/placeholder.svg?height=100&width=100&text=F${i + 1}`
-  //   }))
-  // ];
-
-  // const groupedPlayers = useMemo(() => {
-  //   const groups: Groups = {
-  //     Portero: [],
-  //     Defensa: [],
-  //     Centrocampista: [],
-  //     Delantero: [],
-  //     "Sin posición asignada": [],
-  //   };
-
-  //   mockPlayers.forEach((player) => {
-  //     const position = player.playerData.position || "Sin posición asignada";
-  //     if (position in groups) {
-  //       groups[position].push(player);
-  //     } else {
-  //       groups["Sin posición asignada"].push(player);
-  //     }
-  //   });
-
-  //   return groups;
-  // }, [mockPlayers]);
-
   const groupedPlayers = useMemo(() => {
     const groups: Groups = {
-      Portero: [],
-      Defensa: [],
-      Centrocampista: [],
-      Delantero: [],
+      GOALKEEPER: [],
+      DEFENDER: [],
+      MIDFIELD: [],
+      FORWARD: [],
       "Sin posición asignada": [],
     };
 
     dataPlayers.forEach((player) => {
-      const position = player.playerData.position || "Sin posición asignada";
+      const position = player.position || "Sin posición asignada";
       if (position in groups) {
         groups[position].push(player);
       } else {
@@ -108,7 +59,14 @@ const FormationContent = ({ dataPlayers }: FormationContentProps) => {
         Object.entries(groupedPlayers).map(([position, players]) => (
           <PlayerCarousel
             key={position}
-            title={position}
+            title={
+              position as
+                | "GOALKEEPER"
+                | "DEFENDER"
+                | "MIDFIELD"
+                | "FORWARD"
+                | "Sin posición asignada"
+            }
             players={players as Player[]}
           />
         ))

@@ -14,6 +14,7 @@ interface MatchListProps {
 }
 
 const MatchList: React.FC<MatchListProps> = ({ matchList }) => {
+
   return (
     <div className="p-4 rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Partidos del Equipo</h3>

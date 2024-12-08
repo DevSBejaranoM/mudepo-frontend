@@ -57,29 +57,39 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => {
-                  const {data: image} = useFetchFile(team?.poster?.key);
+                {data.length === 0 && (
+                  <tr>
+                    <td colSpan={2} className="text-center py-2">
+                      No hay equipos
+                    </td>
+                  </tr>
+                )}
+                {data.length > 0 &&
+                  data.map((team: any, index: number) => {
+                    const { data: image } = useFetchFile(team?.poster?.key);
 
-                  return (
-                    <tr
-                      key={index}
-                      className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
-                      onClick={() =>
-                        router.push(`/evento/${slug}/${league}/team/${team.id}`)
-                      }
-                    >
-                      <td className="text-center py-2 px-5">
-                        <img
-                          src={image ? image : ""}
-                          alt={team.name}
-                          className="w-8 h-8 mx-auto"
-                          style={{ objectFit: "contain" }}
-                        />
-                      </td>
-                      <td className=" text-center py-2 pr-5">{team.name}</td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr
+                        key={index}
+                        className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
+                        onClick={() =>
+                          router.push(
+                            `/evento/${slug}/${league}/team/${team.id}`
+                          )
+                        }
+                      >
+                        <td className="text-center py-2 px-5">
+                          <img
+                            src={image ? image : ""}
+                            alt={team.name}
+                            className="w-8 h-8 mx-auto"
+                            style={{ objectFit: "contain" }}
+                          />
+                        </td>
+                        <td className=" text-center py-2 pr-5">{team.name}</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -1597,29 +1607,47 @@ const CustomTable = ({
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.team}
-                        className="w-8 h-8 mx-auto"
-                      />
-                    </td>
-                    <td className=" text-center py-2 px-5">{team.team}</td>
-                    <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className=" text-center py-2 px-5">{team.sanciones}</td>
-                    <td className="text-center py-2 px-5">{team.total}</td>
-                  </tr>
-                ))}
+                {data.map((team: any, index: number) => {
+                  const { data: image } = useFetchFile(team?.teamPoster?.key);
+                  {
+                    data.length === 0 && (
+                      <tr className="border-t even:bg-gray-100">
+                        <td colSpan={4} className="text-center py-2">
+                          No hay datos
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return (
+                    <tr key={index} className="border-t even:bg-gray-100">
+                      <td className="text-center py-2 pl-5">
+                        <img
+                          src={image || ""}
+                          alt={team.team}
+                          className="w-8 h-8 mx-auto"
+                        />
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.teamName}
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.playerName}
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.sanciones}
+                      </td>
+                      <td className="text-center py-2 px-5">{team.total}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         );
       case "tarjetas-rojas":
         data = data.sort((a: any, b: any) => {
-          if (a?.total > b?.total) return -1;
-          else if (a?.total < b?.total) return 1;
+          if (a?.numberOfCards > b?.numberOfCards) return -1;
+          else if (a?.numberOfCards < b?.numberOfCards) return 1;
         });
 
         return (
@@ -1630,32 +1658,50 @@ const CustomTable = ({
                   <th className="w-16 py-2 pl-5">ESC</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
-                  <th className="w-16 py-2 px-5">TARJETAS ROJAS</th>
+                  <th className="w-16 py-2 px-5">TARJETAS</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.team}
-                        className="w-8 h-8 mx-auto"
-                      />
+                {data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
                     </td>
-                    <td className=" text-center py-2 px-5">{team.team}</td>
-                    <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 px-5">{team.total}</td>
                   </tr>
-                ))}
+                )}
+
+                {data.map((team: any, index: number) => {
+                  const { data: image } = useFetchFile(team?.teamPoster?.key);
+
+                  return (
+                    <tr key={index} className="border-t even:bg-gray-100">
+                      <td className="text-center py-2 pl-5">
+                        <img
+                          src={image || ""}
+                          alt={team.team}
+                          className="w-8 h-8 mx-auto"
+                        />
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.teamName}
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.playerName}
+                      </td>
+                      <td className="text-center py-2 px-5">
+                        {team.numberOfCards}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         );
       case "tarjetas-amarillas":
         data = data.sort((a: any, b: any) => {
-          if (a?.total > b?.total) return -1;
-          else if (a?.total < b?.total) return 1;
+          if (a?.numberOfCards > b?.numberOfCards) return -1;
+          else if (a?.numberOfCards < b?.numberOfCards) return 1;
         });
 
         return (
@@ -1666,24 +1712,42 @@ const CustomTable = ({
                   <th className="w-16 py-2 pl-5">ESC</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
-                  <th className="w-16 py-2 px-5">TARJETAS AMARILLAS</th>
+                  <th className="w-16 py-2 px-5">TARJETAS</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((team: any, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.escudo}`}
-                        alt={team.team}
-                        className="w-8 h-8 mx-auto"
-                      />
+                {data.length === 0 && (
+                  <tr className="border-t even:bg-gray-100">
+                    <td colSpan={4} className="text-center py-2">
+                      No hay datos
                     </td>
-                    <td className=" text-center py-2 px-5">{team.team}</td>
-                    <td className=" text-center py-2 px-5">{team.name}</td>
-                    <td className="text-center py-2 px-5">{team.total}</td>
                   </tr>
-                ))}
+                )}
+                
+                {data.map((team: any, index: number) => {
+                  const { data: image } = useFetchFile(team?.teamPoster?.key);
+
+                  return (
+                    <tr key={index} className="border-t even:bg-gray-100">
+                      <td className="text-center py-2 pl-5">
+                        <img
+                          src={image || ""}
+                          alt={team.team}
+                          className="w-8 h-8 mx-auto"
+                        />
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.teamName}
+                      </td>
+                      <td className=" text-center py-2 px-5">
+                        {team.playerName}
+                      </td>
+                      <td className="text-center py-2 px-5">
+                        {team.numberOfCards}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
