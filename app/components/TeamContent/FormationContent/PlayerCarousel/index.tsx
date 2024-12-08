@@ -64,7 +64,7 @@ const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
 
   return (
     <div className="my-8">
-      <h2 className="text-2xl font-bold mb-4">{postions[title] || title}</h2>
+      <h2 className="text-2xl font-bold mb-4">{postions[title]}</h2>
       <Slider {...settings}>
         {players.map((player, index) => (
           <PlayerCard key={`${player.name} ${index}`} {...player} />

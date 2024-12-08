@@ -4,6 +4,21 @@ interface TeamRosterProps {
 
 const TeamRoster = ({ players }: TeamRosterProps) => {
   //* Campo para partidos suspendidos cambiar por player.sancion
+  type position =
+    | "GOALKEEPER"
+    | "DEFENDER"
+    | "MIDFIELD"
+    | "FORWARD"
+    | "Sin posición asignada";
+
+  const postions = {
+    GOALKEEPER: "Portero",
+    DEFENDER: "Defensa",
+    MIDFIELD: "Centrocampista",
+    FORWARD: "Delantero",
+    "Sin posición asignada": "Sin posición asignada",
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Plantilla</h3>
@@ -32,7 +47,7 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
                 <td className="border-b p-2">
                   {player.name} {player.lastname}
                 </td>
-                <td className="border-b p-2">{player.position}</td>
+                <td className="border-b p-2">{postions[player.position as position]}</td>
                 <td className="border-b p-2 text-center">
                   {player?.Sanctions?.filter(
                     (sanction: any) => sanction?.type === "YELLOW_CARD"
