@@ -24,7 +24,6 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
   const { leagueData, loading, error } = useLeagueData(league);  
   const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
-  //* NECESITO LAS FASES DE LA LIGA PARA OBTENER EL ID DE LA FASE ACTUAL
 
   if (loading) return <Loader />;
   if (error)
@@ -64,7 +63,7 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
               league={league}
             />
           )}
-          {/* {category === "CLASIFICACIÓN" && <Classification ranking={ranking} />} */}
+          {category === "CLASIFICACIÓN" && <Classification phases={memoizedLeagueData?.Phases || []} />}
           {/* {category === "CALENDARIO" && (
             <Calendar leagueId={memoizedLeagueData.id} />
           )} */}

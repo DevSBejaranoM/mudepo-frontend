@@ -95,212 +95,95 @@ const CustomTable = ({
           </div>
         );
       case "classification":
-        let groupedTeams: any = [];
-        if (allRanking) {
-          groupedTeams = data.reduce((groups: any, team: any) => {
-            if (!groups[team.groupName]) {
-              groups[team.groupName] = [];
-            }
-            groups[team.groupName].push(team);
-            return groups;
-          }, {});
-        } else {
-          data = data.sort((a: any, b: any) => {
-            // 1. Ordenar por puntos (descendente)
-            if (a.points > b.points) {
-              return -1;
-            } else if (a.points < b.points) {
-              return 1;
-            }
-
-            // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
-            const goalDifferenceA = a.goalsFor - a.goalsAgainst;
-            const goalDifferenceB = b.goalsFor - b.goalsAgainst;
-
-            if (goalDifferenceA > goalDifferenceB) {
-              return 1;
-            } else if (goalDifferenceA < goalDifferenceB) {
-              return -1;
-            }
-
-            // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
-            if (a.won > b.won) {
-              return -1;
-            } else if (a.won < b.won) {
-              return 1;
-            }
-
-            // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
-            if (a.draw > b.draw) {
-              return -1;
-            } else if (a.draw < b.draw) {
-              return 1;
-            }
-
-            // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
+        const sortTeams = (teams: any) => {
+          return teams.sort((a: any, b: any) => {
+            if (a.points !== b.points) return b.points - a.points;
+            const goalDiffA = a.goalsFor - a.goalsAgainst;
+            const goalDiffB = b.goalsFor - b.goalsAgainst;
+            if (goalDiffA !== goalDiffB) return goalDiffB - goalDiffA;
+            if (a.won !== b.won) return b.won - a.won;
+            if (a.draw !== b.draw) return b.draw - a.draw;
             return 0;
           });
-        }
+        };
 
-        return allRanking ? (
-          <div>
-            {Object.keys(groupedTeams).map((groupName, groupIndex) => {
-              const sortedTeams = groupedTeams[groupName].sort(
-                (a: any, b: any) => {
-                  // 1. Ordenar por puntos (descendente)
-                  if (a.points > b.points) {
-                    return -1;
-                  } else if (a.points < b.points) {
-                    return 1;
-                  }
-
-                  // 2. Si están empatados en puntos, ordenar por diferencia de goles (descendente)
-                  const goalDifferenceA = a.goalsFor - a.goalsAgainst;
-                  const goalDifferenceB = b.goalsFor - b.goalsAgainst;
-
-                  if (goalDifferenceA > goalDifferenceB) {
-                    return -1;
-                  } else if (goalDifferenceA < goalDifferenceB) {
-                    return 1;
-                  }
-
-                  // 3. Si también están empatados en diferencia de goles, ordenar por partidos ganados (descendente)
-                  if (a.won > b.won) {
-                    return -1;
-                  } else if (a.won < b.won) {
-                    return 1;
-                  }
-
-                  // 4. Si están empatados en partidos ganados, ordenar por partidos empatados (descendente)
-                  if (a.draw > b.draw) {
-                    return -1;
-                  } else if (a.draw < b.draw) {
-                    return 1;
-                  }
-
-                  // 5. Si están empatados en todo lo anterior, devolver 0 (mantener el orden actual)
-                  return 0;
-                }
-              );
-              return (
-                <div key={groupIndex} className="mb-10 mt-5">
-                  <h2 className="text-2xl font-bold mb-4">{groupName}</h2>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white">
-                      <thead className="bg-gray-300">
-                        <tr>
-                          <th className="w-16 py-2 pl-5">POS</th>
-                          <th className="w-16 py-2 px-5">ESC</th>
-                          <th className="w-80 py-2 px-5">EQUIPO</th>
-                          <th className="w-16 py-2 px-5">PTS</th>
-                          <th className="w-16 py-2 px-5">PJ</th>
-                          <th className="w-16 py-2 px-5">PG</th>
-                          <th className="w-16 py-2 px-5">PE</th>
-                          <th className="w-16 py-2 px-5">PP</th>
-                          <th className="w-16 py-2 px-5">GF</th>
-                          <th className="w-16 py-2 px-5">GC</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sortedTeams.map((team: any, index: number) => (
-                          <tr key={index} className="border-t even:bg-gray-100">
-                            <td className="text-center py-2 pl-5">
-                              {index + 1}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              <img
-                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
-                                alt={team.teamName}
-                                className="w-8 h-8 mx-auto"
-                                style={{ objectFit: "contain" }}
-                              />
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.teamName}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.points}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.matchesPlayed}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.matchesWon}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.matchesDrawn}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.matchesLost}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.goals}
-                            </td>
-                            <td className="text-center py-2 px-5">
-                              {team.goalsAgainst}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
-              <thead className="bg-gray-300">
-                <tr>
-                  <th className="w-16 py-2 pl-5">POS</th>
-                  <th className="w-16 py-2 px-5">ESC</th>
-                  <th className="w-80 py-2 px-5">EQUIPO</th>
-                  <th className="w-16 py-2 px-5">PTS</th>
-                  <th className="w-16 py-2 px-5">PJ</th>
-                  <th className="w-16 py-2 px-5">PG</th>
-                  <th className="w-16 py-2 px-5">PE</th>
-                  <th className="w-16 py-2 px-5">PP</th>
-                  <th className="w-16 py-2 px-5">GF</th>
-                  <th className="w-16 py-2 px-5">GC</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((team: any, index: number) => (
-                  <tr key={index} className="border-t even:bg-gray-100">
-                    <td className="text-center py-2 pl-5">
-                      {team.points === 0 ? "-" : index + 1}
-                    </td>
-                    <td className="text-center py-2 px-5">
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_MAIN_URL}${team.logo}`}
-                        alt={team.teamName}
-                        className="w-8 h-8 mx-auto"
-                        style={{ objectFit: "contain" }}
-                      />
-                    </td>
-                    <td className="text-center py-2 px-5">{team.teamName}</td>
-                    <td className="text-center py-2 px-5">{team.points}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.matchesPlayed}
-                    </td>
-                    <td className="text-center py-2 px-5">{team.matchesWon}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.matchesDrawn}
-                    </td>
-                    <td className="text-center py-2 px-5">
-                      {team.matchesLost}
-                    </td>
-                    <td className="text-center py-2 px-5">{team.goals}</td>
-                    <td className="text-center py-2 px-5">
-                      {team.goalsAgainst}
-                    </td>
+        const renderTable = (teams: any, groupName?: string) => (
+          <div className={groupName ? "mb-10 mt-5" : ""}>
+            {groupName && (
+              <h2 className="text-2xl font-bold mb-4">{groupName}</h2>
+            )}
+            <div className="overflow-x-auto">
+              <table className="min-w-full bg-white">
+                <thead className="bg-gray-300">
+                  <tr>
+                    <th className="w-16 py-2 pl-5">POS</th>
+                    <th className="w-16 py-2 px-5">ESC</th>
+                    <th className="w-80 py-2 px-5">EQUIPO</th>
+                    <th className="w-16 py-2 px-5">PTS</th>
+                    <th className="w-16 py-2 px-5">PJ</th>
+                    <th className="w-16 py-2 px-5">PG</th>
+                    <th className="w-16 py-2 px-5">PE</th>
+                    <th className="w-16 py-2 px-5">PP</th>
+                    <th className="w-16 py-2 px-5">GF</th>
+                    <th className="w-16 py-2 px-5">GC</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {teams &&
+                    teams.map((team: any, index: number) => {
+                      const { data: image } = useFetchFile(team?.poster?.key);
+                      return (
+                        <tr key={team.id} className="border-t even:bg-gray-100">
+                          <td className="text-center py-2 pl-5">
+                            {team.points === 0 ? index + 1 : team.points}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            <img
+                              src={image ? image : ""}
+                              alt={team.name}
+                              className="w-8 h-8 mx-auto"
+                              style={{ objectFit: "contain" }}
+                            />
+                          </td>
+                          <td className="text-center py-2 px-5">{team.name}</td>
+                          <td className="text-center py-2 px-5">
+                            {team.points}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            {team.played}
+                          </td>
+                          <td className="text-center py-2 px-5">{team.won}</td>
+                          <td className="text-center py-2 px-5">{team.draw}</td>
+                          <td className="text-center py-2 px-5">{team.lost}</td>
+                          <td className="text-center py-2 px-5">
+                            {team.goalsFor}
+                          </td>
+                          <td className="text-center py-2 px-5">
+                            {team.goalsAgainst}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
           </div>
         );
+
+        if (allRanking) {
+          return (
+            <div>
+              {data &&
+                data.map((group: any, index: number) => (
+                  <React.Fragment key={index}>
+                    {renderTable(sortTeams(group.ranking), group.groupName)}
+                  </React.Fragment>
+                ))}
+            </div>
+          );
+        } else {
+          return renderTable(sortTeams(data[0].ranking));
+        }
       case "calendar":
         const [phaseSelected, setPaheSelected] = useState<any>(0);
         const [groupSelected, setGroupSelected] = useState<any>(0);
@@ -1723,7 +1606,7 @@ const CustomTable = ({
                     </td>
                   </tr>
                 )}
-                
+
                 {data.map((team: any, index: number) => {
                   const { data: image } = useFetchFile(team?.teamPoster?.key);
 

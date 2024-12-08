@@ -1,110 +1,52 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import React, { useState, useEffect, useMemo } from "react";
 import CustomTable from "../CustomTable";
 import Loader from "../../Loader";
+import useRankingData from "@/app/hooks/useRangkingData";
 
-interface ClassificationProps {
-  ranking: any;
+interface Phase {
+  id: string;
+  name: string;
 }
 
-const Classification = ({ ranking}: ClassificationProps) => {
-  const [phases, setPhases] = useState<any>(null);
-  const [dataRanking, setDataRanking] = useState<any>(
-    ranking ? ranking : null
-  );
-  const [phaseSelected, setPhaseSelected] = useState<any>(null);
-  const [groupsInPhase, setGroupsInPhase] = useState<any>(null);
-  const [groupSelected, setGroupSelected] = useState<any>(-1);
-  const [dataFiltered, setDataFiltered] = useState<any>(null);
+interface RankingItem {
+  groupName: string;
+  phaseName: string;
+  ranking: any[]; // Puedes definir una interfaz más específica para el ranking si lo deseas
+}
+
+interface ClassificationProps {
+  phases: Phase[];
+}
+
+const Classification: React.FC<ClassificationProps> = ({ phases }) => {
+  const [selectedPhaseId, setSelectedPhaseId] = useState<string>(phases[0]?.id);
+  const [selectedGroup, setSelectedGroup] = useState<string>("all");
+  const { rankingData, loading, message } = useRankingData(selectedPhaseId);
 
   useEffect(() => {
-    if (!phases && ranking) {
-      let newPhases: any = [];
-      ranking.map((rank: any, index: number) => {
-        if (!newPhases.some((phase: any) => phase.label === rank?.phaseName)) {
-          newPhases.push({
-            value: index,
-            label: rank?.phaseName,
-          });
-        }
-      });
-
-      setPhases(newPhases);
-      setPhaseSelected(newPhases[0] ? newPhases[0] : []);
-      handleChangeGroup(
-        -1,
-        `listbox-grupo-option`,
-        true,
-        newPhases[0],
-        ranking
-      );
-    } else if(!ranking) {
-      setDataRanking([]);
+    if (phases.length > 0 && !selectedPhaseId) {
+      setSelectedPhaseId(phases[0].id);
     }
-  }, []);
+  }, [phases, selectedPhaseId]);
 
-  const handleChangePhase = async (
-    phase: any,
-    idSelect: string,
-    firstLoad: boolean = false
-  ) => {
-    setPhaseSelected(phase);
-    setGroupSelected(-1);
-    handleChangeGroup(-1, `listbox-grupo-option`, true, phase);
-    if (!firstLoad) openListAndClose(idSelect);
+  const groups = useMemo(() => {
+    if (!rankingData) return [];
+    return Array.from(
+      new Set(rankingData.map((item: RankingItem) => item.groupName))
+    );
+  }, [rankingData]);
+
+  const handleChangePhase = (phaseId: string) => {
+    setSelectedPhaseId(phaseId);
+    setSelectedGroup("all");
+    openListAndClose("listbox-fase-option");
   };
 
-  const handleChangeGroup = async (
-    group: any,
-    idSelect: string,
-    firstLoad: boolean = false,
-    phase: any = phaseSelected,
-    rankingData: any = dataRanking
-  ) => {
-    setGroupSelected(group);
-    if (group === -1) {
-      let dataGroup: any = [];
-      dataGroup = rankingData.filter(
-        (rank: any) => rank?.phaseName === phase.label
-      );
-      let newGroupsInPhase: any = [];
-      dataGroup.map((rank: any) => {
-        if (!newGroupsInPhase.some((grupo: any) => grupo === rank?.groupName)) {
-          newGroupsInPhase.push(rank?.groupName);
-        }
-      });
-      newGroupsInPhase.sort((a: any, b: any) => {
-        if (a > b) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
-      setGroupsInPhase(newGroupsInPhase);
-      let newGroups = dataGroup = dataGroup.sort((a: any, b: any) => {
-        if (a?.groupName > b?.groupName) {
-          return 1;
-        } else {
-          return -1;
-        }
-      })
-      setDataFiltered(newGroups);
-      if (!firstLoad) openListAndClose(idSelect);
-    } else {
-      let dataGroup: any = [];
-      dataGroup = rankingData.filter(
-        (rank: any) =>
-          rank?.phaseName === phase.label && rank?.groupName === group
-      );
-      let newGroups = dataGroup.sort((a: any, b: any) => {
-        if (a?.groupName > b?.groupName) {
-          return 1;
-        } else {
-          return -1;
-        }
-      })
-      setDataFiltered(newGroups);
-      openListAndClose(idSelect);
-    }
+  const handleChangeGroup = (group: string) => {
+    setSelectedGroup(group);
+    openListAndClose("listbox-grupo-option");
   };
 
   const openListAndClose = (id: string) => {
@@ -122,159 +64,117 @@ const Classification = ({ ranking}: ClassificationProps) => {
     }
   };
 
+  const filteredRankings = useMemo(() => {
+    if (!rankingData) return [];
+    return selectedGroup === "all"
+      ? rankingData
+      : rankingData.filter(
+          (item: RankingItem) => item.groupName === selectedGroup
+        );
+  }, [rankingData, selectedGroup]);
+
+  const selectedPhase = phases.find((phase) => phase.id === selectedPhaseId);
+
+  if (loading) return <Loader />;
+
   return (
     <div className="mt-10">
-      {dataRanking && dataRanking.length === 0 && (
-        <h2 className="text-2xl text-center font-semibold">
-          Aún no hay clasificación disponible
-        </h2>
-      )}
-      {dataRanking && dataRanking.length > 0 && (
-        <>
-          <div className="flex space-x-2 md:mx-96 justify-center">
-            <div className="w-full">
-              <div className="relative mt-2">
-                <button
-                  type="button"
-                  className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
-                  aria-haspopup="listbox"
-                  aria-expanded="true"
-                  aria-labelledby="listbox-fase-label"
-                  onClick={() => openListAndClose(`listbox-fase-option`)}
+      <div className="flex space-x-2 md:mx-96 justify-center">
+        <div className="w-full">
+          <div className="relative mt-2">
+            <button
+              type="button"
+              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
+              aria-haspopup="listbox"
+              aria-expanded="true"
+              aria-labelledby="listbox-fase-label"
+              onClick={() => openListAndClose(`listbox-fase-option`)}
+            >
+              <span className="flex items-center justify-center">
+                <span className="ml-3 block truncate">
+                  {selectedPhase?.name || "No hay fases disponibles"}
+                </span>
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                {/* SVG icon */}
+              </span>
+            </button>
+            <ul
+              className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
+              role="listbox"
+              id={`listbox-fase-option`}
+              aria-labelledby="listbox-fase-label"
+            >
+              {phases.map((phase) => (
+                <li
+                  key={phase.id}
+                  className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                  role="option"
+                  onClick={() => handleChangePhase(phase.id)}
                 >
-                  <span className="flex items-center justify-center">
-                    <span className="ml-3 block truncate">
-                      {phaseSelected?.label
-                        ? phaseSelected?.label
-                        : "No hay fases disponibles"}
-                    </span>
-                  </span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                    <svg
-                      className="h-5 w-5 text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <ul
-                  className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
-                  role="listbox"
-                  id={`listbox-fase-option`}
-                  aria-labelledby="listbox-fase-label"
-                  aria-activedescendant="listbox-fase-option-3"
-                >
-                  {phases &&
-                    phases.map((phase: any, index: number) => (
-                      <li
-                        key={index}
-                        className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
-                        role="option"
-                        onClick={() =>
-                          handleChangePhase(phase, `listbox-fase-option`)
-                        }
-                      >
-                        {phase.label}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="relative mt-2">
-                <button
-                  type="button"
-                  className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
-                  aria-haspopup="listbox"
-                  aria-expanded="true"
-                  aria-labelledby="listbox-grupo-label"
-                  onClick={() => openListAndClose(`listbox-grupo-option`)}
-                >
-                  <span className="flex items-center justify-center">
-                    <span className="ml-3 block truncate">
-                      {groupSelected === -1
-                        ? "Todos los grupos"
-                        : groupSelected}
-                    </span>
-                  </span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                    <svg
-                      className="h-5 w-5 text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <ul
-                  className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
-                  role="listbox"
-                  id={`listbox-grupo-option`}
-                  aria-labelledby="listbox-grupo-label"
-                  aria-activedescendant="listbox-grupo-option-3"
-                >
-                  <li
-                    key={-1}
-                    className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
-                    role="option"
-                    onClick={() =>
-                      handleChangeGroup(
-                        -1,
-                        `listbox-grupo-option`,
-                        false,
-                        phaseSelected,
-                        dataRanking
-                      )
-                    }
-                  >
-                    Todos los grupos
-                  </li>
-                  {groupsInPhase &&
-                    groupsInPhase.map((grupo: any, index: number) => (
-                      <li
-                        key={index}
-                        className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
-                        role="option"
-                        onClick={() =>
-                          handleChangeGroup(
-                            grupo,
-                            `listbox-grupo-option`,
-                            false,
-                            phaseSelected,
-                            dataRanking
-                          )
-                        }
-                      >
-                        {grupo}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            </div>
+                  {phase.name}
+                </li>
+              ))}
+            </ul>
           </div>
-          {dataFiltered && dataFiltered.length > 0 && (
-            <CustomTable
-              data={dataFiltered}
-              type="classification"
-              allRanking={groupSelected === -1 ? true : false}
-            />
-          )}
-        </>
-      )}
+        </div>
+        <div className="w-full">
+          <div className="relative mt-2">
+            <button
+              type="button"
+              className="relative w-full rounded-md py-2 pl-3 pr-10 color-primary shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 sm:text-sm sm:leading-6 border-primary hover-border-primary-dark px-4 text-center"
+              aria-haspopup="listbox"
+              aria-expanded="true"
+              aria-labelledby="listbox-grupo-label"
+              onClick={() => openListAndClose(`listbox-grupo-option`)}
+            >
+              <span className="flex items-center justify-center">
+                <span className="ml-3 block truncate">
+                  {selectedGroup === "all" ? "Todos los grupos" : selectedGroup}
+                </span>
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                {/* SVG icon */}
+              </span>
+            </button>
+            <ul
+              className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden"
+              role="listbox"
+              id={`listbox-grupo-option`}
+              aria-labelledby="listbox-grupo-label"
+            >
+              <li
+                key="all"
+                className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                role="option"
+                onClick={() => handleChangeGroup("all")}
+              >
+                Todos los grupos
+              </li>
+              {groups.map((group: any) => (
+                <li
+                  key={group}
+                  className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                  role="option"
+                  onClick={() => handleChangeGroup(group)}
+                >
+                  {group}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {message && <p className="text-center mt-4">{message}</p>}
+      {!message && filteredRankings.length > 0 ? (
+        <CustomTable
+          data={filteredRankings}
+          type="classification"
+          allRanking={selectedGroup === "all"}
+        />
+      ) : null}
     </div>
   );
 };
+
 export default Classification;
