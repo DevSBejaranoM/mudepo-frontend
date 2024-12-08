@@ -10,8 +10,6 @@ interface StatisticsProps {
 const Statistics = ({ leagueId }: StatisticsProps) => {
   const { statistics, loading, error } = useStatisticsData(leagueId);
 
-  console.log(statistics);
-
   if (loading) {
     return (
       <div className="flex justify-center">
