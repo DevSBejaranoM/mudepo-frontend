@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import useCachedSWR from './useCachedSWR';
 import { axiosAdapter } from "@/app/config/axios.adapter";
 
 interface TeamStats {
@@ -28,36 +28,42 @@ interface FairPlayTeam {
 }
 
 interface LeagueStatistics {
-  mostScoringTeam: TeamStats;
-  leastConcedingTeam: TeamStats;
+  mostScoringTeam: TeamStats[];
+  leastConcedingTeam: TeamStats[];
   topScorers: PlayerStats[];
   yellowCards: PlayerStats[];
   redCards: PlayerStats[];
   fairPlayTeams: FairPlayTeam[];
 }
 
-export const useStatisticsData = (leagueId: string) => {
-  const [statistics, setStatistics] = useState<LeagueStatistics | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchStatistics = async () => {
-      try {
-        setLoading(true);
-        const response = await axiosAdapter.fetchData(`/statistics/${leagueId}`);
-        setStatistics(response.data);
-        setError(null);
-      } catch (err) {
-        setError('Error fetching statistics');
-        console.error('Error fetching statistics:', err);
-      } finally {
-        setLoading(false);
+const useStatisticsData = (leagueId: string) => {
+  const fetchStatistics = async () => {
+    try {
+      const response = await axiosAdapter.fetchData(`/statistics/${leagueId}`);
+      if (!response || Object.keys(response).length === 0) {
+        return { data: null, message: "No hay datos de estadísticas disponibles para esta liga." };
       }
-    };
+      return { data: response, message: null };
+    } catch (error) {
+      console.error("Error fetching statistics data:", error);
+      return { data: null, message: "Error al obtener las estadísticas de la liga." };
+    }
+  };
 
-    fetchStatistics();
-  }, [leagueId]);
+  const { data, error } = useCachedSWR(
+    `statistics-${leagueId}`,
+    fetchStatistics,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
-  return { statistics, loading, error };
+  const loading = !data && !error;
+  const statistics: LeagueStatistics | null = data?.data || null;
+  const message = data?.message || error?.message || null;
+
+  return { statistics, loading, error: message };
 };
+
+export default useStatisticsData;

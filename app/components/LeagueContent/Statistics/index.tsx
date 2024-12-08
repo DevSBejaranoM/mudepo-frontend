@@ -1,7 +1,7 @@
 "use client";
 
+import useStatisticsData from "@/app/hooks/useStaticsticsData";
 import CustomTable from "../CustomTable";
-import { useStatisticsData } from "@/app/hooks/useStaticsticsData";
 
 interface StatisticsProps {
   leagueId: string;
@@ -9,6 +9,8 @@ interface StatisticsProps {
 
 const Statistics = ({ leagueId }: StatisticsProps) => {
   const { statistics, loading, error } = useStatisticsData(leagueId);
+
+  console.log(statistics);
 
   if (loading) {
     return (
@@ -31,12 +33,18 @@ const Statistics = ({ leagueId }: StatisticsProps) => {
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         EQUIPO MÁS GOLEADOR
       </h3>
-      <CustomTable data={statistics?.mostScoringTeam || []} type="statistics-2" />
+      <CustomTable
+        data={statistics?.mostScoringTeam || []}
+        type="statistics-2"
+      />
 
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         EQUIPO MENOS GOLEADO
       </h3>
-      <CustomTable data={statistics?.leastConcedingTeam || []} type="statistics-3" />
+      <CustomTable
+        data={statistics?.leastConcedingTeam || []}
+        type="statistics-3"
+      />
 
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         JUGADORES MÁS GOLEADORES
