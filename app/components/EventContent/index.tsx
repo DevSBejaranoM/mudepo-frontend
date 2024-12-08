@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Loader from "../Loader";
 import MainSection from "../MainSection";
 import LeagueList from "../LeagueList";
+import BannerPartner from "../BannerPartner";
 
 const EventsContent = ({ slug }: { slug: string }) => {
   const { event, loading, error } = useEventData(slug);
@@ -35,13 +36,20 @@ const EventsContent = ({ slug }: { slug: string }) => {
         }
         bgSize="content"
       />
-      <section className="mx-auto my-20 p-4 lg:h-auto flex items-center justify-center">
-        {memoizedEvent.Leagues && (
-          <LeagueList
-            leagues={memoizedEvent.Leagues}
-            eventName={memoizedEvent.name}
-          />
-        )}
+      <section className="mx-auto my-20 p-4 lg:h-auto items-center justify-center">
+        <div className="flex-col">
+          {memoizedEvent.Leagues && (
+            <LeagueList
+              leagues={memoizedEvent.Leagues}
+              eventName={memoizedEvent.name}
+            />
+          )}
+          {memoizedEvent?.PartnerEvent && (
+            <div className="mt-56">
+              <BannerPartner partners={memoizedEvent.PartnerEvent} />
+            </div>
+          )}
+        </div>
       </section>
     </>
   );

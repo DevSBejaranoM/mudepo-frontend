@@ -12,8 +12,6 @@ import Loader from "../Loader";
 import Resolutions from "./Resolutions";
 import Sanciones from "./Sanciones";
 import useLeagueData from "@/app/hooks/useLeagueData";
-import { useFetchFile } from "@/app/hooks/useFetchFile";
-import useRankingData from "@/app/hooks/useRangkingData";
 
 interface LeagueContentProps {
   league: string;
@@ -22,7 +20,7 @@ interface LeagueContentProps {
 
 const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   const category = useCategoryStore((state) => state.category);
-  const { leagueData, loading, error } = useLeagueData(league);  
+  const { leagueData, loading, error } = useLeagueData(league);
   const memoizedLeagueData = useMemo(() => leagueData, [leagueData]);
 
   if (loading) return <Loader />;
@@ -44,7 +42,11 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
   return (
     <>
       <MainSection
-        image={memoizedLeagueData?.poster?.key ? memoizedLeagueData.poster.key : "/images/header-background.jpg"}
+        image={
+          memoizedLeagueData?.poster?.key
+            ? memoizedLeagueData.poster.key
+            : "/images/header-background.jpg"
+        }
         title={memoizedLeagueData.name || "Evento"}
       />
       <NavCategories eventName={slug} />
@@ -63,10 +65,12 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
               league={league}
             />
           )}
-          {category === "CLASIFICACIÓN" && <Classification phases={memoizedLeagueData?.Phases || []} />}
-          {/* {category === "CALENDARIO" && (
-            <Calendar leagueId={memoizedLeagueData.id} />
-          )} */}
+          {category === "CLASIFICACIÓN" && (
+            <Classification phases={memoizedLeagueData?.Phases || []} />
+          )}
+          {category === "CALENDARIO" && (
+            <Calendar Phases={memoizedLeagueData?.Phases || []} />
+          )}
           {category === "ESTADÍSTICAS" && (
             <Statistics leagueId={memoizedLeagueData.id} />
           )}
@@ -76,9 +80,9 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
           {category === "SANCIONES" && (
             <Sanciones leagueId={memoizedLeagueData.id} />
           )}
-          {memoizedLeagueData.Partners && (
+          {memoizedLeagueData.PartnerLeague && (
             <div className="mt-56">
-              <BannerPartner partners={memoizedLeagueData.Partners} />
+              <BannerPartner partners={memoizedLeagueData.PartnerLeague} />
             </div>
           )}
         </div>

@@ -697,23 +697,16 @@ const CustomTable = ({
           </>
         );
       case "calendar-2":
+        console.log("calendar-2", data);
         return (
           <>
-            {!data && <Loader />}
-            {data && data?.tabOne?.partidos?.length === 0 && (
+            {data && data?.length === 0 && (
               <div className="flex justify-center items-center h-screen">
                 <h1 className="text-2xl text-gray-900">No hay partidos</h1>
               </div>
             )}
-            {data && data?.tabOne?.partidos?.length > 0 && (
+            {data && data?.length > 0 && (
               <div className="relative">
-                <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold mb-4 md:mb-0 text-red-600">
-                    {data?.name} {data?.grupo ? ` - ${data?.grupo}` : ""}
-                    {/* {data?.name} */}
-                  </h2>
-                </div>
-
                 <div className="overflow-x-auto">
                   <table className="min-w-full bg-gray-300">
                     <thead>
@@ -728,39 +721,44 @@ const CustomTable = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {data?.tabOne?.partidos?.map(
-                        (calendar: any, index: number) => (
+                      {data?.map((calendar: any, index: number) => {
+                        const { data: imageLocal } = useFetchFile(
+                          calendar?.escudoLocal?.key
+                        );
+                        const { data: imageVisitante } = useFetchFile(
+                          calendar?.escudoVisitante?.key
+                        );
+
+                        return (
                           <tr
-                            key={calendar.id}
+                            key={`${calendar.nombreLocal} - ${calendar.nombreVisitante} - ${calendar.fecha}`}
                             className={index % 2 === 0 ? "bg-gray-100" : ""}
                           >
                             <td className="py-2 px-4 border-b text-center bg-primary">
                               <button
                                 onClick={() =>
                                   setSelectedInfo({
-                                    lugar: calendar?.tabFour?.location?.name,
+                                    lugar: calendar?.lugar,
                                     fecha: new Date(
-                                      calendar?.tabOne?.dateTime
+                                      calendar?.fecha
                                     ).toLocaleDateString(),
                                     hora:
-                                      (new Date(
-                                        calendar?.tabOne?.dateTime
-                                      ).getHours() === 0
-                                        ? new Date(
-                                            calendar?.tabOne?.dateTime
-                                          ).getHours() + "0"
+                                      (new Date(calendar?.fecha).getHours() ===
+                                      0
+                                        ? new Date(calendar?.fecha).getHours() +
+                                          "0"
                                         : new Date(
-                                            calendar?.tabOne?.dateTime
+                                            calendar?.fecha
                                           ).getHours()) +
                                       ":" +
                                       (new Date(
-                                        calendar?.tabOne?.dateTime
+                                        calendar?.fecha
                                       ).getMinutes() === 0
                                         ? new Date(
-                                            calendar?.tabOne?.dateTime
+                                            calendar?.fecha
                                           ).getMinutes() + "0"
                                         : new Date(
-                                            calendar?.tabOne?.dateTime
+                                            calendar?.fecha
                                           ).getMinutes()),
                                   })
                                 }
@@ -1026,42 +1024,32 @@ const CustomTable = ({
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${
-                                  calendar?.tabTwo?.team1?.tabOne?.poster
-                                    ?.url ||
-                                  logos.find(
-                                    (logo: any) =>
-                                      logo.id === calendar?.tabTwo?.team1?.id
-                                  )?.logo
-                                }`}
+                                src={imageLocal || ""}
                                 alt="local"
                                 className="w-8 h-8 mx-auto"
                               />
                             </td>
                             <td className="py-2 px-4 border-b">
-                              {calendar?.tabTwo?.team1?.name}
+                              {calendar?.nombreLocal}
                             </td>
-                            <MatchResult id={calendar?.id} />
+                            <MatchResult
+                              status={calendar.status}
+                              localGoals={calendar.golesLocal}
+                              visitingGoals={calendar.golesVisitante}
+                            />
                             <td className="py-2 px-4 border-b">
-                              {calendar?.tabTree?.team2?.name}
+                              {calendar?.nombreVisitante}
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={`${process.env.NEXT_PUBLIC_MAIN_URL}${
-                                  calendar?.tabTree?.team2?.tabOne?.poster
-                                    ?.url ||
-                                  logos.find(
-                                    (logo: any) =>
-                                      logo.id === calendar?.tabTree?.team2?.id
-                                  )?.logo
-                                }`}
+                                src={imageVisitante || ""}
                                 alt="visitante"
                                 className="w-8 h-8 mx-auto"
                               />
                             </td>
                           </tr>
-                        )
-                      )}
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -1618,9 +1606,7 @@ const CustomTable = ({
                           className="w-8 h-8 mx-auto"
                         />
                       </td>
-                      <td className=" text-center py-2 px-5">
-                        {team.dorsal}
-                      </td>
+                      <td className=" text-center py-2 px-5">{team.dorsal}</td>
                       <td className=" text-center py-2 px-5">
                         {team.teamName}
                       </td>
@@ -1676,9 +1662,7 @@ const CustomTable = ({
                           className="w-8 h-8 mx-auto"
                         />
                       </td>
-                      <td className=" text-center py-2 px-5">
-                        {team.dorsal}
-                      </td>
+                      <td className=" text-center py-2 px-5">{team.dorsal}</td>
                       <td className=" text-center py-2 px-5">
                         {team.teamName}
                       </td>
