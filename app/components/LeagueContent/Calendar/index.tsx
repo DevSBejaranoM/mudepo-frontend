@@ -280,28 +280,35 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
       <div
         className={`mt-10 grid grid-cols-1 ${
           Object.entries(matchesToDisplay).length > 1 ? "lg:grid-cols-2" : ""
-        } ${Object.entries(matchesToDisplay).length > 2 ? "2xl:grid-cols-3": ""} gap-4`}
+        } ${
+          Object.entries(matchesToDisplay).length > 2 ? "2xl:grid-cols-3" : ""
+        } gap-4`}
       >
-        {Object.entries(matchesToDisplay).map(([round, matches]: any) => (
-          <div key={round} className="mb-8">
-            <CustomTable
-              data={matches.map((match: any) => ({
-                escudoLocal: match.homeTeamPoster,
-                nombreLocal: match.homeTeam,
-                golesLocal: match.localGoals || "-",
-                golesVisitante: match.visitingGoals || "-",
-                nombreVisitante: match.visitingTeam,
-                escudoVisitante: match.visitingTeamPoster,
-                lugar: match.playingfieldName,
-                fecha: match.date,
-                status: match.status,
-              }))}
-              round={round}
-              type="calendar-2"
-              setSelectedInfo={setSelectedInfo}
-            />
-          </div>
-        ))}
+        {Object.entries(matchesToDisplay).map(([round, matches]: any) => {
+          if (matches.length === 0) {
+            return null;
+          }
+          return (
+            <div key={round} className="mb-8">
+              <CustomTable
+                data={matches.map((match: any) => ({
+                  escudoLocal: match.homeTeamPoster,
+                  nombreLocal: match.homeTeam,
+                  golesLocal: match.localGoals || "-",
+                  golesVisitante: match.visitingGoals || "-",
+                  nombreVisitante: match.visitingTeam,
+                  escudoVisitante: match.visitingTeamPoster,
+                  lugar: match.playingfieldName,
+                  fecha: match.date,
+                  status: match.status,
+                }))}
+                round={round}
+                type="calendar-2"
+                setSelectedInfo={setSelectedInfo}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {selectedInfo && (

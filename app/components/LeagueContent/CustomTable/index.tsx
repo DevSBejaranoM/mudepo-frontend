@@ -699,7 +699,7 @@ const CustomTable = ({
           </>
         );
       case "calendar-2":
-        console.log("calendar-2", data);
+
         return (
           <>
             {data && data?.length === 0 && (
@@ -1040,6 +1040,7 @@ const CustomTable = ({
                               {calendar?.nombreLocal}
                             </td>
                             <MatchResult
+                            date={calendar.fecha}
                               status={calendar.status}
                               localGoals={calendar.golesLocal}
                               visitingGoals={calendar.golesVisitante}
