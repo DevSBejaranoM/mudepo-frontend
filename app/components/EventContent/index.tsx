@@ -42,6 +42,7 @@ const EventsContent = ({ slug }: { slug: string }) => {
             <LeagueList
               leagues={memoizedEvent.Leagues}
               eventName={memoizedEvent.name}
+              slug={slug}
             />
           )}
           {memoizedEvent?.PartnerEvent && (

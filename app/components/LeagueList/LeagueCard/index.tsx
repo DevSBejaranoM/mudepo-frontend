@@ -6,16 +6,17 @@ interface LeagueCardProps {
   league: any;
   index: number | string;
   eventName: string;
+  slug: string;
 }
 
-const LeagueCard = ({ league, index, eventName }: LeagueCardProps) => {
+const LeagueCard = ({ league, index, eventName, slug }: LeagueCardProps) => {
   const router = useRouter();
   const { data } = useFetchFile(league?.poster.key);
 
   const handleNavigate = (id: string) => {
     if (id) {
       router.push(
-        `/evento/${eventName.toLowerCase().replaceAll(" ", "-")}/${league?.id}`
+        `/evento/${slug}/${league?.id}`
       );
     }
   };
