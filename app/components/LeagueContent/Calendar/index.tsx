@@ -288,8 +288,8 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
               data={matches.map((match: any) => ({
                 escudoLocal: match.homeTeamPoster,
                 nombreLocal: match.homeTeam,
-                golesLocal: match.localGoals,
-                golesVisitante: match.visitingGoals,
+                golesLocal: match.localGoals || "-",
+                golesVisitante: match.visitingGoals || "-",
                 nombreVisitante: match.visitingTeam,
                 escudoVisitante: match.visitingTeamPoster,
                 lugar: match.playingfieldName,

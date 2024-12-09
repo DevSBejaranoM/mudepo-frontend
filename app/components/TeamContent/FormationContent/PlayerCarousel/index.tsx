@@ -15,7 +15,7 @@ interface PlayerCarouselProps {
     | "DEFENDER"
     | "MIDFIELD"
     | "FORWARD"
-    | "Sin posición asignada";
+    | "NO_POSITION_ASSIGNED";
   players: Player[];
 }
 const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
@@ -24,7 +24,7 @@ const PlayerCarousel = ({ title, players }: PlayerCarouselProps) => {
     DEFENDER: "Defensa",
     MIDFIELD: "Centrocampista",
     FORWARD: "Delantero",
-    "Sin posición asignada": "Sin posición asignada",
+    NO_POSITION_ASSIGNED: "Sin posición asignada",
   };
   const settings = {
     dots: true,

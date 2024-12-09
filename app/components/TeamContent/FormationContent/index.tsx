@@ -9,7 +9,7 @@ interface Player {
     | "DEFENDER"
     | "MIDFIELD"
     | "FORWARD"
-    | "Sin posición asignada";
+    | "NO_POSITION_ASSIGNED";
   name: string;
   lastname: string;
   avatar: string;
@@ -30,15 +30,15 @@ const FormationContent = ({ dataPlayers }: FormationContentProps) => {
       DEFENDER: [],
       MIDFIELD: [],
       FORWARD: [],
-      "Sin posición asignada": [],
+      NO_POSITION_ASSIGNED: [],
     };
 
     dataPlayers.forEach((player) => {
-      const position = player.position || "Sin posición asignada";
+      const position = player.position || "NO_POSITION_ASSIGNED";
       if (position in groups) {
         groups[position].push(player);
       } else {
-        groups["Sin posición asignada"].push(player);
+        groups["NO_POSITION_ASSIGNED"].push(player);
       }
     });
 
@@ -65,7 +65,7 @@ const FormationContent = ({ dataPlayers }: FormationContentProps) => {
                 | "DEFENDER"
                 | "MIDFIELD"
                 | "FORWARD"
-                | "Sin posición asignada"
+                | "NO_POSITION_ASSIGNED"
             }
             players={players as Player[]}
           />

@@ -1515,8 +1515,8 @@ const CustomTable = ({
         );
       case "sancionados":
         data = data.sort((a: any, b: any) => {
-          if (a?.matchesSuspension > b?.matchesSuspension) return -1;
-          else if (a?.matchesSuspension < b?.matchesSuspension) return 1;
+          if (a?.suspendedMatches > b?.suspendedMatches) return -1;
+          else if (a?.suspendedMatches < b?.suspendedMatches) return 1;
         });
 
         return (
@@ -1542,7 +1542,7 @@ const CustomTable = ({
                 )}
                 {data.map((player: any, index: number) => {
                   const { data: image } = useFetchFile(player?.teamPoster?.key);
-
+                  if (player?.suspendedMatches === 0) return null;
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
@@ -1565,7 +1565,7 @@ const CustomTable = ({
                         {player.numberOfCards}
                       </td>
                       <td className="text-center py-2 px-5">
-                        {player.matchesSuspension}
+                        {player.suspendedMatches}
                       </td>
                     </tr>
                   );

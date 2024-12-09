@@ -14,7 +14,6 @@ interface MatchListProps {
 }
 
 const MatchList: React.FC<MatchListProps> = ({ matchList }) => {
-
   return (
     <div className="p-4 rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Partidos del Equipo</h3>
@@ -51,7 +50,11 @@ const MatchList: React.FC<MatchListProps> = ({ matchList }) => {
                       {match.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                      {`${match.homeGoals} - ${match.visitingGoals}`}
+                      {match.date > new Date().toISOString()
+                        ? "Próximamente"
+                        : `${match?.homeGoals || 0} - ${
+                            match?.visitingGoals || 0
+                          }`}
                     </td>
                   </tr>
                 ))

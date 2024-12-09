@@ -9,14 +9,14 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
     | "DEFENDER"
     | "MIDFIELD"
     | "FORWARD"
-    | "Sin posición asignada";
+    | "NO_POSITION_ASSIGNED";
 
   const postions = {
     GOALKEEPER: "Portero",
     DEFENDER: "Defensa",
     MIDFIELD: "Centrocampista",
     FORWARD: "Delantero",
-    "Sin posición asignada": "Sin posición asignada",
+    NO_POSITION_ASSIGNED: "Sin posición asignada",
   };
 
   return (
@@ -43,9 +43,9 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
           {players.length > 0 ? (
             players?.map((player: any, index: number) => (
               <tr key={index}>
-                <td className="border-b p-2 pl-7">{player.dorsal}</td>
+                <td className="border-b p-2 pl-7">{player?.dorsal}</td>
                 <td className="border-b p-2">
-                  {player.name} {player.lastname}
+                  {player?.name} {player?.lastname}
                 </td>
                 <td className="border-b p-2">{postions[player.position as position]}</td>
                 <td className="border-b p-2 text-center">
@@ -59,7 +59,7 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
                   ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
-                  {player.sancion ? "Suspendido" : "-"}
+                  {player?.suspendedMatches ? "Suspendido" : "-"}
                 </td>
               </tr>
             ))

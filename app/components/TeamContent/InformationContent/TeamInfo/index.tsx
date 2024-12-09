@@ -3,7 +3,7 @@ import { useFetchFile } from "@/app/hooks/useFetchFile";
 interface TeamInfoProps {
   name: string;
   poster: any;
-  President: any;
+  president: any;
   Playingfield: any;
   League: any;
 }
@@ -11,7 +11,7 @@ interface TeamInfoProps {
 const TeamInfo = ({
   name,
   poster,
-  President,
+  president,
   Playingfield,
   League,
 }: TeamInfoProps) => {
@@ -31,7 +31,7 @@ const TeamInfo = ({
         </div>
       </div>
       <p>
-        <strong className="mr-2">Presidente:</strong> {President ? `${President?.name} ${President?.lastName}` : "Sin presidente asignado"}
+        <strong className="mr-2">Presidente:</strong> {president ? `${president?.name || ""} ${president?.lastName || ""}` : "Sin presidente asignado"}
       </p>
       <p>
         <strong className="mr-2">Estadio:</strong> {Playingfield?.name || "Sin estadio asignado"}
