@@ -19,6 +19,17 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
     NO_POSITION_ASSIGNED: "Sin posición asignada",
   };
 
+  const suspendedMatches = (sanctions: any) => {
+    if (sanctions) {
+      return sanctions.filter(
+        (sanction: any) =>
+          sanction?.suspendedMatches - sanction?.completedSuspendedMatches > 0
+      );
+    }
+
+    return [];
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-4">Plantilla</h3>
@@ -43,23 +54,29 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
           {players.length > 0 ? (
             players?.map((player: any, index: number) => (
               <tr key={index}>
-                <td className="border-b p-2 pl-7">{player?.dorsal}</td>
+                <td className="border-b p-2 pl-7">
+                  {player?.playerData?.dorsal}
+                </td>
                 <td className="border-b p-2">
                   {player?.name} {player?.lastname}
                 </td>
-                <td className="border-b p-2">{postions[player.position as position]}</td>
+                <td className="border-b p-2">
+                  {postions[player?.playerData?.position as position]}
+                </td>
                 <td className="border-b p-2 text-center">
-                  {player?.Sanctions?.filter(
+                  {player?.Sanction?.filter(
                     (sanction: any) => sanction?.type === "YELLOW_CARD"
                   ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
-                  {player?.Sanctions?.filter(
+                  {player?.Sanction?.filter(
                     (sanction: any) => sanction?.type === "RED_CARD"
                   ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
-                  {player?.suspendedMatches ? "Suspendido" : "-"}
+                  {suspendedMatches(player?.Sanction).length > 0
+                    ? "Suspendido"
+                    : "-"}
                 </td>
               </tr>
             ))

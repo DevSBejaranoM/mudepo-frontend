@@ -16,11 +16,11 @@ interface Player {
 }
 
 interface Groups {
-  [key: string]: Player[];
+  [key: string]: any[];
 }
 
 interface FormationContentProps {
-  dataPlayers: Player[];
+  dataPlayers: any[];
 }
 
 const FormationContent = ({ dataPlayers }: FormationContentProps) => {
@@ -34,8 +34,8 @@ const FormationContent = ({ dataPlayers }: FormationContentProps) => {
     };
 
     dataPlayers.forEach((player) => {
-      const position = player.position || "NO_POSITION_ASSIGNED";
-      if (position in groups) {
+      const position = player?.playerData?.position || "NO_POSITION_ASSIGNED";
+      if (position in groups){
         groups[position].push(player);
       } else {
         groups["NO_POSITION_ASSIGNED"].push(player);
@@ -67,7 +67,7 @@ const FormationContent = ({ dataPlayers }: FormationContentProps) => {
                 | "FORWARD"
                 | "NO_POSITION_ASSIGNED"
             }
-            players={players as Player[]}
+            players={players as any[]}
           />
         ))
       )}
