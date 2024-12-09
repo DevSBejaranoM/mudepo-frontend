@@ -118,7 +118,7 @@ const Classification: React.FC<ClassificationProps> = ({ phases }) => {
             </ul>
           </div>
         </div>
-        <div className="w-full">
+        {/* <div className="w-full">
           <div className="relative mt-2">
             <button
               type="button"
@@ -134,7 +134,6 @@ const Classification: React.FC<ClassificationProps> = ({ phases }) => {
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                {/* SVG icon */}
               </span>
             </button>
             <ul
@@ -163,7 +162,7 @@ const Classification: React.FC<ClassificationProps> = ({ phases }) => {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
       {message && <p className="text-center mt-4">{message}</p>}
       {!message && filteredRankings.length > 0 ? (
