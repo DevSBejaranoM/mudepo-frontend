@@ -137,7 +137,7 @@ const CustomTable = ({
                       return (
                         <tr key={team.id} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
-                            {team.points === 0 ? index + 1 : team.points}
+                            {team.points === 0 ? index + 1 : index + 1}
                           </td>
                           <td className="text-center py-2 px-5">
                             <img
@@ -699,7 +699,6 @@ const CustomTable = ({
           </>
         );
       case "calendar-2":
-
         return (
           <>
             {data && data?.length === 0 && (
@@ -1040,7 +1039,7 @@ const CustomTable = ({
                               {calendar?.nombreLocal}
                             </td>
                             <MatchResult
-                            date={calendar.fecha}
+                              date={calendar.fecha}
                               status={calendar.status}
                               localGoals={calendar.golesLocal}
                               visitingGoals={calendar.golesVisitante}
@@ -1324,7 +1323,7 @@ const CustomTable = ({
                             {player.name}
                           </td>
                           <td className="text-center py-2 px-5">
-                            {player.team}
+                            {player.teamName}
                           </td>
                           <td className="text-center py-2 pr-5">
                             {player.redCards}
@@ -1387,7 +1386,7 @@ const CustomTable = ({
                             {player.name}
                           </td>
                           <td className="text-center py-2 px-5">
-                            {player.team}
+                            {player.teamName}
                           </td>
                           <td className="text-center py-2 pr-5">
                             {player.yellowCards}
