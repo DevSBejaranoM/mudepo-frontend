@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export const useFetchFile = (url: string) => {
-  const [data, setData] = useState<string | null>(null);
+  const [data, setData] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
