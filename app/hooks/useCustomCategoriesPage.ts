@@ -4,7 +4,7 @@ import { useCategoryStore } from "../store/useCategoryStore";
 const UseCustomCategoriesPage = () => {
   const setCategory = useCategoryStore((state) => state.setCategory);
   const initialCategoriesPage: string[] = [
-    "INCIO",
+    "INICIO",
     "EQUIPOS",
     "CLASIFICACIÓN",
     "CALENDARIO",
