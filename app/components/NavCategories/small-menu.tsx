@@ -22,7 +22,7 @@ const SmallMenu = ({
             <DisclosureButton
               key={index}
               as="a"
-              href={`/evento/${eventName}`}
+              href={`/eventos/${eventName}`}
               className={`${
                 item === currentCategoriesPage
                   ? "color-primary"

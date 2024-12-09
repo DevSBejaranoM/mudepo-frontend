@@ -16,7 +16,7 @@ const LeagueCard = ({ league, index, eventName, slug }: LeagueCardProps) => {
   const handleNavigate = (id: string) => {
     if (id) {
       router.push(
-        `/evento/${slug}/${league?.id}`
+        `/eventos/${slug}/${league?.id}`
       );
     }
   };

@@ -76,7 +76,7 @@ const CustomTable = ({
                         className="border-t even:bg-gray-100 cursor-pointer hover:bg-black hover:bg-opacity-20"
                         onClick={() =>
                           router.push(
-                            `/evento/${slug}/${league}/team/${team.id}`
+                            `/eventos/${slug}/${league}/team/${team.id}`
                           )
                         }
                       >

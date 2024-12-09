@@ -8,7 +8,7 @@ const RedirectComponent = ({ slug }: { slug: string }) => {
 
   useEffect(() => {
     if (slug) {
-      router.push(`/evento/${slug}`);
+      router.push(`/eventos/${slug}`);
     }
   }, [slug]);
 

@@ -1,5 +1,4 @@
-import RedirectComponent from "@/app/components/redirect";
-import { useEffect } from "react";
+import EventContent from "@/app/components/EventContent";
 
 interface Event {
   slug: string;
@@ -9,14 +8,18 @@ const fetchEvent = async (slug: string): Promise<Event | null> => {
   return { slug };
 };
 
-const EventsPage = async ({ params }: { params: { slug: any } }) => {
+const EventPage = async ({ params }: { params: { slug: any } }) => {
   const slug = await fetchEvent(params.slug);
 
   if (!slug) {
     return <div className="text-center mt-10">Evento no encontrado</div>;
   }
 
-  return <RedirectComponent slug={slug.slug} />;
+  return (
+    <div>
+      <EventContent slug={slug.slug} />
+    </div>
+  );
 };
 
-export default EventsPage;
+export default EventPage;

@@ -22,7 +22,7 @@ const Menu = ({
             index === 0 ? (
               <Link
                 key={index}
-                href={`/evento/${eventName}`}
+                href={`/eventos/${eventName}`}
                 className={`${
                   item === currentCategoriesPage
                     ? "color-primary"
