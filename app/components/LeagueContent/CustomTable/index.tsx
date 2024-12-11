@@ -1528,8 +1528,7 @@ const CustomTable = ({
                   <th className="w-80 py-2 px-5">DORSAL</th>
                   <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
-                  <th className="w-80 py-2 px-5">SANCIONES</th>
-                  <th className="w-16 py-2 px-5">PARTIDOS</th>
+                  <th className="w-16 py-2 px-5">PARTIDOS PENDIENTES</th>
                 </tr>
               </thead>
               <tbody>
@@ -1560,9 +1559,6 @@ const CustomTable = ({
                       </td>
                       <td className=" text-center py-2 px-5">
                         {player.playerName}
-                      </td>
-                      <td className=" text-center py-2 px-5">
-                        {player.numberOfCards}
                       </td>
                       <td className="text-center py-2 px-5">
                         {player.suspendedMatches}

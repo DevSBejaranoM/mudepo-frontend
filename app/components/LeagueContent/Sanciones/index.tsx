@@ -24,7 +24,7 @@ const Sanciones = ({ leagueId }: SancionesProps) => {
   return (
     <div>
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
-        JUGADORES SUSPENDIDOS
+        PARTIDOS SUSPENSOS
       </h3>
       {sanctionsLoading && (
         <div className="flex justify-center">
@@ -37,7 +37,7 @@ const Sanciones = ({ leagueId }: SancionesProps) => {
           type="sancionados"
         />
       )}
-      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
+      {/* <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         TARJETAS ROJAS
       </h3>
       {sanctionsLoading && (
@@ -64,7 +64,7 @@ const Sanciones = ({ leagueId }: SancionesProps) => {
           data={sanctionsData?.yellowCards || []}
           type="tarjetas-amarillas"
         />
-      )}
+      )} */}
     </div>
   );
 };
