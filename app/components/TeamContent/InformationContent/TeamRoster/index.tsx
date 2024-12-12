@@ -58,7 +58,7 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
                   {player?.playerData?.dorsal}
                 </td>
                 <td className="border-b p-2">
-                  {player?.name} {player?.lastname}
+                  {player?.name} {player?.lastName}
                 </td>
                 <td className="border-b p-2">
                   {postions[player?.playerData?.position as position]}

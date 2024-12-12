@@ -1,6 +1,6 @@
 import useSWR, { SWRConfiguration } from 'swr';
 
-const CACHE_TIME = 1000 * 60 * 5; // 5 minutes
+const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
 
 function useCachedSWR<Data>(
   key: string,

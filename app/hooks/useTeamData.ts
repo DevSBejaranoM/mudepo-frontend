@@ -1,4 +1,4 @@
-import useCachedSWR from './useCachedSWR';
+import useCachedSWR from "./useCachedSWR";
 import { axiosAdapter } from "../config/axios.adapter";
 
 const useTeamData = (teamId: string) => {
@@ -6,14 +6,10 @@ const useTeamData = (teamId: string) => {
     return await axiosAdapter.fetchData(`/team/${teamId}`);
   };
 
-  const { data: dataTeam, error } = useCachedSWR(
-    `team-${teamId}`,
-    fetchTeam,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+  const { data: dataTeam, error } = useCachedSWR(`team-${teamId}`, fetchTeam, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   const loading = !dataTeam && !error;
   const errorMessage = error ? "Error al cargar los datos del equipo" : null;
