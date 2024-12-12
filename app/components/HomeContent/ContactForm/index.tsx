@@ -101,7 +101,7 @@ const ContactForm = () => {
             htmlFor="entityName"
             className="block text-sm font-medium text-gray-700"
           >
-            Nombre del camponato
+            Nombre del campeonato
           </label>
           <input
             id="entityName"
