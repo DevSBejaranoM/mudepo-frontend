@@ -2,13 +2,10 @@ import { useFetchFile } from "@/app/hooks/useFetchFile";
 import Image from "next/image";
 
 const PlayerCard = (player: any) => {
-
-  const { data } = useFetchFile(player?.avatar?.key);
-
   return (
     <div className="text-center p-4 bg-gradient-to-t from-[#4C7D2F] to-[#75AB4D] mx-4 rounded-xl shadow-xl max-w-96">
       <div className="flex justify-center">
-        {data === null ? (
+        {!player?.avatar?.signedUrl ? (
           <Image
             src="/images/team/avatar-player.png"
             alt={"avatar"}
@@ -18,7 +15,7 @@ const PlayerCard = (player: any) => {
           />
         ) : (
           <img
-            src={data || ""}
+            src={player?.avatar?.signedUrl || ""}
             alt={"avatar"}
             className="rounded-xl mb-4 h-52 object-cover"
           />

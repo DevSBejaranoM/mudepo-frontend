@@ -46,6 +46,9 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
               Tarjetas rojas
             </th>
             <th className="border-b uppercase text-xs p-2 text-center">
+              Doble amonestación
+            </th>
+            <th className="border-b uppercase text-xs p-2 text-center">
               Estado
             </th>
           </tr>
@@ -71,6 +74,11 @@ const TeamRoster = ({ players }: TeamRosterProps) => {
                 <td className="border-b p-2 text-center">
                   {player?.Sanction?.filter(
                     (sanction: any) => sanction?.type === "RED_CARD"
+                  ).length || "0"}
+                </td>
+                <td className="border-b p-2 text-center">
+                  {player?.Sanction?.filter(
+                    (sanction: any) => sanction?.type === "DOUBLE_YELLOW_CARD"
                   ).length || "0"}
                 </td>
                 <td className="border-b p-2 text-center">
