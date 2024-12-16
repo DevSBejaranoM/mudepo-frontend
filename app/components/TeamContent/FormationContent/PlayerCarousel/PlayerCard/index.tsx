@@ -1,4 +1,3 @@
-import { useFetchFile } from "@/app/hooks/useFetchFile";
 import Image from "next/image";
 
 const PlayerCard = (player: any) => {

@@ -1,5 +1,3 @@
-import { useFetchFile } from "@/app/hooks/useFetchFile";
-
 interface MainSectionProps {
   title: string;
   image: string;

@@ -2,7 +2,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Loader from "../../Loader";
 import MatchResult from "./MatchResult";
-import { useFetchFile } from "@/app/hooks/useFetchFile";
 
 interface TableProps {
   data: any;
@@ -727,12 +726,6 @@ const CustomTable = ({
                     </thead>
                     <tbody>
                       {data?.map((calendar: any, index: number) => {
-                        const { data: imageLocal } = useFetchFile(
-                          calendar?.escudoLocal?.key
-                        );
-                        const { data: imageVisitante } = useFetchFile(
-                          calendar?.escudoVisitante?.key
-                        );
 
                         return (
                           <tr
@@ -1029,7 +1022,7 @@ const CustomTable = ({
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={imageLocal || ""}
+                                src={ calendar?.escudoLocal?.signedUrl || ""}
                                 alt="local"
                                 className="w-8 h-8 mx-auto"
                               />
@@ -1048,7 +1041,7 @@ const CustomTable = ({
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={imageVisitante || ""}
+                                src={calendar?.escudoVisitante?.signedUrl || ""}
                                 alt="visitante"
                                 className="w-8 h-8 mx-auto"
                               />
@@ -1594,13 +1587,12 @@ const CustomTable = ({
                 )}
 
                 {data.map((team: any, index: number) => {
-                  const { data: image } = useFetchFile(team?.teamPoster?.key);
 
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
                         <img
-                          src={image || ""}
+                          src={team?.teamPoster?.signedUrl || ""}
                           alt={team.team}
                           className="w-8 h-8 mx-auto"
                         />
@@ -1650,13 +1642,12 @@ const CustomTable = ({
                 )}
 
                 {data.map((team: any, index: number) => {
-                  const { data: image } = useFetchFile(team?.teamPoster?.key);
 
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
                         <img
-                          src={image || ""}
+                          src={team?.teamPoster?.signedUrl || ""}
                           alt={team.team}
                           className="w-8 h-8 mx-auto"
                         />

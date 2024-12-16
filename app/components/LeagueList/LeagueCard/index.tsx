@@ -1,5 +1,4 @@
 "use client";
-import { useFetchFile } from "@/app/hooks/useFetchFile";
 import { useRouter } from "next/navigation";
 
 interface LeagueCardProps {

@@ -1,5 +1,3 @@
-import { useFetchFile } from "@/app/hooks/useFetchFile";
-
 interface BannerPartnerProps {
   partners: any[];
 }
