@@ -7,13 +7,12 @@ interface MainSectionProps {
 }
 
 const MainSection = ({ title, image, bgSize = "cover" }: MainSectionProps) => {
-  const { data } = useFetchFile(image || "");
 
   return (
     <section
       className="bg-cover bg-center background"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${data})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${image})`,
         backgroundSize: bgSize,
         backgroundRepeat: "no-repeat",
       }}

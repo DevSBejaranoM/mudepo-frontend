@@ -11,7 +11,6 @@ interface LeagueCardProps {
 
 const LeagueCard = ({ league, index, eventName, slug }: LeagueCardProps) => {
   const router = useRouter();
-  const { data } = useFetchFile(league?.poster.key);
 
   const handleNavigate = (id: string) => {
     if (id) {
@@ -25,7 +24,7 @@ const LeagueCard = ({ league, index, eventName, slug }: LeagueCardProps) => {
     <div key={index} className="max-w-sm mx-auto relative shadow-md rounded-lg">
       <img
         src={
-          data ? data : "/images/placeholder-liga.png"
+          league?.poster.signedUrl ? league?.poster.signedUrl : "/images/placeholder-liga.png"
         }
         alt="category-image"
         className="w-full max-h-80 rounded-lg min-w-80 md:min-w-96 object-scale-down"

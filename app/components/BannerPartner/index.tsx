@@ -9,7 +9,6 @@ const BannerPartner = ({ partners }: BannerPartnerProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {partners.map((partner, index) => {
-        const { data } = useFetchFile(partner?.Partner?.photo?.key);
         return (
           <a
             key={index}
@@ -19,7 +18,7 @@ const BannerPartner = ({ partners }: BannerPartnerProps) => {
             className="block rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
           >
             <img
-              src={data ? data : ""}
+              src={partner?.Partner?.photo?.signedUrl}
               alt={partner?.Partner?.name}
               className="w-full h-32 object-cover"
             />
