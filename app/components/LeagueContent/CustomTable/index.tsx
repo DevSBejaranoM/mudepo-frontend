@@ -68,7 +68,6 @@ const CustomTable = ({
                 )}
                 {data.length > 0 &&
                   data.map((team: any, index: number) => {
-                    const { data: image } = useFetchFile(team?.poster?.key);
 
                     return (
                       <tr
@@ -82,7 +81,7 @@ const CustomTable = ({
                       >
                         <td className="text-center py-2 px-5">
                           <img
-                            src={image ? image : ""}
+                            src={team?.poster?.signedUrl ? team?.poster?.signedUrl : ""}
                             alt={team.name}
                             className="w-8 h-8 mx-auto"
                             style={{ objectFit: "contain" }}
@@ -133,7 +132,7 @@ const CustomTable = ({
                 <tbody>
                   {teams &&
                     teams.map((team: any, index: number) => {
-                      const { data: image } = useFetchFile(team?.poster?.key);
+
                       return (
                         <tr key={team.id} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -141,7 +140,7 @@ const CustomTable = ({
                           </td>
                           <td className="text-center py-2 px-5">
                             <img
-                              src={image ? image : ""}
+                              src={team?.poster?.signedUrl ? team?.poster?.signedUrl : ""}
                               alt={team.name}
                               className="w-8 h-8 mx-auto"
                               style={{ objectFit: "contain" }}

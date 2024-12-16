@@ -118,7 +118,7 @@ const Classification: React.FC<ClassificationProps> = ({ phases }) => {
             </ul>
           </div>
         </div>
-        {/* <div className="w-full">
+        <div className="w-full">
           <div className="relative mt-2">
             <button
               type="button"
@@ -162,7 +162,7 @@ const Classification: React.FC<ClassificationProps> = ({ phases }) => {
               ))}
             </ul>
           </div>
-        </div> */}
+        </div>
       </div>
       {message && <p className="text-center mt-4">{message}</p>}
       {!message && filteredRankings.length > 0 ? (

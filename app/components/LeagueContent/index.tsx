@@ -43,8 +43,8 @@ const LeagueContent = ({ league, slug }: LeagueContentProps) => {
     <>
       <MainSection
         image={
-          memoizedLeagueData?.poster?.key
-            ? memoizedLeagueData.poster.key
+          memoizedLeagueData?.poster?.signedUrl
+            ? memoizedLeagueData.poster.signedUrl
             : "/images/header-background.jpg"
         }
         title={memoizedLeagueData.name || "Evento"}
