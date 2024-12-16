@@ -109,7 +109,7 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
   const matchesByRound = groupData?.reduce((acc: any, group: any) => {
     if (selectedGroup === 'all' || group.id === selectedGroup) {
       group.days.forEach((day: any) => {
-        if (selectedDay === 'all' || day.name.startsWith(selectedDay)) {
+        if (selectedDay === 'all' || (day.name.startsWith(selectedDay+" "))) {
           if (!acc[day.name]) {
             acc[day.name] = [];
           }
@@ -120,10 +120,12 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     return acc;
   }, {}) || {};
 
+  console.log(matchesByRound);
+
   const matchesToDisplay = selectedDay === "all"
     ? matchesByRound
-    : Object.entries(matchesByRound).reduce((acc: any, [roundName, matches]) => {
-        if (roundName.startsWith(selectedDay)) {
+    : Object.entries(matchesByRound).reduce((acc: any, [roundName, matches]: any) => {
+        if (roundName.startsWith(selectedDay) && matches.length > 0) {
           acc[roundName] = matches;
         }
         return acc;
