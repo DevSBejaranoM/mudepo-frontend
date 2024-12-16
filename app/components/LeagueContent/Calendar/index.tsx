@@ -281,7 +281,7 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
         className={`mt-10 grid grid-cols-1 ${
           Object.entries(matchesToDisplay).length > 1 ? "lg:grid-cols-2" : ""
         } ${
-          Object.entries(matchesToDisplay).length > 2 ? "2xl:grid-cols-3" : ""
+          Object.entries(matchesToDisplay).length > 2 ? "2xl:grid-cols-2" : ""
         } gap-4`}
       >
         {Object.entries(matchesToDisplay).map(([round, matches]: any) => {
