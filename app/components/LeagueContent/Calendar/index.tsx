@@ -20,19 +20,22 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     phases,
     selectedPhase,
     setSelectedPhase,
-    selectedGroup,
-    setSelectedGroup,
     groupData,
     loading,
     error,
   } = useCalendarData(Phases);
 
+  const [selectedGroup, setSelectedGroup] = useState<string>("all");
   const [selectedDay, setSelectedDay] = useState<string>("all");
   const [selectedInfo, setSelectedInfo] = useState<any | null>(null);
 
   const filteredPhases = phases.filter((phase) => phase.Groups.length > 0);
   const currentPhase = filteredPhases.find((p) => p.id === selectedPhase);
-  const currentDay = groupData?.days?.find((d: any) => d.id === selectedDay);
+  const currentDay = selectedDay === "all"
+    ? null
+    : groupData?.flatMap((group: any) => group.days).find((day: any) => day.name.startsWith(selectedDay));
+  const currentGroup = groupData?.find((group: any) => group.id === selectedGroup);
+
 
   useEffect(() => {
     if (filteredPhases.length > 0 && (!selectedPhase || !currentPhase)) {
@@ -44,10 +47,9 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     if (
       currentPhase &&
       currentPhase.Groups.length > 0 &&
-      (!selectedGroup ||
-        !currentPhase.Groups.find((g) => g.id === selectedGroup))
+      (!selectedGroup || (selectedGroup !== "all" && !currentPhase.Groups.find((g) => g.id === selectedGroup)))
     ) {
-      setSelectedGroup(currentPhase.Groups[0].id);
+      setSelectedGroup("all");
     }
   }, [currentPhase, selectedGroup]);
 
@@ -69,8 +71,8 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     closeSelector("listbox-group-option");
   };
 
-  const handleDayChange = (dayId: string) => {
-    setSelectedDay(dayId);
+  const handleDayChange = (dayName: string) => {
+    setSelectedDay(dayName);
     closeSelector("listbox-day-option");
   };
 
@@ -104,16 +106,28 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     return <div>Error: {error}</div>;
   }
 
-  const matchesByRound =
-    groupData?.days?.reduce((acc: any, day: any) => {
-      acc[day.name] = day.matches;
-      return acc;
-    }, {}) || {};
+  const matchesByRound = groupData?.reduce((acc: any, group: any) => {
+    if (selectedGroup === 'all' || group.id === selectedGroup) {
+      group.days.forEach((day: any) => {
+        if (selectedDay === 'all' || day.name.startsWith(selectedDay)) {
+          if (!acc[day.name]) {
+            acc[day.name] = [];
+          }
+          acc[day.name] = [...acc[day.name], ...day.matches];
+        }
+      });
+    }
+    return acc;
+  }, {}) || {};
 
-  const matchesToDisplay =
-    selectedDay === "all"
-      ? matchesByRound
-      : { [currentDay?.name]: currentDay?.matches } || {};
+  const matchesToDisplay = selectedDay === "all"
+    ? matchesByRound
+    : Object.entries(matchesByRound).reduce((acc: any, [roundName, matches]) => {
+        if (roundName.startsWith(selectedDay)) {
+          acc[roundName] = matches;
+        }
+        return acc;
+      }, {});
 
   return (
     <>
@@ -179,8 +193,10 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
             >
               <span className="flex items-center justify-center">
                 <span className="block truncate">
-                  {currentPhase?.Groups.find((g) => g.id === selectedGroup)
-                    ?.name || "Selecciona un grupo"}
+                  {selectedGroup === "all"
+                    ? "Todos los grupos"
+                    : currentPhase?.Groups.find((g) => g.id === selectedGroup)
+                        ?.name || "Selecciona un grupo"}
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -204,6 +220,14 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
               id={`listbox-group-option`}
               aria-labelledby="listbox-group-label"
             >
+              <li
+                key="all"
+                className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                role="option"
+                onClick={() => handleGroupChange("all")}
+              >
+                Todos los grupos
+              </li>
               {currentPhase?.Groups.map((group) => (
                 <li
                   key={group.id}
@@ -231,7 +255,7 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
                 <span className="block truncate">
                   {selectedDay === "all"
                     ? "Todas las jornadas"
-                    : currentDay?.name || "Selecciona una jornada"}
+                    : selectedDay || "Selecciona una jornada"}
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -263,16 +287,24 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
               >
                 Todas las jornadas
               </li>
-              {groupData?.days?.map((day: any) => (
-                <li
-                  key={day.id}
-                  className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
-                  role="option"
-                  onClick={() => handleDayChange(day.id)}
-                >
-                  {day.name}
-                </li>
-              ))}
+              {groupData?.flatMap((group: any) => group.days)
+                .sort((a: any, b: any) => a.order - b.order)
+                .filter((day: any, index: any, self: any) =>
+                  index === self.findIndex((t: any) => t.name.split(' ')[1] === day.name.split(' ')[1])
+                )
+                .map((day: any) => {
+                  const journeyNumber = day.name.split(' ')[1];
+                  return (
+                    <li
+                      key={day.id}
+                      className="relative select-none py-2 pl-3 pr-9 text-gray-900 cursor-pointer hover:bg-gray-300"
+                      role="option"
+                      onClick={() => handleDayChange(`JORNADA ${journeyNumber}`)}
+                    >
+                      JORNADA {journeyNumber}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </div>
@@ -292,13 +324,13 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
             <div key={round} className="mb-8">
               <CustomTable
                 data={matches.map((match: any) => ({
-                  escudoLocal: match.homeTeamPoster,
-                  nombreLocal: match.homeTeam,
+                  escudoLocal: match.homeTeam.poster,
+                  nombreLocal: match.homeTeam.name,
                   golesLocal: match.localGoals || "-",
                   golesVisitante: match.visitingGoals || "-",
-                  nombreVisitante: match.visitingTeam,
-                  escudoVisitante: match.visitingTeamPoster,
-                  lugar: match.playingfieldName,
+                  nombreVisitante: match.visitingTeam.name,
+                  escudoVisitante: match.visitingTeam.poster,
+                  lugar: match.playingfield.name,
                   fecha: match.date,
                   status: match.status,
                 }))}
