@@ -33,7 +33,6 @@ const useCalendarData = (phases: Phase[]) => {
       );
       return { data: response, error: null };
     } catch (error) {
-      console.error("Error fetching group data:", error);
       return { data: null, error: "Error fetching group data" };
     }
   };

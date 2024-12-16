@@ -120,8 +120,6 @@ const Calendar: React.FC<CalendarProps> = ({ Phases }) => {
     return acc;
   }, {}) || {};
 
-  console.log(matchesByRound);
-
   const matchesToDisplay = selectedDay === "all"
     ? matchesByRound
     : Object.entries(matchesByRound).reduce((acc: any, [roundName, matches]: any) => {

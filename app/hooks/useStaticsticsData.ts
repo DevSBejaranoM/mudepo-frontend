@@ -45,7 +45,6 @@ const useStatisticsData = (leagueId: string) => {
       }
       return { data: response, message: null };
     } catch (error) {
-      console.error("Error fetching statistics data:", error);
       return { data: null, message: "Error al obtener las estadísticas de la liga." };
     }
   };

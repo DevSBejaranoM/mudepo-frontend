@@ -10,7 +10,6 @@ const useRankingData = (phaseId: string) => {
       }
       return { data: response, message: null };
     } catch (error) {
-      console.error("Error fetching ranking data:", error);
       return { data: [], message: "No hay datos de ranking disponibles para esta fase." };
     }
   };
