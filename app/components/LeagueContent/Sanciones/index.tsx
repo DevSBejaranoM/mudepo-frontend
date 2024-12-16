@@ -12,6 +12,7 @@ const Sanciones = ({ leagueId }: SancionesProps) => {
     loading: sanctionsLoading,
     error,
   } = useSanctionsData(leagueId);
+  console.log(sanctionsData);
   //* Obtener jugadores suspendidos
   if (error) {
     return (

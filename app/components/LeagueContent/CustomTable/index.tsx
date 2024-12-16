@@ -1539,13 +1539,13 @@ const CustomTable = ({
                   </tr>
                 )}
                 {data.map((player: any, index: number) => {
-                  const { data: image } = useFetchFile(player?.teamPoster?.key);
+
                   if (player?.suspendedMatches === 0) return null;
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
                         <img
-                          src={image || ""}
+                          src={player?.teamPoster?.signedUrl || ""}
                           alt={player.name}
                           className="w-8 h-8 mx-auto"
                         />
