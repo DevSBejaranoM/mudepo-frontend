@@ -25,8 +25,8 @@ const PlayerCard = (player: any) => {
           <h3 className="font-bold text-5xl">{player?.playerData?.dorsal}</h3>
         </div>
         <div className="mx-4">
-          <p className={`mt-2 font-semibold`}>{player.name}</p>
-          <p className={`font-semibold`}>{player.lastName}</p>
+          <p className={`mt-2 font-semibold`}>{player?.name?.toUpperCase()}</p>
+          <p className={`font-semibold`}>{player?.lastName?.toUpperCase()}</p>
         </div>
       </div>
     </div>

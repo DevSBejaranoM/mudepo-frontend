@@ -49,7 +49,7 @@ const Statistics = ({ leagueId }: StatisticsProps) => {
       </h3>
       <CustomTable data={statistics?.topScorers || []} type="statistics-4" />
 
-      <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
+      {/* <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         JUGADORES CON MÁS TARJETAS ROJAS
       </h3>
       <CustomTable data={statistics?.redCards || []} type="statistics-5" />
@@ -57,7 +57,7 @@ const Statistics = ({ leagueId }: StatisticsProps) => {
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         JUGADORES CON MÁS TARJETAS AMARILLAS
       </h3>
-      <CustomTable data={statistics?.yellowCards || []} type="statistics-6" />
+      <CustomTable data={statistics?.yellowCards || []} type="statistics-6" /> */}
 
       <h3 className="text-center text-2xl font-semibold text-red-700 mt-5 mb-5">
         PUNTOS DEPORTIVIDAD

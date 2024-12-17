@@ -67,7 +67,6 @@ const CustomTable = ({
                 )}
                 {data.length > 0 &&
                   data.map((team: any, index: number) => {
-
                     return (
                       <tr
                         key={index}
@@ -80,7 +79,11 @@ const CustomTable = ({
                       >
                         <td className="text-center py-2 px-5">
                           <img
-                            src={team?.poster?.signedUrl ? team?.poster?.signedUrl : ""}
+                            src={
+                              team?.poster?.signedUrl
+                                ? team?.poster?.signedUrl
+                                : ""
+                            }
                             alt={team.name}
                             className="w-8 h-8 mx-auto"
                             style={{ objectFit: "contain" }}
@@ -131,7 +134,6 @@ const CustomTable = ({
                 <tbody>
                   {teams &&
                     teams.map((team: any, index: number) => {
-
                       return (
                         <tr key={team.id} className="border-t even:bg-gray-100">
                           <td className="text-center py-2 pl-5">
@@ -139,7 +141,11 @@ const CustomTable = ({
                           </td>
                           <td className="text-center py-2 px-5">
                             <img
-                              src={team?.poster?.signedUrl ? team?.poster?.signedUrl : ""}
+                              src={
+                                team?.poster?.signedUrl
+                                  ? team?.poster?.signedUrl
+                                  : ""
+                              }
                               alt={team.name}
                               className="w-8 h-8 mx-auto"
                               style={{ objectFit: "contain" }}
@@ -726,7 +732,6 @@ const CustomTable = ({
                     </thead>
                     <tbody>
                       {data?.map((calendar: any, index: number) => {
-
                         return (
                           <tr
                             key={`${calendar.nombreLocal} - ${calendar.nombreVisitante} - ${calendar.fecha}`}
@@ -1022,7 +1027,7 @@ const CustomTable = ({
                             </td>
                             <td className="py-2 px-4 border-b text-center">
                               <img
-                                src={ calendar?.escudoLocal?.signedUrl || ""}
+                                src={calendar?.escudoLocal?.signedUrl || ""}
                                 alt="local"
                                 className="w-8 h-8 mx-auto"
                               />
@@ -1136,7 +1141,6 @@ const CustomTable = ({
                 {newData &&
                   newData.length > 0 &&
                   newData.map((team: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1183,7 +1187,6 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map((team: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1237,7 +1240,6 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map((player: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1297,7 +1299,6 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map((player: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1357,7 +1358,6 @@ const CustomTable = ({
                 {data &&
                   data.length > 0 &&
                   data.map((player: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1474,7 +1474,6 @@ const CustomTable = ({
                 )}
                 {data &&
                   data.map((team: any, index: number) => {
-
                     return (
                       index < 5 && (
                         <tr key={index} className="border-t even:bg-gray-100">
@@ -1505,7 +1504,15 @@ const CustomTable = ({
       case "sancionados":
         data = data.sort((a: any, b: any) => {
           if (a?.suspendedMatches > b?.suspendedMatches) return -1;
-          else if (a?.suspendedMatches < b?.suspendedMatches) return 1;
+          if (a?.suspendedMatches < b?.suspendedMatches) return 1;
+
+          if (a?.teamName < b?.teamName) return -1;
+          if (a?.teamName > b?.teamName) return 1;
+
+          if (a?.playerName < b?.playerName) return -1;
+          if (a?.playerName > b?.playerName) return 1;
+
+          return 0;
         });
 
         return (
@@ -1515,8 +1522,8 @@ const CustomTable = ({
                 <tr>
                   <th className="w-16 py-2 pl-5">ESC</th>
                   <th className="w-80 py-2 px-5">DORSAL</th>
-                  <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-80 py-2 px-5">EQUIPO</th>
+                  <th className="w-80 py-2 px-5">JUGADOR</th>
                   <th className="w-16 py-2 px-5">PARTIDOS PENDIENTES</th>
                 </tr>
               </thead>
@@ -1529,7 +1536,6 @@ const CustomTable = ({
                   </tr>
                 )}
                 {data.map((player: any, index: number) => {
-
                   if (player?.suspendedMatches === 0) return null;
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
@@ -1547,7 +1553,7 @@ const CustomTable = ({
                         {player.teamName}
                       </td>
                       <td className=" text-center py-2 px-5">
-                        {player.playerName}
+                        {player?.playerName?.toUpperCase()}
                       </td>
                       <td className="text-center py-2 px-5">
                         {player.suspendedMatches}
@@ -1587,7 +1593,6 @@ const CustomTable = ({
                 )}
 
                 {data.map((team: any, index: number) => {
-
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
@@ -1642,7 +1647,6 @@ const CustomTable = ({
                 )}
 
                 {data.map((team: any, index: number) => {
-
                   return (
                     <tr key={index} className="border-t even:bg-gray-100">
                       <td className="text-center py-2 pl-5">
